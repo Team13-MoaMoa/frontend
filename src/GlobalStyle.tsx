@@ -95,7 +95,6 @@ const GlobalStyle = () => (
         font-size: 100%;
         font: inherit;
         vertical-align: baseline;
-        /* font-family: 'Noto Sans KR', sans-serif; */
       }
       /* HTML5 display-role reset for older browsers */
       @media (max-width: 1024px) {
