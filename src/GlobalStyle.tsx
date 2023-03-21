@@ -1,4 +1,3 @@
-'use client';
 import { Global, css } from '@emotion/react';
 
 const GlobalStyle = () => (
@@ -92,32 +91,10 @@ const GlobalStyle = () => (
         margin: 0;
         padding: 0;
         border: 0;
-        font-size: 100%;
         font: inherit;
         vertical-align: baseline;
       }
       /* HTML5 display-role reset for older browsers */
-      @media (max-width: 1024px) {
-        //데스크탑
-        html {
-          font-size: 62.5%;
-        } //10px
-      }
-
-      @media (max-width: 768px) {
-        // 태블릿
-        html {
-          font-size: 50%;
-        } //8px
-      }
-
-      @media (max-width: 480px) {
-        // 모바일
-        html {
-          font-size: 37.5%;
-        } //6px
-      }
-
       article,
       aside,
       details,
@@ -131,8 +108,18 @@ const GlobalStyle = () => (
       section {
         display: block;
       }
+      html {
+        font-size: 62.5%; // 10px
+        @media (max-width: 768px) {
+          // 태블릿
+          font-size: 50%; // 8px
+        }
+        @media (max-width: 480px) {
+          // 모바일
+          font-size: 37.5%; // 6px
+        }
+      }
       body {
-        font-family: 'Pretendard';
         line-height: 1;
       }
       ol,
