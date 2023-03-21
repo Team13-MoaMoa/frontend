@@ -1,3 +1,4 @@
+import GlobalStyle from '@/GlobalStyle';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { Noto_Sans_KR } from 'next/font/google';
@@ -15,6 +16,7 @@ const NotoB = Noto_Sans_KR({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <main className={`${NotoR.className} ${NotoB.variable}`}>
+      <GlobalStyle />
       <Component {...pageProps} />
     </main>
   );
