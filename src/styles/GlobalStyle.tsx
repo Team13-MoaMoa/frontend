@@ -121,6 +121,7 @@ const GlobalStyle = () => (
       }
       body {
         line-height: 1;
+        font-size: 1.6rem;
       }
       ol,
       ul {

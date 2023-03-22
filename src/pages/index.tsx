@@ -6,4 +6,5 @@ export default function Home() {
 
 const Div = styled.div`
   font-family: var(--Noto-B);
+  color: ${(props) => props.theme.main_brown};
 `;
