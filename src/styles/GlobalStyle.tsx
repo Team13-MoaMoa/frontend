@@ -92,6 +92,7 @@ const GlobalStyle = () => (
         padding: 0;
         border: 0;
         font: inherit;
+        box-sizing: border-box;
         vertical-align: baseline;
       }
       /* HTML5 display-role reset for older browsers */
@@ -116,7 +117,7 @@ const GlobalStyle = () => (
         }
         @media (max-width: 480px) {
           // 모바일
-          font-size: 37.5%; // 6px
+          font-size: 25%; // 4px
         }
       }
       body {
