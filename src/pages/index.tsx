@@ -1,7 +1,12 @@
+import Login from '@/components/login';
 import styled from '@emotion/styled';
 
 export default function Home() {
-  return <Div>hello</Div>;
+  return (
+    <Div>
+      <Login />
+    </Div>
+  );
 }
 
 const Div = styled.div`
