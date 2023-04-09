@@ -78,6 +78,7 @@ const Div = styled.div`
   padding: 2rem;
   border: 3px solid;
   border-radius: 3rem;
+  margin-bottom: 3rem;
 `;
 
 const NameDiv = styled.div`
