@@ -29,35 +29,37 @@ const Div = styled.div`
 `;
 
 const UserListDiv = styled.div`
-  width: 100%;
-  height: 50px;
-  padding: 5px 10px 5px 10px;
+  height: 8rem;
+  width: 32.6rem;
+  padding: 10px;
   &:hover {
     background-color: #957f6a;
-    color: #ffffff;
   }
 `;
 
 const UserInfoDiv = styled.div`
   display: flex;
   height: 100%;
+  padding: 0.3rem 0.3rem;
 `;
 
 const UserImgDiv = styled.div`
+  height: 100%;
+  width: 7rem;
   float: left;
-  margin-right: 1rem;
-  width: 3.4em;
   border-radius: 50%;
+
   background-color: gray;
 `;
 
 const UserNameDiv = styled.div`
-  text-align: left;
-  font-weight: bold;
-  line-height: 38px;
-  width: 100%;
   height: 100%;
-  font-size: 1.2rem;
+  width: 100%;
+  padding-left: 2rem;
+  text-align: left;
+  line-height: 50px;
+  font-size: 1.6rem;
+  font-weight: bold;
   color: #5e718d;
   &:hover {
     color: #ffffff;
