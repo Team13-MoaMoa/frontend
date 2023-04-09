@@ -14,6 +14,7 @@ function BoardCardList({ boardCards }: { boardCards: any }) {
 
 const Div = styled.div`
   display: flex;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 `;
 
