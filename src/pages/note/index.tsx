@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import Image from 'next/image';
 import NoteUserList from '@/components/NoteUserList';
+import NoteDetail from '@/components/NoteDetail';
 
 function NotePage(props: any) {
   return (
@@ -9,8 +11,19 @@ function NotePage(props: any) {
         <TitleDiv>쪽지함</TitleDiv>
         <NoteUserList />
       </ListDiv>
-      <ListDiv style={{ width: '500px' }}>
-        <TitleDiv>user name</TitleDiv>
+      <ListDiv style={{ width: '83rem' }}>
+        <TitleDiv>
+          user name
+          <Image
+            src="/noteIcon.png"
+            alt="noteIcon-img"
+            width={30}
+            height={30}
+            style={{ float: 'right', marginRight: '50px' }}
+          ></Image>
+        </TitleDiv>
+
+        <NoteDetail></NoteDetail>
       </ListDiv>
     </Div>
   );
@@ -34,8 +47,10 @@ const ListDiv = styled.div`
 `;
 
 const TitleDiv = styled.div`
-  height: 20px;
-  padding: 20px 0 40px 15px;
-  font-size: larger;
+  height: 80px;
+  padding: 40px 0 30px 30px;
+  margin-bottom: 2rem;
+
+  font-size: 2.2rem;
   font-weight: bold;
 `;

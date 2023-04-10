@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import Image from 'next/image';
 
 function NoteUserList(props: any) {
   const DummyUsers = [
@@ -12,8 +13,24 @@ function NoteUserList(props: any) {
       {DummyUsers.map((user) => (
         <UserListDiv>
           <UserInfoDiv>
-            <UserImgDiv></UserImgDiv>
-            <UserNameDiv>{user.name}</UserNameDiv>
+            <UserImgDiv>
+              <Image
+                src="/avatar.png"
+                alt="avatar-img"
+                width={50}
+                height={50}
+              ></Image>
+            </UserImgDiv>
+            <UserNameDiv>
+              {user.name}
+              <Image
+                src="/mypageIcon.png"
+                alt="mypageIcon-img"
+                width={30}
+                height={30}
+                style={{ float: 'right', marginTop: '12px' }}
+              ></Image>
+            </UserNameDiv>
           </UserInfoDiv>
         </UserListDiv>
       ))}
@@ -30,9 +47,10 @@ const Div = styled.div`
 
 const UserListDiv = styled.div`
   height: 8rem;
-  width: 32.6rem;
+  width: 100%;
   padding: 10px;
   &:hover {
+    color: #ffffff;
     background-color: #957f6a;
   }
 `;
@@ -44,12 +62,8 @@ const UserInfoDiv = styled.div`
 `;
 
 const UserImgDiv = styled.div`
-  height: 100%;
-  width: 7rem;
   float: left;
   border-radius: 50%;
-
-  background-color: gray;
 `;
 
 const UserNameDiv = styled.div`
@@ -61,7 +75,4 @@ const UserNameDiv = styled.div`
   font-size: 1.6rem;
   font-weight: bold;
   color: #5e718d;
-  &:hover {
-    color: #ffffff;
-  }
 `;
