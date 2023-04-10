@@ -49,6 +49,7 @@ const GlobalStyle = () => (
       b,
       u,
       i,
+      input,
       center,
       dl,
       dt,
