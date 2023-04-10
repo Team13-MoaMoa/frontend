@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import SendNote from './SendNote';
 
 function NoteDetail(props: any) {
   return (

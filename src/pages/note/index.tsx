@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import NoteUserList from '@/components/NoteUserList';
 import NoteDetail from '@/components/NoteDetail';
+import SendNote from '@/components/SendNote';
 
 function NotePage(props: any) {
   return (
@@ -22,7 +23,6 @@ function NotePage(props: any) {
             style={{ float: 'right', marginRight: '50px' }}
           ></Image>
         </TitleDiv>
-
         <NoteDetail></NoteDetail>
       </ListDiv>
     </Div>
