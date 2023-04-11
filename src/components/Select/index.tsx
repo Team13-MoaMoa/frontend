@@ -181,6 +181,9 @@ const OptionBadge = styled.button`
   color: ${(props) => props.theme.text_color};
   background: #f9fafb;
   outline: none;
+  ${(props) => props.theme.mq.mobile} {
+    zoom: 0.5;
+  }
   &:hover,
   &:focus {
     background-color: hsl(0, 100%, 95%);

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as S from './styles';
 import Select from '@/components/Select';
 import { SelectOption } from '@/types/select';
+import CalendarInput from '@/components/Calendar';
 
 const MemberOptions: SelectOption[] = [
   { label: '인원 미정', value: '1' },
@@ -19,12 +20,21 @@ const StackOptions: SelectOption[] = [
   { label: 'Angular', value: 'Angular' },
   { label: 'Svelte', value: 'Svelt' },
 ];
+const PartOptions: SelectOption[] = [
+  { label: '프론트엔드', value: 'FE' },
+  { label: '백엔드', value: 'BE' },
+  { label: '디자이너', value: 'Designer' },
+  { label: '기획', value: 'planner' },
+  { label: '마케팅', value: 'Marketing' },
+  { label: 'AI', value: 'AI' },
+];
 
 export default function Write() {
   const [member, setMember] = useState<SelectOption | undefined>(
     MemberOptions[0]
   );
   const [stack, setStack] = useState<SelectOption[]>([]);
+  const [part, setPart] = useState<SelectOption[]>([]);
   return (
     <S.WriteWrapper>
       <S.Section>
@@ -32,7 +42,7 @@ export default function Write() {
           <span>1</span>
           <h1>프로젝트 기본 정보를 입력해주세요.</h1>
         </S.SectionTitle>
-        <div>
+        <S.SectionContent>
           {/* TODO: 기본정보 폼 받기 */}
           <S.InputWrapper>
             <label htmlFor="name">프로젝트 이름</label>
@@ -55,7 +65,20 @@ export default function Write() {
               onChange={(o) => setStack(o)}
             />
           </S.InputWrapper>
-        </div>
+          <S.InputWrapper>
+            <label>모집 분야</label>
+            <Select
+              multiple
+              options={PartOptions}
+              value={part}
+              onChange={(o) => setPart(o)}
+            />
+          </S.InputWrapper>
+          <S.InputWrapper>
+            <label>모집 마감일</label>
+            <CalendarInput />
+          </S.InputWrapper>
+        </S.SectionContent>
       </S.Section>
       <S.Section>
         <S.SectionTitle>

@@ -60,3 +60,10 @@ export const InputWrapper = styled.div`
     color: ${(props) => props.theme.text_color};
   }
 `;
+
+export const SectionContent = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(42rem, 1fr));
+  margin-top: 5rem;
+  row-gap: 2.5rem;
+`;
