@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import React from 'react';
-export default function Login2() {
+export default function Login2({ nextStep }: any) {
+
+
+
+  
   return (
     <>
       <LoginPage>
@@ -13,7 +17,7 @@ export default function Login2() {
               <label>닉네임</label>
               <input placeholder="닉네임을 입력해주세요." />
             </NickNameBox>
-            <NextButton>다음</NextButton>
+            <NextButton onClick={nextStep}>다음</NextButton>
           </LoginContent>
         </SocialLoginBox>
       </LoginPage>
@@ -22,7 +26,6 @@ export default function Login2() {
 }
 
 const Overlay = styled.div`
-  position: fixed;
   height: 100vh;
   width: 100vw;
   background-color: #000000;

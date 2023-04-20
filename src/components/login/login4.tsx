@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 import React from 'react';
 import defaultProfile from '@/assets/defaultProfile.png';
-export default function Login4() {
+export default function Login4({ nextStep }: any) {
   return (
     <>
       <LoginPage>
@@ -33,7 +33,6 @@ export default function Login4() {
 }
 
 const Overlay = styled.div`
-  position: fixed;
   height: 100vh;
   width: 100vw;
   background-color: #000000;
