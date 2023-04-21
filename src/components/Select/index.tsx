@@ -109,14 +109,16 @@ const Container = styled.div<{ show: boolean }>`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem;
+  padding: 0 1rem;
   border-radius: 6px;
   outline: none;
 `;
 
 const Value = styled.span`
   flex-grow: 1;
+  height: 80%;
   display: flex;
+  align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
 `;
@@ -169,8 +171,11 @@ const Option = styled.li<{ highlighted: boolean; selected: boolean }>`
   color: ${(props) => (props.highlighted ? 'white' : props.theme.text_color)};
 `;
 
-const RemoveBtn = styled.span``;
+const RemoveBtn = styled.span`
+  font-size: 1.5rem;
+`;
 const OptionBadge = styled.button`
+  height: 100%;
   display: flex;
   align-items: center;
   border: 0.05rem solid #d7dfe9;

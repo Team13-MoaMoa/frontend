@@ -117,7 +117,7 @@ const CustomCalendar = styled(DatePicker)`
   border-radius: 6px;
   background-color: transparent;
   color: ${(props) => props.theme.text_color};
-  padding: 0 0.5rem;
+  padding: 0 1rem;
   cursor: pointer;
   &:focus {
     border-width: 2px;

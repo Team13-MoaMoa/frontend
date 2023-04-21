@@ -144,6 +144,18 @@ const GlobalStyle = () => (
         border-collapse: collapse;
         border-spacing: 0;
       }
+      .ql-toolbar {
+        position: sticky;
+        z-index: 50;
+        border: 1px solid #957f6a !important;
+        border-radius: 6px 6px 0 0;
+      }
+      .ql-container {
+        overflow-y: scroll;
+        padding-bottom: 3rem;
+        border: 1px solid #957f6a !important;
+        border-top: none !important;
+      }
     `}
   />
 );

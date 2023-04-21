@@ -1,20 +1,20 @@
 import styled from '@emotion/styled';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 export const WriteWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
   max-width: 1024px;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 6rem 3rem;
   color: ${(props) => props.theme.text_color};
 `;
 
 export const Section = styled.section`
-  &:first-of-type {
-    margin-bottom: 17rem;
-  }
+  margin-bottom: 10rem;
 `;
 
 export const SectionTitle = styled.div`
@@ -54,7 +54,7 @@ export const InputWrapper = styled.div`
     height: 4.6rem;
     border: 1px solid ${(props) => props.theme.main_brown};
     border-radius: 6px;
-    padding: 0.5em;
+    padding: 1rem;
     outline: none;
     font-size: 1.6rem;
     color: ${(props) => props.theme.text_color};
@@ -66,4 +66,40 @@ export const SectionContent = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(42rem, 1fr));
   margin-top: 5rem;
   row-gap: 2.5rem;
+`;
+
+export const StyledQuill = styled(ReactQuill)`
+  display: flex;
+  flex-direction: column;
+  font-family: 'NanumSquareAcR';
+  height: 40rem;
+  overflow-y: scroll;
+`;
+
+export const SectionContent2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rem;
+  & > div {
+    margin-bottom: 1rem;
+  }
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  & > button {
+    width: 12rem;
+    height: 4.5rem;
+    border: none;
+    border-radius: 6px;
+    background-color: ${(props) => props.theme.main_brown};
+    color: white;
+    font-size: 1.8rem;
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 `;
