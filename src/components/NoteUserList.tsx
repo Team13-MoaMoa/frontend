@@ -5,8 +5,8 @@ import Image from 'next/image';
 function NoteUserList(props: any) {
   const DummyUsers = [
     { name: '최연지' },
-    { name: '최욘지' },
-    { name: '최얀지' },
+    { name: '김철수' },
+    { name: '홍길동' },
   ];
   return (
     <Div>
@@ -21,7 +21,7 @@ function NoteUserList(props: any) {
                 height={50}
               ></Image>
             </UserImgDiv>
-            <UserNameDiv>
+            <UserNameDiv className="test">
               {user.name}
               <Image
                 src="/mypageIcon.png"
@@ -41,7 +41,7 @@ function NoteUserList(props: any) {
 export default NoteUserList;
 
 const Div = styled.div`
-  font-family: var(--Noto-B);
+  /* font-family: var(--Noto-B); */
   color: ${(props) => props.theme.main_brown};
 `;
 
@@ -49,9 +49,10 @@ const UserListDiv = styled.div`
   height: 8rem;
   width: 100%;
   padding: 10px;
+  color: #5e718d;
   &:hover {
-    color: #ffffff;
-    background-color: #957f6a;
+    color: white;
+    background-color: ${(props) => props.theme.main_brown};
   }
 `;
 
@@ -74,5 +75,4 @@ const UserNameDiv = styled.div`
   line-height: 50px;
   font-size: 1.6rem;
   font-weight: bold;
-  color: #5e718d;
 `;

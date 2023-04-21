@@ -43,7 +43,7 @@ function NoteDetail(props: any) {
 export default NoteDetail;
 
 const Div = styled.div`
-  font-family: var(--Noto-B);
+  /* font-family: var(--Noto-B); */
   color: ${(props) => props.theme.main_brown};
 `;
 

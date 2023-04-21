@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 
 function SendNote(props: any) {
+  const { onClickNoteModal } = props;
+  console.log(onClickNoteModal);
   return (
     <BackGround>
       <Div>
@@ -22,6 +24,7 @@ function SendNote(props: any) {
               alt="closeIcon-img"
               width={48}
               height={48}
+              onClick={onClickNoteModal}
             ></Image>
           </div>
           <DetailInput
@@ -39,7 +42,7 @@ function SendNote(props: any) {
 export default SendNote;
 
 const Div = styled.div`
-  font-family: var(--Noto-B);
+  /* font-family: var(--Noto-B); */
   color: ${(props) => props.theme.main_brown};
 `;
 
