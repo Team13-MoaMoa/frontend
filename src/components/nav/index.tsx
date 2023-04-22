@@ -15,13 +15,6 @@ export default function NavBar() {
   const [hamburgerToggle, setHamburgerToggle] = useState(false);
   const [sideToggle, setSideToggle] = useState(false);
   const window = useWindow();
-  useEffect(() => {
-    if (window.width! <= 480) {
-      setHamburgerToggle(true);
-    } else {
-      setHamburgerToggle(false);
-    }
-  }, [window]);
 
   const shiftSideBar = () => {
     setSideToggle(true);
@@ -33,6 +26,14 @@ export default function NavBar() {
       setSideToggle((pre) => !pre);
     }
   };
+
+  useEffect(() => {
+    if (window.width! <= 480) {
+      setHamburgerToggle(true);
+    } else {
+      setHamburgerToggle(false);
+    }
+  }, [window]);
 
   return (
     <Nav>
