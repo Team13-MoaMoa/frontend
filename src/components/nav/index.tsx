@@ -9,12 +9,14 @@ import hamburger from '@/assets/hamburger.png';
 import logo from '@/assets/logo.png';
 import close from '@/assets/close.png';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 export default function NavBar() {
   const [user, setUser] = useState(true); //유저가 있다면
   const [profileToggle, setProfileToggle] = useState(false);
   const [hamburgerToggle, setHamburgerToggle] = useState(false);
   const [sideToggle, setSideToggle] = useState(false);
   const window = useWindow();
+  const router = useRouter();
 
   const shiftSideBar = () => {
     setSideToggle(true);
@@ -53,15 +55,14 @@ export default function NavBar() {
                   <Image fill src={close} alt="사이드 바 닫기" />
                 </div>
               </div>
-              <div>프로젝트 관리</div>
-              <div>새 글쓰기</div>
-              <div>쪽지</div>
+              <div onClick={() => router.push('/write')}>새 글쓰기</div>
+              <div onClick={() => router.push('/note')}>쪽지</div>
             </Sidebar>
           </Overlay>
         ) : null}
       </AnimatePresence>
       <Container>
-        <Logo>
+        <Logo onClick={() => router.push('/')}>
           <Image fill src={logo} alt="이미지" />
         </Logo>
         {user ? (
@@ -72,9 +73,8 @@ export default function NavBar() {
               </ToggleIcon>
             ) : (
               <>
-                <li>프로젝트 관리</li>
-                <li>새 글쓰기</li>
-                <li>쪽지</li>
+                <li onClick={() => router.push('/write')}>새 글쓰기</li>
+                <li onClick={() => router.push('/note')}>쪽지</li>
                 <Profile>
                   <ProfileImg
                     id="profile"

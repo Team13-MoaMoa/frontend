@@ -66,6 +66,7 @@ const GlobalStyle = () => (
       tbody,
       tfoot,
       thead,
+      textarea,
       tr,
       th,
       td,

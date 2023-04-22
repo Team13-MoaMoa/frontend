@@ -27,7 +27,7 @@ function NotePage() {
               alt="noteIcon-img"
               fill
               onClick={onClickNoteModal}
-            ></Image>
+            />
           </IconDiv>
         </TitleDiv>
         {noteIsOpen ? <SendNote onClickNoteModal={onClickNoteModal} /> : null}
@@ -43,6 +43,7 @@ const Div = styled.div`
   color: ${(props) => props.theme.main_brown};
   display: flex;
   justify-content: center;
+  margin: 12rem 0;
 `;
 
 const ListDiv = styled.div`
@@ -68,4 +69,8 @@ const IconDiv = styled.div`
   height: 3rem;
   float: right;
   margin-right: 50px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;

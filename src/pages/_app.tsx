@@ -4,7 +4,6 @@ import { Noto_Sans_KR } from 'next/font/google';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from '@/styles/theme';
 import Head from 'next/head';
-import Footer from '@/components/common/Footer';
 import Layout from '@/components/_layout';
 
 const NotoR = Noto_Sans_KR({
@@ -35,7 +34,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <Layout>
             <Component {...pageProps} />
           </Layout>
-          <Footer />
         </ThemeProvider>
       </main>
     </>
