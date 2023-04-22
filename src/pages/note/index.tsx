@@ -4,9 +4,8 @@ import Image from 'next/image';
 import NoteUserList from '@/components/NoteUserList';
 import NoteDetail from '@/components/NoteDetail';
 import SendNote from '@/components/SendNote';
-import { useCallback } from 'react';
 
-function NotePage(props: any) {
+function NotePage() {
   const [noteIsOpen, setNoteIsOpen] = useState<boolean>(false);
 
   const onClickNoteModal = () => {
@@ -31,9 +30,8 @@ function NotePage(props: any) {
             ></Image>
           </IconDiv>
         </TitleDiv>
-
         {noteIsOpen ? <SendNote onClickNoteModal={onClickNoteModal} /> : null}
-        <NoteDetail></NoteDetail>
+        <NoteDetail />
       </ListDiv>
     </Div>
   );
@@ -42,7 +40,6 @@ function NotePage(props: any) {
 export default NotePage;
 
 const Div = styled.div`
-  /* font-family: var(--Noto-B); */
   color: ${(props) => props.theme.main_brown};
   display: flex;
   justify-content: center;
