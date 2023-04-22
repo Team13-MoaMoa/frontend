@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import avatar from '@/assets/avatar.png';
 import person from '@/assets/person.png';
 import logout from '@/assets/logout.png';
@@ -17,6 +17,7 @@ export default function NavBar() {
   const [sideToggle, setSideToggle] = useState(false);
   const window = useWindow();
   const router = useRouter();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const shiftSideBar = () => {
     setSideToggle(true);
@@ -36,6 +37,21 @@ export default function NavBar() {
       setHamburgerToggle(false);
     }
   }, [window]);
+  useEffect(() => {
+    const handleCloseModal = (e: Event | React.MouseEvent) => {
+      if (
+        profileToggle &&
+        (!dropdownRef.current ||
+          !dropdownRef.current!.contains(e.target as Node))
+      )
+        setProfileToggle(false);
+    };
+
+    document.addEventListener('mousedown', handleCloseModal);
+    return () => {
+      document.removeEventListener('mousedown', handleCloseModal);
+    };
+  }, [dropdownRef, profileToggle, window]);
 
   return (
     <Nav style={{ position: 'sticky' }}>
@@ -91,6 +107,7 @@ export default function NavBar() {
                         transition={{
                           duration: 0.2,
                         }}
+                        ref={dropdownRef}
                       >
                         <div>
                           <MyPageIcon>
