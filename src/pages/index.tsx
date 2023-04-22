@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export default function Home() {
-  return <Div>hello</Div>;
+  return <Div></Div>;
 }
 
 const Div = styled.div`
