@@ -10,10 +10,10 @@ function Footer() {
       <div>
         <section>
           <LogoDiv width="7.359rem">
-            <Image src={logo} alt="로고" fill />
+            <Image src={logo} alt="MOAMOA로고 이미지" fill />
           </LogoDiv>
           <LogoDiv width="17.69rem">
-            <Image src={logo2} alt="로고2" fill />
+            <Image src={logo2} alt="MOAMOA로고 텍스트" fill />
           </LogoDiv>
         </section>
         <TextDiv>
