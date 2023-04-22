@@ -286,7 +286,7 @@ const TechItemDiv = styled.div<{ checked: boolean }>`
     transform: scale(1.1);
   }
 
-  & > div:first-child {
+  & > div:first-of-type {
     position: relative;
     width: 3.7rem;
     height: 3.7rem;

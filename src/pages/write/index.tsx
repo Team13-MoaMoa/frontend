@@ -1,8 +1,8 @@
 import React, { useMemo, useRef, useState } from 'react';
 import * as S from './styles';
-import Select from '@/components/Select';
+import Select from '@/components/select';
 import { SelectOption } from '@/types/select';
-import CalendarInput from '@/components/Calendar';
+import CalendarInput from '@/components/calendar';
 import { AxiosError } from 'axios';
 import dynamic from 'next/dynamic';
 // import { uploadFile } from '@/services/uploadS3';

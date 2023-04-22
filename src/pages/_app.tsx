@@ -4,8 +4,7 @@ import { Noto_Sans_KR } from 'next/font/google';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from '@/styles/theme';
 import Head from 'next/head';
-import Footer from '@/components/common/Footer';
-import NavBar from '@/components/nav';
+import Layout from '@/components/_layout';
 
 const NotoR = Noto_Sans_KR({
   weight: '400',
@@ -26,12 +25,15 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${NotoR.className} ${NotoB.variable}`}>
+      <main
+        className={`${NotoR.className} ${NotoB.variable}`}
+        style={{ width: '100%', height: '100%' }}
+      >
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <NavBar />
-          <Component {...pageProps} />
-          <Footer />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </ThemeProvider>
       </main>
     </>
