@@ -4,6 +4,7 @@ import { Noto_Sans_KR } from 'next/font/google';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from '@/styles/theme';
 import Head from 'next/head';
+import Footer from '@/components/common/Footer';
 
 const NotoR = Noto_Sans_KR({
   weight: '400',
@@ -28,6 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <ThemeProvider theme={theme}>
           <GlobalStyle />
           <Component {...pageProps} />
+          <Footer />
         </ThemeProvider>
       </main>
     </>
