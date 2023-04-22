@@ -61,7 +61,7 @@ export default function Home() {
       commentCount: 0,
     },
     {
-      id: 1,
+      id: 2,
       title: `[ React ] 프로젝트 급구!}`,
       projectName: 'MoaMoa',
       content:
@@ -78,7 +78,7 @@ export default function Home() {
       commentCount: 0,
     },
     {
-      id: 1,
+      id: 3,
       title: `[ React ] 프로젝트 급구!}`,
       projectName: 'MoaMoa',
       content:
@@ -95,7 +95,7 @@ export default function Home() {
       commentCount: 0,
     },
     {
-      id: 1,
+      id: 4,
       title: `[ React ] 프로젝트 급구!}`,
       projectName: 'MoaMoa',
       content:
@@ -112,7 +112,7 @@ export default function Home() {
       commentCount: 0,
     },
     {
-      id: 1,
+      id: 5,
       title: `[ React ] 프로젝트 급구!}`,
       projectName: 'MoaMoa',
       content:
@@ -129,7 +129,7 @@ export default function Home() {
       commentCount: 0,
     },
     {
-      id: 1,
+      id: 6,
       title: `[ React ] 프로젝트 급구!}`,
       projectName: 'MoaMoa',
       content:
