@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
 function Pagination() {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
@@ -12,69 +13,35 @@ function Pagination() {
   return (
     <div>
       <PaginationContainer
-        pageCount={10}
+        pageCount={5}
         pageRangeDisplayed={5}
         marginPagesDisplayed={2}
         onPageChange={handlePageChange}
-        previousLabel={'<'}
-        nextLabel={'>'}
+        previousLabel={<AiOutlineArrowLeft />}
+        nextLabel={<AiOutlineArrowRight />}
       />
     </div>
   );
 }
 
 const PaginationContainer = styled(ReactPaginate)`
-  & {
+  display: flex;
+  justify-content: center;
+  color: ${(props) => props.theme.sub_bluegray};
+  margin-bottom: 10rem;
+
+  & > li {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
-
-    li {
-      margin-right: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-
-      a {
-        display: block;
-        padding: 6px 12px;
-        text-decoration: none;
-        color: #333;
-
-        &:hover {
-          background-color: #f5f5f5;
-        }
-
-        &.active {
-          background-color: #337ab7;
-          color: #fff;
-        }
-      }
-    }
-  }
-
-  .previous,
-  .next {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    display: inline-block;
-
-    a {
-      display: block;
-      padding: 6px 12px;
-      text-decoration: none;
-      color: #333;
-
-      &:hover {
-        background-color: #f5f5f5;
-      }
-    }
-
-    &.disabled {
-      opacity: 0.5;
-      pointer-events: none;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    margin: 1rem;
+    cursor: pointer;
+    &.selected {
+      border-radius: 100%;
+      color: white;
+      background-color: #3d4a5c;
     }
   }
 `;
