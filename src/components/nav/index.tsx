@@ -81,22 +81,31 @@ export default function NavBar() {
                 >
                   <Image fill src={avatar} alt="프로필" />
                 </Profile>
-                {profileToggle ? (
-                  <ProfileToggleBox>
-                    <div>
-                      <MyPageIcon>
-                        <Image fill src={person} alt="마이페이지" />
-                      </MyPageIcon>
-                      <div>마이페이지</div>
-                    </div>
-                    <div>
-                      <MyPageIcon>
-                        <Image fill src={logout} alt="로그아웃" />
-                      </MyPageIcon>
-                      <div>로그아웃</div>
-                    </div>
-                  </ProfileToggleBox>
-                ) : null}
+                <AnimatePresence>
+                  {profileToggle ? (
+                    <ProfileToggleBox
+                      initial={{ top: 45, opacity: 0 }}
+                      animate={{ top: 58, opacity: 1 }}
+                      exit={{ top: 45, opacity: 0 }}
+                      transition={{
+                        duration: 0.2,
+                      }}
+                    >
+                      <div>
+                        <MyPageIcon>
+                          <Image fill src={person} alt="마이페이지" />
+                        </MyPageIcon>
+                        <div>마이페이지</div>
+                      </div>
+                      <div>
+                        <MyPageIcon>
+                          <Image fill src={logout} alt="로그아웃" />
+                        </MyPageIcon>
+                        <div>로그아웃</div>
+                      </div>
+                    </ProfileToggleBox>
+                  ) : null}
+                </AnimatePresence>
               </>
             )}
           </SelectList>
@@ -211,7 +220,7 @@ const Profile = styled.li`
   overflow: hidden;
 `;
 
-const ProfileToggleBox = styled.div`
+const ProfileToggleBox = styled(motion.div)`
   position: absolute;
   width: 15rem;
   height: 12.5rem;
@@ -221,7 +230,7 @@ const ProfileToggleBox = styled.div`
   box-shadow: 0px 20px 24px -4px rgba(45, 54, 67, 0.04),
     0px 8px 11px -4px rgba(45, 54, 67, 0.04);
   border-radius: 6px;
-  top: 6rem;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
