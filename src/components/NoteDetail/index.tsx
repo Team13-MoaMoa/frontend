@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import SendNote from './SendNote';
 
-function NoteDetail(props: any) {
+function NoteDetail() {
   return (
     <Div>
       <div style={{ display: 'flex' }}>
@@ -43,7 +42,6 @@ function NoteDetail(props: any) {
 export default NoteDetail;
 
 const Div = styled.div`
-  /* font-family: var(--Noto-B); */
   color: ${(props) => props.theme.main_brown};
 `;
 

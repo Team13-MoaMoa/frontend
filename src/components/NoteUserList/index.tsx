@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
-function NoteUserList(props: any) {
+function NoteUserList() {
   const DummyUsers = [
     { name: '최연지' },
     { name: '김철수' },
@@ -10,8 +10,8 @@ function NoteUserList(props: any) {
   ];
   return (
     <Div>
-      {DummyUsers.map((user) => (
-        <UserListDiv>
+      {DummyUsers.map((user, i) => (
+        <UserListDiv key={i}>
           <UserInfoDiv>
             <UserImgDiv>
               <Image src="/avatar.png" alt="avatar-img" fill />
@@ -30,7 +30,6 @@ function NoteUserList(props: any) {
 export default NoteUserList;
 
 const Div = styled.div`
-  /* font-family: var(--Noto-B); */
   color: ${(props) => props.theme.main_brown};
 `;
 
