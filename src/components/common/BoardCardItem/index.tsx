@@ -30,7 +30,7 @@ function BoardCardItem() {
         </section>
         <section>
           <LetterDiv style={{ fontSize: '2.6rem' }}>
-            {`[ React ] 프로젝트 급구!`}
+            {`[ React ] 프로젝트 급구!}`}
           </LetterDiv>
           <LetterDiv>
             저희는 리액트 프로젝트를 진행하려고 합니다😄 Frontend에 능숙하신

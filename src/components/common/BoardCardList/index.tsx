@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import BoardCardItem from '../BoardCardItem';
+import { BoardCard } from '@/types/board';
 
-function BoardCardList({ boardCards }: { boardCards: any }) {
+function BoardCardList({ boardCards }: { boardCards: BoardCard[] }) {
   return (
     <Div>
-      {boardCards?.map((_: any, i: any) => (
-        <BoardCardItem key={i}></BoardCardItem>
+      {boardCards?.map((card) => (
+        <BoardCardItem key={card.id}></BoardCardItem>
       ))}
     </Div>
   );

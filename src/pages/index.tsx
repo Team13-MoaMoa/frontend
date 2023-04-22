@@ -42,7 +42,110 @@ export default function Home() {
     setTeckStackMenu(checkMenu);
   };
 
-  const boardCards = [{}, {}, {}, {}, {}, {}];
+  const boardCards = [
+    {
+      id: 1,
+      title: `[ React ] 프로젝트 급구!}`,
+      projectName: 'MoaMoa',
+      content:
+        '저희는 리액트 프로젝트를 진행하려고 합니다😄 Frontend에 능숙하신 분을 구하고 있습니다! 프로젝트에 대한 자세한 내용은 아래와 같습니다.아웃백 가고싶다. 스테이크 먹고싶다. 파스타 먹고싶다. 녹차라떼먹고싶다.',
+      deadline: [2023, 3, 30],
+      headcount: 3,
+      jobPosition: 'ALL',
+      user: {
+        id: 1,
+        nickname: '송지민',
+        imageUrl: 'imgurl.com',
+      },
+      techStackList: [1, 2],
+      commentCount: 0,
+    },
+    {
+      id: 1,
+      title: `[ React ] 프로젝트 급구!}`,
+      projectName: 'MoaMoa',
+      content:
+        '저희는 리액트 프로젝트를 진행하려고 합니다😄 Frontend에 능숙하신 분을 구하고 있습니다! 프로젝트에 대한 자세한 내용은 아래와 같습니다.아웃백 가고싶다. 스테이크 먹고싶다. 파스타 먹고싶다. 녹차라떼먹고싶다.',
+      deadline: [2023, 3, 30],
+      headcount: 3,
+      jobPosition: 'ALL',
+      user: {
+        id: 1,
+        nickname: '송지민',
+        imageUrl: 'imgurl.com',
+      },
+      techStackList: [],
+      commentCount: 0,
+    },
+    {
+      id: 1,
+      title: `[ React ] 프로젝트 급구!}`,
+      projectName: 'MoaMoa',
+      content:
+        '저희는 리액트 프로젝트를 진행하려고 합니다😄 Frontend에 능숙하신 분을 구하고 있습니다! 프로젝트에 대한 자세한 내용은 아래와 같습니다.아웃백 가고싶다. 스테이크 먹고싶다. 파스타 먹고싶다. 녹차라떼먹고싶다.',
+      deadline: [2023, 3, 30],
+      headcount: 3,
+      jobPosition: 'ALL',
+      user: {
+        id: 1,
+        nickname: '송지민',
+        imageUrl: 'imgurl.com',
+      },
+      techStackList: [],
+      commentCount: 0,
+    },
+    {
+      id: 1,
+      title: `[ React ] 프로젝트 급구!}`,
+      projectName: 'MoaMoa',
+      content:
+        '저희는 리액트 프로젝트를 진행하려고 합니다😄 Frontend에 능숙하신 분을 구하고 있습니다! 프로젝트에 대한 자세한 내용은 아래와 같습니다.아웃백 가고싶다. 스테이크 먹고싶다. 파스타 먹고싶다. 녹차라떼먹고싶다.',
+      deadline: [2023, 3, 30],
+      headcount: 3,
+      jobPosition: 'ALL',
+      user: {
+        id: 1,
+        nickname: '송지민',
+        imageUrl: 'imgurl.com',
+      },
+      techStackList: [],
+      commentCount: 0,
+    },
+    {
+      id: 1,
+      title: `[ React ] 프로젝트 급구!}`,
+      projectName: 'MoaMoa',
+      content:
+        '저희는 리액트 프로젝트를 진행하려고 합니다😄 Frontend에 능숙하신 분을 구하고 있습니다! 프로젝트에 대한 자세한 내용은 아래와 같습니다.아웃백 가고싶다. 스테이크 먹고싶다. 파스타 먹고싶다. 녹차라떼먹고싶다.',
+      deadline: [2023, 3, 30],
+      headcount: 3,
+      jobPosition: 'ALL',
+      user: {
+        id: 1,
+        nickname: '송지민',
+        imageUrl: 'imgurl.com',
+      },
+      techStackList: [],
+      commentCount: 0,
+    },
+    {
+      id: 1,
+      title: `[ React ] 프로젝트 급구!}`,
+      projectName: 'MoaMoa',
+      content:
+        '저희는 리액트 프로젝트를 진행하려고 합니다😄 Frontend에 능숙하신 분을 구하고 있습니다! 프로젝트에 대한 자세한 내용은 아래와 같습니다.아웃백 가고싶다. 스테이크 먹고싶다. 파스타 먹고싶다. 녹차라떼먹고싶다.',
+      deadline: [2023, 3, 30],
+      headcount: 3,
+      jobPosition: 'ALL',
+      user: {
+        id: 1,
+        nickname: '송지민',
+        imageUrl: 'imgurl.com',
+      },
+      techStackList: [],
+      commentCount: 0,
+    },
+  ];
 
   return (
     <Div>
