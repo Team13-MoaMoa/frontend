@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import NoteUserList from '@/components/NoteUserList';
-import NoteDetail from '@/components/NoteDetail';
-import SendNote from '@/components/SendNote';
+import NoteUserList from '@/components/noteUserList';
+import NoteDetail from '@/components/noteDetail';
+import SendNote from '@/components/sendNote';
 
 function NotePage() {
   const [noteIsOpen, setNoteIsOpen] = useState<boolean>(false);
