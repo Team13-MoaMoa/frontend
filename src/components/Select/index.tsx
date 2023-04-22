@@ -116,9 +116,10 @@ const Container = styled.div<{ show: boolean }>`
 
 const Value = styled.span`
   flex-grow: 1;
-  height: 80%;
+  min-height: 80%;
   display: flex;
   align-items: center;
+  padding: 0.5rem 0;
   gap: 0.5rem;
   flex-wrap: wrap;
 `;
