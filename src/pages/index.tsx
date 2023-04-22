@@ -2,11 +2,7 @@ import NavBar from '@/components/nav';
 import styled from '@emotion/styled';
 
 export default function Home() {
-  return (
-    <Div>
-      <NavBar />
-    </Div>
-  );
+  return <Div></Div>;
 }
 
 const Div = styled.div`

@@ -11,7 +11,7 @@ export default function useWindow() {
 
   const handleResize = debounce(() => {
     setWindowsize(getSize);
-  }, 1000);
+  }, 500);
 
   useEffect(() => {
     if (!isClient) {
@@ -20,7 +20,7 @@ export default function useWindow() {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [handleResize, isClient]);
 
   return windowSize;
 }
