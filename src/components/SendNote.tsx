@@ -19,13 +19,14 @@ function SendNote(props: any) {
             >
               쪽지 보내기
             </h1>
-            <Image
-              src="/closeIcon.png"
-              alt="closeIcon-img"
-              width={48}
-              height={48}
-              onClick={onClickNoteModal}
-            ></Image>
+            <IconDiv>
+              <Image
+                src="/closeIcon.png"
+                alt="closeIcon-img"
+                fill
+                onClick={onClickNoteModal}
+              />
+            </IconDiv>
           </div>
           <DetailInput
             type="text"
@@ -90,4 +91,10 @@ const SubmitBtn = styled.button`
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
+`;
+
+const IconDiv = styled.div`
+  position: relative;
+  width: 4rem;
+  height: 4rem;
 `;

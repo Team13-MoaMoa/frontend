@@ -52,5 +52,5 @@ const NoteListDiv = styled.div`
   width: 100%;
   padding: 30px 20px 20px 20px;
   margin: 0 3.5rem;
-  border-bottom: 2px solid #d9d9d9;
+  border-bottom: 2px solid ${(props) => props.theme.horizon_gray};
 `;

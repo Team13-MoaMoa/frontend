@@ -14,23 +14,12 @@ function NoteUserList(props: any) {
         <UserListDiv>
           <UserInfoDiv>
             <UserImgDiv>
-              <Image
-                src="/avatar.png"
-                alt="avatar-img"
-                width={50}
-                height={50}
-              ></Image>
+              <Image src="/avatar.png" alt="avatar-img" fill />
             </UserImgDiv>
-            <UserNameDiv className="test">
-              {user.name}
-              <Image
-                src="/mypageIcon.png"
-                alt="mypageIcon-img"
-                width={30}
-                height={30}
-                style={{ float: 'right', marginTop: '12px' }}
-              ></Image>
-            </UserNameDiv>
+            <UserNameDiv className="test">{user.name}</UserNameDiv>
+            <UserImgDiv>
+              <Image src="/mypageIcon.png" alt="mypageIcon-img" fill />
+            </UserImgDiv>
           </UserInfoDiv>
         </UserListDiv>
       ))}
@@ -60,11 +49,15 @@ const UserInfoDiv = styled.div`
   display: flex;
   height: 100%;
   padding: 0.3rem 0.3rem;
+  align-items: center;
 `;
 
 const UserImgDiv = styled.div`
-  float: left;
   border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  position: relative;
+  flex-shrink: 0;
 `;
 
 const UserNameDiv = styled.div`

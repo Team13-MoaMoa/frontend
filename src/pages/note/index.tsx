@@ -22,15 +22,16 @@ function NotePage(props: any) {
       <ListDiv style={{ width: '83rem' }}>
         <TitleDiv>
           user name
-          <Image
-            src="/noteIcon.png"
-            alt="noteIcon-img"
-            width={30}
-            height={30}
-            style={{ float: 'right', marginRight: '50px' }}
-            onClick={onClickNoteModal}
-          ></Image>
+          <IconDiv>
+            <Image
+              src="/noteIcon.png"
+              alt="noteIcon-img"
+              fill
+              onClick={onClickNoteModal}
+            ></Image>
+          </IconDiv>
         </TitleDiv>
+
         {noteIsOpen ? <SendNote onClickNoteModal={onClickNoteModal} /> : null}
         <NoteDetail></NoteDetail>
       </ListDiv>
@@ -62,4 +63,12 @@ const TitleDiv = styled.div`
 
   font-size: 2.2rem;
   font-weight: bold;
+`;
+
+const IconDiv = styled.div`
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  float: right;
+  margin-right: 50px;
 `;
