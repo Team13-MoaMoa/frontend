@@ -3,7 +3,7 @@ import Login2 from '@/components/login/login2';
 import Login3 from '@/components/login/login3';
 import Login4 from '@/components/login/login4';
 import styled from '@emotion/styled';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function Home() {
   const socialRef = useRef<any>(null);
