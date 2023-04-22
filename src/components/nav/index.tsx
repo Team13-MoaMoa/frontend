@@ -124,6 +124,7 @@ const Nav = styled.div`
   background: #f9f8f7;
   border-bottom: 1px solid #5e718d;
   position: relative;
+  z-index: 100;
 `;
 
 const Overlay = styled.div`
