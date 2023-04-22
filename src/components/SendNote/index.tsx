@@ -2,9 +2,11 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
-function SendNote(props: any) {
-  const { onClickNoteModal } = props;
-  console.log(onClickNoteModal);
+type SendNoteProps = {
+  onClickNoteModal: () => void;
+};
+
+function SendNote({ onClickNoteModal }: SendNoteProps) {
   return (
     <BackGround>
       <Div>
@@ -32,7 +34,7 @@ function SendNote(props: any) {
             type="text"
             name="text"
             placeholder="내용을 입력해주세요."
-          ></DetailInput>
+          />
           <SubmitBtn>전송</SubmitBtn>
         </SendDiv>
       </Div>
@@ -43,7 +45,6 @@ function SendNote(props: any) {
 export default SendNote;
 
 const Div = styled.div`
-  /* font-family: var(--Noto-B); */
   color: ${(props) => props.theme.main_brown};
 `;
 
