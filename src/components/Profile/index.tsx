@@ -34,15 +34,15 @@ const NameDiv = styled.div`
   text-align: center;
   & > p {
     color: black;
-    font-size: 35px;
+    font-size: 3rem;
     font-weight: bolder;
   }
 `;
 
 const ImgDiv = styled.div`
-  height: 13rem;
-  width: 13rem;
-  margin: 3rem 0;
+  height: 16rem;
+  width: 16rem;
+  margin: 2.5rem 0;
   border-radius: 50%;
   background-color: pink;
 `;
