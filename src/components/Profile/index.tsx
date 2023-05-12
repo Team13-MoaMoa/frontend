@@ -25,10 +25,6 @@ const ProfileBackground = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  flex: 1 1 40%;
-  top: 4.5rem;
-  left: 5rem;
 `;
 
 const NameDiv = styled.div`

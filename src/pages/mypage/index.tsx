@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Profile from '@/components/Profile';
 import EditProfile from '@/components/EditProfile';
-import Button from '@/components/Button';
+
 import CompleteProfile from '@/components/CompleteProfile';
 
 function MyPage() {
@@ -9,10 +9,11 @@ function MyPage() {
     <Div>
       <BackgroundDiv></BackgroundDiv>
       <InfoBackgroundDiv>
-        <Profile />
-        <EditProfile />
-        <Button />
-        <CompleteProfile />
+        <div>
+          <Profile />
+          <EditProfile />
+          {/* <CompleteProfile /> */}
+        </div>
       </InfoBackgroundDiv>
     </Div>
   );
@@ -43,4 +44,11 @@ const InfoBackgroundDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   background-color: #ffffff;
+  & > div {
+    height: 37.5rem;
+    width: 100%;
+    padding-top: 5rem;
+    display: flex;
+    justify-content: space-evenly;
+  }
 `;

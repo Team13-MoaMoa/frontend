@@ -1,32 +1,59 @@
 import styled from '@emotion/styled';
-import Button from '../Button';
 
-function ProfileInput() {
+function EditProfile() {
   return (
     <InfoDiv>
       <div>닉네임</div>
       <InfoInput />
+      <div>깃허브 프로필</div>
+      <InfoInput />
+      <div>포토폴리오 링크</div>
+      <InfoInput />
+      <EditButton>
+        <button>수정</button>
+      </EditButton>
     </InfoDiv>
   );
 }
 
-export default ProfileInput;
+export default EditProfile;
 
 const InfoDiv = styled.div`
-  height: 7rem;
-  display: flex;
-  flex-direction: column;
-  align-content: space-evenly;
+  height: 37.5rem;
+  width: 50%;
+  padding: 1.8rem 9rem;
+  border-radius: 4rem;
   & > div {
     color: black;
-    margin-bottom: 1rem;
+    margin: 1.8rem 0 1.2rem 0;
   }
 `;
 
 const InfoInput = styled.input`
+  height: 4.2rem;
   width: 42rem;
   flex-grow: 1;
   border: 1.5px solid ${(props) => props.theme.main_brown};
   border-radius: 6px;
   background-color: #ffffff;
+`;
+
+const EditButton = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  & > button {
+    height: 4.5rem;
+    width: 12.3rem;
+    margin-top: 0.8rem;
+    justify-content: flex-end;
+    text-align: center;
+    border-radius: 6px;
+    border: 2px solid #957f6a;
+    color: white;
+    background-color: ${(props) => props.theme.main_brown};
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 `;
