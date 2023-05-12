@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Profile from '@/components/Profile';
 import ProfileInput from '@/components/ProfileInput';
+import Button from '@/components/Button';
 
 function MyPage() {
   return (
@@ -9,6 +10,7 @@ function MyPage() {
       <InfoBackgroundDiv>
         <Profile />
         <ProfileInput />
+        <Button />
       </InfoBackgroundDiv>
     </Div>
   );
