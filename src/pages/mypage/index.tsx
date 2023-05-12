@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import ProfilerImg from '@/components/ProfilerImg';
+import ProfilerImg from '@/components/Profiler';
 
 function MyPage() {
   return (
@@ -34,5 +34,5 @@ const InfoBackgroundDiv = styled.div`
   position: absolute;
   top: 13%;
   left: 18%;
-  background-color: #fff9fa;
+  background-color: #ffffff;
 `;
