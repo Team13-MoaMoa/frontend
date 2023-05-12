@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Profile from '@/components/Profile';
 import EditProfile from '@/components/EditProfile';
 import Button from '@/components/Button';
+import CompleteProfile from '@/components/CompleteProfile';
 
 function MyPage() {
   return (
@@ -11,6 +12,7 @@ function MyPage() {
         <Profile />
         <EditProfile />
         <Button />
+        <CompleteProfile />
       </InfoBackgroundDiv>
     </Div>
   );
