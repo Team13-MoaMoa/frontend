@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-function Profiler() {
+function Profile() {
   return (
     <ProfileBackground>
       <NameDiv>
@@ -14,7 +14,7 @@ function Profiler() {
   );
 }
 
-export default Profiler;
+export default Profile;
 
 const ProfileBackground = styled.div`
   height: 37.5rem;
@@ -26,6 +26,7 @@ const ProfileBackground = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
+  flex: 1 1 40%;
   top: 4.5rem;
   left: 5rem;
 `;
