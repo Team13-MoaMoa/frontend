@@ -4,15 +4,13 @@ import React, { useEffect } from 'react';
 import githubButton from '@/assets/githubButton.png';
 import kakaoButton from '@/assets/kakaoButton.png';
 export default function Login({ nextStep }: any) {
-  const REST_API_KEY = '04d80f67652ce2751f63dee14ae23747';
-  const REDIRECT_URI = 'http://localhost:3000';
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
+  const NEXT_PUBLIC_KAKAO_KEY = process.env.NEXT_PUBLIC_KAKAO_KEY;
+  console.log(NEXT_PUBLIC_KAKAO_KEY);
   //로그인 -> 메인페이지 -> useEffect -> 코드짜르고 인가코드 백엔드 보내고 (중간에 로딩스피너) -> 응답결과가 새로운유저면 로그인 컴포넌트 아니라면 다시 메인페이지 navigate
   const handleKakaoLogin = () => {
-    window.location.href = kakaoURL;
+    window.location.href = String(NEXT_PUBLIC_KAKAO_KEY);
   };
 
-  useEffect(() => {}, []);
   return (
     <>
       <LoginPage>

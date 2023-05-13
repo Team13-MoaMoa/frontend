@@ -9,6 +9,7 @@ import { FiSearch } from 'react-icons/fi';
 
 import BannerSlider from '@/components/main/slider';
 import OverlaySocialLogin from '@/components/login/OverlaySocialLogin';
+import { useRouter } from 'next/router';
 
 export default function Home() {
   const [techStackMenu, setTeckStackMenu] = useState([
