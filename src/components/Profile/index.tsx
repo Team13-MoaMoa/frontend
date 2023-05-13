@@ -21,6 +21,7 @@ const ProfileBackground = styled.div`
   width: 37.5rem;
   border-radius: 4rem;
   background-color: ${(props) => props.theme.background_gray};
+  border: 2px solid ${(props) => props.theme.horizon_gray};
   display: flex;
   flex-direction: column;
   justify-content: center;

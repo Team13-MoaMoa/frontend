@@ -11,8 +11,8 @@ function MyPage() {
       <InfoBackgroundDiv>
         <div>
           <Profile />
-          <EditProfile />
-          {/* <CompleteProfile /> */}
+          {/* <EditProfile /> */}
+          <CompleteProfile />
         </div>
       </InfoBackgroundDiv>
     </Div>
