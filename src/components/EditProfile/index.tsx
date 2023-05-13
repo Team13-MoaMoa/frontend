@@ -7,10 +7,10 @@ function EditProfile() {
       <InfoInput />
       <div>깃허브 프로필</div>
       <InfoInput />
-      <div>포토폴리오 링크</div>
+      <div>포트폴리오 링크</div>
       <InfoInput />
       <EditButton>
-        <button>수정</button>
+        <button>확인</button>
       </EditButton>
     </InfoDiv>
   );

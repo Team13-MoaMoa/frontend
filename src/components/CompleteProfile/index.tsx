@@ -13,11 +13,14 @@ function CompleteProfile() {
       </CompleteProfileDiv>
       <CompleteProfileDiv>
         <TitleDiv>
-          <p>포토폴리오</p>
+          <p>포트폴리오</p>
         </TitleDiv>
         <DetailDiv>
-          <p>포토폴리오.pdf</p>
+          <p>포트폴리오.pdf</p>
         </DetailDiv>
+        <EditButton>
+          <button>수정</button>
+        </EditButton>
       </CompleteProfileDiv>
     </InfoDiv>
   );
@@ -59,5 +62,25 @@ const TitleDiv = styled.div`
 const DetailDiv = styled.div`
   & > p {
     margin-left: 7rem;
+  }
+`;
+
+const EditButton = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  & > button {
+    height: 4.5rem;
+    width: 12.3rem;
+    margin-top: 0.8rem;
+    justify-content: flex-end;
+    text-align: center;
+    border-radius: 6px;
+    border: 2px solid #957f6a;
+    color: white;
+    background-color: ${(props) => props.theme.main_brown};
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 `;

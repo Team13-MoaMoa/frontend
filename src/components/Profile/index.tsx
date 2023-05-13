@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
 
-function Profile() {
+function Profile({ name }: { name: string }) {
   return (
     <ProfileBackground>
       <NameDiv>
-        <p>최연지 님</p>
+        <p>{name} 님</p>
       </NameDiv>
       <ImgDiv />
-      <DelDiv>
+      {/* <DelDiv>
         <p>회원탈퇴</p>
-      </DelDiv>
+      </DelDiv> */}
     </ProfileBackground>
   );
 }

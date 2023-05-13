@@ -3,17 +3,14 @@ import Profile from '@/components/Profile';
 import EditProfile from '@/components/EditProfile';
 
 import CompleteProfile from '@/components/CompleteProfile';
+import ProfileZone from '@/components/ProfileZone';
 
 function MyPage() {
   return (
     <Div>
       <BackgroundDiv></BackgroundDiv>
       <InfoBackgroundDiv>
-        <div>
-          <Profile />
-          {/* <EditProfile /> */}
-          <CompleteProfile />
-        </div>
+        <ProfileZone />
       </InfoBackgroundDiv>
     </Div>
   );
