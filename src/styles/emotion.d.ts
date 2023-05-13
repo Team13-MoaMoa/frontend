@@ -8,6 +8,7 @@ declare module '@emotion/react' {
     background_gray: string;
     horizon_gray: string;
     unselected_text: string;
+    text_color: string;
     mq: {
       tablet: string;
       mobile: string;
