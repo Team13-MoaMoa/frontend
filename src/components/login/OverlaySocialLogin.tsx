@@ -52,9 +52,6 @@ export default function OverlaySocialLogin() {
           ref={socialRef}
         >
           <Login />
-          <Login2 nextStep={nextStep} />
-          <Login3 nextStep={nextStep} />
-          <Login4 nextStep={nextStep} />
         </OverLaySocialLogin>
       ) : null}
     </>
