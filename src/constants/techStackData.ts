@@ -5,7 +5,7 @@ type techStackDataType = {
   type: string;
 };
 
-const techStackData = [
+export const techStackData = [
   { name: 'React', id: 1, img: '/React.png', type: 'frontend', checked: false },
   { name: 'Html', id: 2, img: '/Html.png', type: 'frontend', checked: false },
   {
