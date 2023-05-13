@@ -3,7 +3,6 @@ import Image from 'next/image';
 import React, { useEffect } from 'react';
 import githubButton from '@/assets/githubButton.png';
 import kakaoButton from '@/assets/kakaoButton.png';
-import axios from 'axios';
 export default function Login({ nextStep }: any) {
   const REST_API_KEY = '04d80f67652ce2751f63dee14ae23747';
   const REDIRECT_URI = 'http://localhost:3000';
@@ -13,9 +12,7 @@ export default function Login({ nextStep }: any) {
     window.location.href = kakaoURL;
   };
 
-  useEffect(()=>{
-
-  },[])
+  useEffect(() => {}, []);
   return (
     <>
       <LoginPage>
