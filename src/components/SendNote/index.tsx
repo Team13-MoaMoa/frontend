@@ -11,16 +11,8 @@ function SendNote({ onClickNoteModal }: SendNoteProps) {
     <BackGround>
       <Div>
         <SendDiv>
-          <div style={{ height: '50px', display: 'flex' }}>
-            <h1
-              style={{
-                paddingLeft: '1.9rem',
-                width: '61rem',
-                lineHeight: '50px',
-              }}
-            >
-              쪽지 보내기
-            </h1>
+          <div>
+            <h1>쪽지 보내기</h1>
             <IconDiv>
               <Image
                 src="/closeIcon.png"
@@ -30,11 +22,7 @@ function SendNote({ onClickNoteModal }: SendNoteProps) {
               />
             </IconDiv>
           </div>
-          <DetailInput
-            type="text"
-            name="text"
-            placeholder="내용을 입력해주세요."
-          />
+          <DetailInput name="text" placeholder="내용을 입력해주세요." />
           <SubmitBtn>전송</SubmitBtn>
         </SendDiv>
       </Div>
@@ -62,29 +50,43 @@ const BackGround = styled.div`
 `;
 
 const SendDiv = styled.div`
-  height: 40rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.6rem;
   width: 72rem;
-  padding: 3.8rem 2.3rem;
+  padding: 3.8rem 3.5rem;
   position: relative;
   z-index: 99;
   color: black;
   font-size: 2.8rem;
   font-weight: bold;
   background-color: white;
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+    & > h1 {
+    }
+  }
 `;
 
-const DetailInput = styled.input`
+const DetailInput = styled.textarea`
+  width: 100%;
   height: 19rem;
-  width: 62.4rem;
-  margin: 20px;
   border: 2px solid #d9d9d9;
+  outline: none;
+  resize: none;
+  padding: 1.5rem;
+  font-size: 1.6rem;
+  line-height: 2rem;
 `;
 
 const SubmitBtn = styled.button`
+  align-self: flex-end;
   height: 3.6rem;
   width: 9.5rem;
-  margin-right: 50px;
-  float: right;
   background-color: #957f6a;
   color: #ffffff;
   border-radius: 2rem;
@@ -92,10 +94,18 @@ const SubmitBtn = styled.button`
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const IconDiv = styled.div`
   position: relative;
   width: 4rem;
   height: 4rem;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;

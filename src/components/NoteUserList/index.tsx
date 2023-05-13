@@ -38,6 +38,7 @@ const UserListDiv = styled.div`
   width: 100%;
   padding: 10px;
   color: #5e718d;
+  cursor: pointer;
   &:hover {
     color: white;
     background-color: ${(props) => props.theme.main_brown};

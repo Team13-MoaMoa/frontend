@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import avatar from '@/assets/avatar.png';
 import person from '@/assets/person.png';
 import logout from '@/assets/logout.png';
@@ -9,12 +9,15 @@ import hamburger from '@/assets/hamburger.png';
 import logo from '@/assets/logo.png';
 import close from '@/assets/close.png';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 export default function NavBar() {
   const [user, setUser] = useState(true); //유저가 있다면
   const [profileToggle, setProfileToggle] = useState(false);
   const [hamburgerToggle, setHamburgerToggle] = useState(false);
   const [sideToggle, setSideToggle] = useState(false);
   const window = useWindow();
+  const router = useRouter();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const shiftSideBar = () => {
     setSideToggle(true);
@@ -34,9 +37,24 @@ export default function NavBar() {
       setHamburgerToggle(false);
     }
   }, [window]);
+  useEffect(() => {
+    const handleCloseModal = (e: Event | React.MouseEvent) => {
+      if (
+        profileToggle &&
+        (!dropdownRef.current ||
+          !dropdownRef.current!.contains(e.target as Node))
+      )
+        setProfileToggle(false);
+    };
+
+    document.addEventListener('mousedown', handleCloseModal);
+    return () => {
+      document.removeEventListener('mousedown', handleCloseModal);
+    };
+  }, [dropdownRef, profileToggle, window]);
 
   return (
-    <Nav>
+    <Nav style={{ position: 'sticky' }}>
       <AnimatePresence>
         {sideToggle ? (
           <Overlay id="over" onClick={closeSidebar}>
@@ -53,19 +71,17 @@ export default function NavBar() {
                   <Image fill src={close} alt="사이드 바 닫기" />
                 </div>
               </div>
-              <div>프로젝트 관리</div>
-              <div>새 글쓰기</div>
-              <div>쪽지</div>
+              <div onClick={() => router.push('/write')}>새 글쓰기</div>
+              <div onClick={() => router.push('/note')}>쪽지</div>
             </Sidebar>
           </Overlay>
         ) : null}
       </AnimatePresence>
-
-      <Logo>
-        <Image fill src={logo} alt="이미지"></Image>
-      </Logo>
-      {user ? (
-        <AfterLoginBox>
+      <Container>
+        <Logo onClick={() => router.push('/')}>
+          <Image fill src={logo} alt="이미지" />
+        </Logo>
+        {user ? (
           <SelectList>
             {hamburgerToggle ? (
               <ToggleIcon onClick={shiftSideBar}>
@@ -73,56 +89,62 @@ export default function NavBar() {
               </ToggleIcon>
             ) : (
               <>
-                <li>프로젝트 관리</li>
-                <li>새 글쓰기</li>
-                <li>쪽지</li>
-                <Profile
-                  id="profile"
-                  onClick={() => setProfileToggle((pre) => !pre)}
-                >
-                  <Image fill src={avatar} alt="프로필" />
+                <li onClick={() => router.push('/write')}>새 글쓰기</li>
+                <li onClick={() => router.push('/note')}>쪽지</li>
+                <Profile>
+                  <ProfileImg
+                    id="profile"
+                    onClick={() => setProfileToggle((pre) => !pre)}
+                  >
+                    <Image fill src={avatar} alt="프로필" />
+                  </ProfileImg>
+                  <AnimatePresence>
+                    {profileToggle ? (
+                      <ProfileToggleBox
+                        initial={{ top: 45, opacity: 0 }}
+                        animate={{ top: 52, opacity: 1 }}
+                        exit={{ top: 45, opacity: 0 }}
+                        transition={{
+                          duration: 0.2,
+                        }}
+                        ref={dropdownRef}
+                      >
+                        <div>
+                          <MyPageIcon>
+                            <Image fill src={person} alt="마이페이지" />
+                          </MyPageIcon>
+                          <div>마이페이지</div>
+                        </div>
+                        <div>
+                          <MyPageIcon>
+                            <Image fill src={logout} alt="로그아웃" />
+                          </MyPageIcon>
+                          <div>로그아웃</div>
+                        </div>
+                      </ProfileToggleBox>
+                    ) : null}
+                  </AnimatePresence>
                 </Profile>
-                <AnimatePresence>
-                  {profileToggle ? (
-                    <ProfileToggleBox
-                      initial={{ top: 45, opacity: 0 }}
-                      animate={{ top: 58, opacity: 1 }}
-                      exit={{ top: 45, opacity: 0 }}
-                      transition={{
-                        duration: 0.2,
-                      }}
-                    >
-                      <div>
-                        <MyPageIcon>
-                          <Image fill src={person} alt="마이페이지" />
-                        </MyPageIcon>
-                        <div>마이페이지</div>
-                      </div>
-                      <div>
-                        <MyPageIcon>
-                          <Image fill src={logout} alt="로그아웃" />
-                        </MyPageIcon>
-                        <div>로그아웃</div>
-                      </div>
-                    </ProfileToggleBox>
-                  ) : null}
-                </AnimatePresence>
               </>
             )}
           </SelectList>
-        </AfterLoginBox>
-      ) : (
-        <BeforeLoginBox>Log In</BeforeLoginBox>
-      )}
+        ) : (
+          <LoginButton>Log In</LoginButton>
+        )}
+      </Container>
     </Nav>
   );
 }
 
 const Nav = styled.div`
+  top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  height: 7rem;
-  background: #f9f8f7;
-  border-bottom: 1px solid #5e718d;
+  height: 70px;
+  background-color: white;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(20px);
   position: relative;
   z-index: 100;
 `;
@@ -178,17 +200,19 @@ const Sidebar = styled(motion.div)`
   }
 `;
 const Logo = styled.div`
-  position: absolute;
-  top: calc(50% - 3rem);
-  left: 3rem;
-
+  position: relative;
   height: 6rem;
   width: 15rem;
   cursor: pointer;
 `;
 
-const AfterLoginBox = styled.div`
-  width: 95%;
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 3rem;
   height: 100%;
   margin: 0 auto;
 `;
@@ -196,10 +220,10 @@ const AfterLoginBox = styled.div`
 const SelectList = styled.ul`
   height: inherit;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
+  gap: 2rem;
   & > li {
-    margin-right: 4rem;
     cursor: pointer;
     &:hover {
       opacity: 0.8;
@@ -214,19 +238,25 @@ const ToggleIcon = styled.div`
   cursor: pointer;
 `;
 
-const Profile = styled.li`
+const Profile = styled.div`
+  position: relative;
+`;
+const ProfileImg = styled.div`
   position: relative;
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  overflow: hidden;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
-
 const ProfileToggleBox = styled(motion.div)`
   position: absolute;
   width: 15rem;
   height: 12.5rem;
-
+  top: 20px;
+  right: -50%;
   background: #ffffff;
   border: 0.3px solid #957f6a;
   box-shadow: 0px 20px 24px -4px rgba(45, 54, 67, 0.04),
@@ -237,9 +267,9 @@ const ProfileToggleBox = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.8rem;
   font-family: var(--Noto-B);
-
+  font-size: 1.8rem;
+  color: ${(props) => props.theme.main_brown};
   & > div {
     display: flex;
     align-items: center;
@@ -264,7 +294,7 @@ const MyPageIcon = styled.div`
   width: 2rem;
   height: 2rem;
 `;
-const BeforeLoginBox = styled.div`
+const LoginButton = styled.div`
   background-color: #957f6a;
   width: 8rem;
   height: 4.8rem;
