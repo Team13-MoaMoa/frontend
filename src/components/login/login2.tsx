@@ -104,6 +104,7 @@ const NickNameBox = styled.div`
     font-size: 2rem;
     line-height: 3.5rem;
     font-family: var(--Noto-B);
+    cursor: pointer;
   }
 
   & > input {
@@ -115,6 +116,7 @@ const NickNameBox = styled.div`
     margin-left: 1.4rem;
     padding-left: 1rem;
     color: black;
+    cursor: pointer;
     &:focus {
       outline: none;
     }
