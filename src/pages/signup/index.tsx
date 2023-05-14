@@ -25,11 +25,11 @@ export default function Signup() {
 
   if (loading) {
     return (
-      <div>
+      <ImageMiddleBox>
         <ImageBox>
           <Image fill src={loadingUI} alt="" />
         </ImageBox>
-      </div>
+      </ImageMiddleBox>
     );
   }
 
@@ -74,4 +74,8 @@ const Empty = styled.div`
   width: 100vw;
   background-color: whitesmoke;
   min-height: calc(100vh - 70px - 159px);
+`;
+
+const ImageMiddleBox = styled(Empty)`
+  background-color: white;
 `;
