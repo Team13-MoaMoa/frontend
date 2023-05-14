@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 import React from 'react';
 import defaultProfile from '@/assets/defaultProfile.png';
-export default function Login4({ nextStep }: any) {
+export default function Login4() {
   return (
     <>
       <LoginPage>
@@ -21,7 +21,7 @@ export default function Login4({ nextStep }: any) {
               </div>
             </InsertImage>
             <Buttons>
-              <SignUpButton>
+              <SignUpButton onClick={() => alert('가입완료!')}>
                 <span>가입완료</span>
               </SignUpButton>
             </Buttons>
@@ -35,7 +35,7 @@ export default function Login4({ nextStep }: any) {
 const Overlay = styled.div`
   height: 100vh;
   width: 100vw;
-  background-color: #000000;
+  background-color: #646464;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,12 +43,14 @@ const Overlay = styled.div`
 `;
 
 const LoginPage = styled.div`
+  position: absolute;
+  top: 0;
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 5;
+  z-index: 101;
 `;
 
 const SocialLoginBox = styled.div`

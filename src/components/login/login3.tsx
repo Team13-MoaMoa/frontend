@@ -1,7 +1,8 @@
+import { Step } from '@/types/login';
 import styled from '@emotion/styled';
 import React from 'react';
 
-export default function Login3({ nextStep }: any) {
+export default function Login3({ setStep }: Step) {
   return (
     <>
       <LoginPage>
@@ -23,7 +24,7 @@ export default function Login3({ nextStep }: any) {
               <input placeholder="포트폴리오 주소를 입력해주세요." />
             </NickNameBox>
             <Buttons>
-              <NextButton onClick={nextStep}>다음</NextButton>
+              <NextButton onClick={() => setStep(3)}>다음</NextButton>
               <SkipButton>건너뛰기</SkipButton>
             </Buttons>
           </LoginContent>
@@ -36,7 +37,7 @@ export default function Login3({ nextStep }: any) {
 const Overlay = styled.div`
   height: 100vh;
   width: 100vw;
-  background-color: #000000;
+  background-color: #646464;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,12 +45,14 @@ const Overlay = styled.div`
 `;
 
 const LoginPage = styled.div`
+  position: absolute;
+  top: 0;
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 5;
+  z-index: 101;
 `;
 
 const SocialLoginBox = styled.div`
