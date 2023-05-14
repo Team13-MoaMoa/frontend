@@ -7,16 +7,22 @@ import loadingUI from '@/assets/loading.gif';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { RootState } from '@/store';
+import { User } from '@/types/login';
 export default function Signup() {
+  const [user, setUser] = useState<User>({
+    id: 0,
+    nickname: '',
+    image_url: '',
+    github_url: '',
+    portfolio_url: '',
+  });
   const [step, setStep] = useState(1);
   const router = useRouter();
   const searchParams = new URLSearchParams(router.asPath.split(/\?/)[1]);
   const code = searchParams.get('code');
   const [loading, setLoading] = useState(true);
-  const [user] = useKakao(code, setLoading);
+  const [hasUser] = useKakao(code, setLoading);
+
   if (loading) {
     return (
       <div>
@@ -27,7 +33,7 @@ export default function Signup() {
     );
   }
 
-  // if (user) {
+  // if (hasUser) {
   //   router.push('/');
   // }
 
@@ -36,7 +42,7 @@ export default function Signup() {
       return (
         <>
           <Empty></Empty>
-          <Login2 setStep={setStep} />
+          <Login2 setUser={setUser} setStep={setStep} />
         </>
       );
 
@@ -44,7 +50,7 @@ export default function Signup() {
       return (
         <>
           <Empty></Empty>
-          <Login3 setStep={setStep} />
+          <Login3 setUser={setUser} setStep={setStep} />
         </>
       );
     case 3:
