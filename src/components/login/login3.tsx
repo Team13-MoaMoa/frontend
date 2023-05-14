@@ -1,8 +1,29 @@
+import useInput from '@/hook/useInput';
 import { Step } from '@/types/login';
 import styled from '@emotion/styled';
 import React from 'react';
 
-export default function Login3({ setStep }: Step) {
+export default function Login3({ setStep, setUser }: Step) {
+  const [gitAddress, gitChangeHandle] = useInput();
+  const [portfolioAddress, portfolioChangeHandle] = useInput();
+
+  const nextStep = () => {
+    if (gitAddress === '' || portfolioAddress === '') {
+      alert('깃허브주소 또는 포트폴리오주소를 입력해주세요 !');
+      return;
+    }
+    setStep(3);
+    setUser((pre) => ({
+      ...pre,
+      gitAddress,
+      portfolioAddress,
+    }));
+  };
+
+  const skipStep = () => {
+    setStep(3);
+  };
+
   return (
     <>
       <LoginPage>
@@ -16,16 +37,24 @@ export default function Login3({ setStep }: Step) {
               깃허브 주소나 포트폴리오 링크를 입력해주세요.
             </h1>
             <NickNameBox>
-              <label>개인 깃허브 주소</label>
-              <input placeholder="개인 깃허브 주소를 입력해주세요." />
+              <label htmlFor="git">개인 깃허브 주소</label>
+              <input
+                onChange={gitChangeHandle}
+                id="git"
+                placeholder="개인 깃허브 주소를 입력해주세요."
+              />
             </NickNameBox>
             <NickNameBox>
-              <label>포트폴리오 주소</label>
-              <input placeholder="포트폴리오 주소를 입력해주세요." />
+              <label htmlFor="portfolio">포트폴리오 주소</label>
+              <input
+                onChange={portfolioChangeHandle}
+                id="portfolio"
+                placeholder="포트폴리오 주소를 입력해주세요."
+              />
             </NickNameBox>
             <Buttons>
-              <NextButton onClick={() => setStep(3)}>다음</NextButton>
-              <SkipButton>건너뛰기</SkipButton>
+              <NextButton onClick={nextStep}>다음</NextButton>
+              <SkipButton onClick={skipStep}>건너뛰기</SkipButton>
             </Buttons>
           </LoginContent>
         </SocialLoginBox>
@@ -99,6 +128,7 @@ const NickNameBox = styled.div`
     ${(props) => props.theme.mq.mobile} {
       zoom: 0.8;
     }
+    cursor: pointer;
   }
 
   & > input {
@@ -110,6 +140,7 @@ const NickNameBox = styled.div`
     margin-left: 1.4rem;
     padding-left: 1rem;
     color: black;
+    cursor: pointer;
     &:focus {
       outline: none;
     }
