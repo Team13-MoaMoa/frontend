@@ -5,6 +5,8 @@ import { ThemeProvider } from '@emotion/react';
 import { theme } from '@/styles/theme';
 import Head from 'next/head';
 import Layout from '@/components/_layout';
+import { Provider } from 'react-redux';
+import { store } from '@/store';
 
 const NotoR = Noto_Sans_KR({
   weight: '400',
@@ -29,12 +31,14 @@ export default function App({ Component, pageProps }: AppProps) {
         className={`${NotoR.className} ${NotoB.variable}`}
         style={{ width: '100%', height: '100%' }}
       >
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </Provider>
       </main>
     </>
   );

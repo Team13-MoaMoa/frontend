@@ -7,6 +7,9 @@ import loadingUI from '@/assets/loading.gif';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { RootState } from '@/store';
 export default function Signup() {
   const [step, setStep] = useState(1);
   const router = useRouter();
