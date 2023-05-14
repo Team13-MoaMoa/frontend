@@ -1,12 +1,25 @@
 import useInput from '@/hook/useInput';
 import { Step } from '@/types/login';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function Login2({ setStep, setUser }: Step) {
   // useinput
   //초기값 init , 리턴값 onchange , nickname , setnickname
-  const [nickName, setNickname, changeHandle] = useInput();
+  const [nickName, changeHandle] = useInput();
+
+  const nextStepHandle = () => {
+    if (nickName === '') {
+      alert('닉네임을 입력해주세요!');
+      return;
+    }
+    setStep(2);
+    setUser((pre) => ({
+      ...pre,
+      nickName,
+    }));
+  };
+
   return (
     <>
       <LoginPage>
@@ -16,14 +29,14 @@ export default function Login2({ setStep, setUser }: Step) {
           <LoginContent>
             <h1>우선,사용하실 닉네임을 입력해주세요!</h1>
             <NickNameBox>
-              <label>닉네임</label>
+              <label htmlFor="nick">닉네임</label>
               <input
-                value={nickName}
-                onChange={() => changeHandle}
+                id="nick"
+                onChange={changeHandle}
                 placeholder="닉네임을 입력해주세요."
               />
             </NickNameBox>
-            <NextButton onClick={() => setStep(2)}>다음</NextButton>
+            <NextButton onClick={nextStepHandle}>다음</NextButton>
           </LoginContent>
         </SocialLoginBox>
       </LoginPage>

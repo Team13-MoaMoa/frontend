@@ -5,7 +5,6 @@ import githubButton from '@/assets/githubButton.png';
 import kakaoButton from '@/assets/kakaoButton.png';
 export default function Login({ nextStep }: any) {
   const NEXT_PUBLIC_KAKAO_KEY = process.env.NEXT_PUBLIC_KAKAO_KEY;
-  console.log(NEXT_PUBLIC_KAKAO_KEY);
   const handleKakaoLogin = () => {
     window.location.href = String(NEXT_PUBLIC_KAKAO_KEY);
   };
