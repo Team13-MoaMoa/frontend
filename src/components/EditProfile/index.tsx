@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 
-function EditProfile() {
+type EditProfileProps = {
+  onClickButton: () => void;
+};
+
+function EditProfile({ onClickButton }: EditProfileProps) {
   return (
     <InfoDiv>
       <div>닉네임</div>
@@ -10,7 +14,7 @@ function EditProfile() {
       <div>포트폴리오 링크</div>
       <InfoInput />
       <EditButton>
-        <button>확인</button>
+        <button onClick={onClickButton}>확인</button>
       </EditButton>
     </InfoDiv>
   );

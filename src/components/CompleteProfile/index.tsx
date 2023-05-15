@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 
-function CompleteProfile() {
+type CompleteProfileProps = {
+  onClickButton: () => void;
+};
+
+function CompleteProfile({ onClickButton }: CompleteProfileProps) {
   return (
     <InfoDiv>
       <CompleteProfileDiv>
@@ -18,10 +22,10 @@ function CompleteProfile() {
         <DetailDiv>
           <p>포트폴리오.pdf</p>
         </DetailDiv>
-        <EditButton>
-          <button>수정</button>
-        </EditButton>
       </CompleteProfileDiv>
+      <EditButton>
+        <button onClick={onClickButton}>수정</button>
+      </EditButton>
     </InfoDiv>
   );
 }
@@ -71,7 +75,6 @@ const EditButton = styled.div`
   & > button {
     height: 4.5rem;
     width: 12.3rem;
-    margin-top: 0.8rem;
     justify-content: flex-end;
     text-align: center;
     border-radius: 6px;

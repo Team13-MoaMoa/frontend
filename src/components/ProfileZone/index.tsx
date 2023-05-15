@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Profile from '../Profile';
 import EditProfile from '../EditProfile';
@@ -5,17 +6,24 @@ import CompleteProfile from '../CompleteProfile';
 import { UserInfo } from '@/types/profile';
 
 function ProfileZone() {
-  const DummyDate: UserInfo = {
+  const DummyData: UserInfo = {
     name: '최연지',
     github: 'wisdomyeon',
     portfolio: '포트폴리오.pdf',
   };
+  const [edit, setEdit] = useState<boolean>(false);
+  const onClickButton = () => {
+    setEdit((per) => !per);
+  };
 
   return (
     <Div>
-      <Profile name={DummyDate.name} />
-      <EditProfile />
-      <CompleteProfile />
+      <Profile name={DummyData.name} />
+      {edit ? (
+        <EditProfile onClickButton={onClickButton} />
+      ) : (
+        <CompleteProfile onClickButton={onClickButton} />
+      )}
     </Div>
   );
 }

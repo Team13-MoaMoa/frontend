@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+type ProfileProps = {
+  onClickButton: () => void;
+};
+
 function Profile({ name }: { name: string }) {
   return (
     <ProfileBackground>
@@ -7,9 +11,10 @@ function Profile({ name }: { name: string }) {
         <p>{name} 님</p>
       </NameDiv>
       <ImgDiv />
-      {/* <DelDiv>
+
+      <DelDiv>
         <p>회원탈퇴</p>
-      </DelDiv> */}
+      </DelDiv>
     </ProfileBackground>
   );
 }
