@@ -2,11 +2,13 @@ import BoardCardList from '@/components/common/BoardCardList';
 import Pagination from '@/components/main/pagination';
 import techStackData from '@/constants/techStackData';
 import styled from '@emotion/styled';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
 import BannerSlider from '@/components/main/slider';
+import OverlaySocialLogin from '@/components/login/OverlaySocialLogin';
 
 export default function Home() {
   const [techStackMenu, setTeckStackMenu] = useState([
@@ -149,6 +151,7 @@ export default function Home() {
 
   return (
     <Div>
+      <OverlaySocialLogin />
       <BannerSlider></BannerSlider>
 
       <MainDiv>
