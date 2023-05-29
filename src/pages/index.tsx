@@ -30,6 +30,7 @@ export default function Home() {
 
   return (
     <Div>
+      <OverlaySocialLogin />
       <BannerSlider></BannerSlider>
       <MainDiv>
         <section>
