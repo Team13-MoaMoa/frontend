@@ -1,28 +1,31 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React from 'react';
 import ReactPaginate from 'react-paginate';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
-function Pagination() {
-  const [currentPage, setCurrentPage] = useState(1);
+type PaginationProps = {
+  onChangePage: (page: number) => void;
+  totalPages: number;
+};
 
-  const handlePageChange = ({ selected }: { selected: number }) => {
-    setCurrentPage(selected);
-  };
-
+function Pagination({ onChangePage, totalPages }: PaginationProps) {
   return (
     <div>
       <PaginationContainer
-        pageCount={5}
+        pageCount={totalPages}
         pageRangeDisplayed={5}
         marginPagesDisplayed={2}
-        onPageChange={handlePageChange}
+        onPageChange={({ selected }) => onChangePage(selected + 1)}
         previousLabel={<AiOutlineArrowLeft />}
         nextLabel={<AiOutlineArrowRight />}
       />
     </div>
   );
 }
+
+Pagination.defaultProps = {
+  totalPages: 1,
+};
 
 const PaginationContainer = styled(ReactPaginate)`
   display: flex;

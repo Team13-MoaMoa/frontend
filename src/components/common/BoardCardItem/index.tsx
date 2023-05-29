@@ -1,3 +1,4 @@
+import { BoardDataType } from '@/types/board';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import React from 'react';
@@ -12,7 +13,9 @@ type IconImgDivType = {
   heigth?: string;
 };
 
-function BoardCardItem() {
+type BoardCardItemProps = { card: BoardDataType };
+
+function BoardCardItem({ card }: BoardCardItemProps) {
   return (
     <Div>
       <>
