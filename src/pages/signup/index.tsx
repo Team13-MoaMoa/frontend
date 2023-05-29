@@ -1,6 +1,6 @@
-import Login2 from '@/components/login/login2';
-import Login3 from '@/components/login/login3';
-import Login4 from '@/components/login/login4';
+import Login2 from '@/components/Login/Login2';
+import Login3 from '@/components/Login/Login3';
+import Login4 from '@/components/Login/Login4';
 import useKakao from '@/hook/useKakao';
 import styled from '@emotion/styled';
 import loadingUI from '@/assets/loading.gif';
@@ -41,7 +41,7 @@ export default function Signup() {
     case 1:
       return (
         <>
-          <Empty></Empty>
+          <Empty />
           <Login2 setUser={setUser} setStep={setStep} />
         </>
       );
@@ -49,14 +49,14 @@ export default function Signup() {
     case 2:
       return (
         <>
-          <Empty></Empty>
+          <Empty />
           <Login3 setUser={setUser} setStep={setStep} />
         </>
       );
     case 3:
       return (
         <>
-          <Empty></Empty>
+          <Empty />
           <Login4 />
         </>
       );

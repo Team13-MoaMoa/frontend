@@ -7,11 +7,16 @@ import React from 'react';
 type CommentProps = {
   content: string;
   user: User;
+  onClickNoteModal: () => void;
 };
 
-export default function Comment({ content, user }: CommentProps) {
+export default function Comment({
+  content,
+  user,
+  onClickNoteModal,
+}: CommentProps) {
   return (
-    <CommentWrapper>
+    <CommentWrapper onClick={onClickNoteModal}>
       <ProfileImage>
         <Image src={user.image_url} alt="profileImage" fill />
       </ProfileImage>

@@ -10,3 +10,4 @@ export default function useInput(): ReturnType {
   };
 
   return [input, onChangeInput];
+}

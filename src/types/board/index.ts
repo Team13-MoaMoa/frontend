@@ -23,9 +23,9 @@ export type BoardDataType = {
   title: string;
   project_name: string;
   content: string;
-  deadline: number[];
+  deadline: Date;
   headcount: number;
-  job_position: string;
+  job_position: string[];
   user: UserType;
   tech_stack_list: TechStackListType[];
   comment_count: number;
@@ -38,7 +38,7 @@ export type TechStackListType = {
 export type UserType = {
   id: number;
   nickname: string;
-  image_url: null;
+  image_url: string;
 };
 
 export type SortType = {

@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import MenuBarItem from '../MenuBarItem';
+import { MenuItemType } from '@/types/menu';
 
 type MenuBarListProps = {
   position: string;
-  list: MenuItem[];
+  list: MenuItemType[];
   onChangePosition: (position: string) => void;
   clearLanguage: () => void;
 };
@@ -17,7 +18,7 @@ function MenuBarList({
 }: MenuBarListProps) {
   return (
     <MenuBarUl>
-      {list.map((item: MenuItem) => (
+      {list.map((item: MenuItemType) => (
         <MenuBarItem
           clearLanguage={clearLanguage}
           key={item.type}

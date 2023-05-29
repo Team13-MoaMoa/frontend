@@ -1,27 +1,49 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import React from 'react';
+import React, { useRef } from 'react';
 import defaultProfile from '@/assets/defaultProfile.png';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { setIsLogin } from '@/store/user';
+import usePreView from '@/hook/usePreview';
+import PreviewImage from './PreviewImage';
 export default function Login4() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const onSubmit = () => {
+    alert('가입완료!');
+    router.push('/');
+    dispatch(setIsLogin(true));
+  };
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [previewImage, handleFileInputChange] = usePreView();
+  const imageHandle = () => {
+    inputRef.current?.click();
+  };
+
   return (
     <>
       <LoginPage>
-        <Overlay></Overlay>
+        <Overlay />
         <SocialLoginBox>
-          <Line></Line>
+          <Line />
           <LoginContent>
             <h1>
               moamoa님만의 특별한 이미지를 설정해보세요.
               <br />
               물론,언제든지 변경할 수 있어요!
             </h1>
-            <InsertImage>
-              <div>
-                <Image fill src={defaultProfile} alt="기본 프로필" />
-              </div>
+            <InsertImage onClick={imageHandle}>
+              <PreviewImage previewImage={previewImage} />
+              <HideInput
+                type="file"
+                ref={inputRef}
+                onChange={handleFileInputChange}
+              />
             </InsertImage>
             <Buttons>
-              <SignUpButton onClick={() => alert('가입완료!')}>
+              <SignUpButton onClick={onSubmit}>
                 <span>가입완료</span>
               </SignUpButton>
             </Buttons>
@@ -51,6 +73,10 @@ const LoginPage = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 101;
+`;
+
+const HideInput = styled.input`
+  display: none;
 `;
 
 const SocialLoginBox = styled.div`

@@ -12,6 +12,7 @@ import usePosition from '@/hook/usePosition';
 import useLanguage from '@/hook/useLanguage';
 import useInput from '@/hook/useInput';
 import { BoardListDataType } from '@/types/board';
+import { boardCardsList } from '@/constants/boardCards';
 
 export default function Home() {
   const { page, onChangePage } = usePage();
@@ -19,7 +20,8 @@ export default function Home() {
   //TODO: language 콤마 형식으로 보내는건지? -> 콤마 형식 맞다
   const { language, onChangeLanguage, clearLanguage } = useLanguage();
   const [keyword, onChangeKeyword] = useInput();
-  const [BoardListData, setBoardListData] = useState<BoardListDataType>();
+  const [BoardListData, setBoardListData] =
+    useState<BoardListDataType>(boardCardsList);
 
   useEffect(() => {
     //TODO: 게시글 리스트 불러오기 api 작성
@@ -30,8 +32,7 @@ export default function Home() {
 
   return (
     <Div>
-      <OverlaySocialLogin />
-      <BannerSlider></BannerSlider>
+      <BannerSlider />
       <MainDiv>
         <section>
           <div>
@@ -44,15 +45,16 @@ export default function Home() {
             <SearchBox keyword={keyword} onChangeKeyword={onChangeKeyword} />
           </div>
           <TechStackList
+            position={position}
             language={language}
             onChangeLanguage={onChangeLanguage}
           />
         </section>
-        <BoardCardList boardCards={BoardListData?.content}></BoardCardList>
+        <BoardCardList boardCards={BoardListData?.content} />
         <Pagination
           totalPages={BoardListData?.totalPages}
           onChangePage={onChangePage}
-        ></Pagination>
+        />
       </MainDiv>
     </Div>
   );

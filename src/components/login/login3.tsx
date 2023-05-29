@@ -27,9 +27,9 @@ export default function Login3({ setStep, setUser }: Step) {
   return (
     <>
       <LoginPage>
-        <Overlay></Overlay>
+        <Overlay />
         <SocialLoginBox>
-          <Line></Line>
+          <Line />
           <LoginContent>
             <h1>
               moamoa님,반가워요.
@@ -145,9 +145,8 @@ const NickNameBox = styled.div`
       outline: none;
     }
     &::placeholder {
-      font-size: 0.4em;
+      font-size: 1.2rem;
     }
-
     ${(props) => props.theme.mq.mobile} {
       zoom: 0.8;
     }
