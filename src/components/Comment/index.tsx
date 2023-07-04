@@ -25,7 +25,7 @@ export default function Comment({
           <p>{user.nickname}</p>
           <p>
             {dayjs(new Date('June 17, 2023 13:24:00')).format(
-              'YYYY-MM-DD HH:MM'
+              'YYYY-MM-DD HH:MM',
             )}
           </p>
           <NoteIcon>

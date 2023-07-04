@@ -36,7 +36,7 @@ const PartOptions: SelectOption[] = [
 export default function Write() {
   const [contents, setContents] = useState('');
   const [member, setMember] = useState<SelectOption | undefined>(
-    MemberOptions[0]
+    MemberOptions[0],
   );
   const [stack, setStack] = useState<SelectOption[]>([]);
   const [part, setPart] = useState<SelectOption[]>([]);
@@ -145,7 +145,7 @@ export default function Write() {
         handlers: { image: imageHandler },
       },
     }),
-    []
+    [],
   );
   return (
     <S.WriteWrapper>
