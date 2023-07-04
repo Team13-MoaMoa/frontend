@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface UserState {
+  isLogin: boolean;
   user: {
     id: number;
     nickname: string;
@@ -11,6 +12,7 @@ export interface UserState {
 }
 
 const initialState: UserState = {
+  isLogin: false,
   user: {
     id: 0,
     nickname: '',
@@ -27,8 +29,11 @@ export const userSlice = createSlice({
     setUser(state, action) {
       state.user = action.payload;
     },
+    setIsLogin(state, action) {
+      state.isLogin = action.payload;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setIsLogin } = userSlice.actions;
 export default userSlice.reducer;

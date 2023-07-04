@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import avatar from '@/assets/avatar.png';
 import person from '@/assets/person.png';
 import logout from '@/assets/logout.png';
@@ -10,8 +10,15 @@ import logo from '@/assets/logo.png';
 import close from '@/assets/close.png';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-export default function NavBar() {
-  const [user, setUser] = useState(true); //유저가 있다면
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
+
+type NavbarProps = {
+  setIsLoginModalClicked: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
+  const isLogin = useSelector<RootState>((state) => state.user.isLogin);
   const [profileToggle, setProfileToggle] = useState(false);
   const [hamburgerToggle, setHamburgerToggle] = useState(false);
   const [sideToggle, setSideToggle] = useState(false);
@@ -81,7 +88,7 @@ export default function NavBar() {
         <Logo onClick={() => router.push('/')}>
           <Image fill src={logo} alt="이미지" />
         </Logo>
-        {user ? (
+        {isLogin ? (
           <SelectList>
             {hamburgerToggle ? (
               <ToggleIcon onClick={shiftSideBar}>
@@ -129,7 +136,9 @@ export default function NavBar() {
             )}
           </SelectList>
         ) : (
-          <LoginButton>Log In</LoginButton>
+          <LoginButton onClick={() => setIsLoginModalClicked(true)}>
+            Log In
+          </LoginButton>
         )}
       </Container>
     </Nav>
@@ -295,24 +304,18 @@ const MyPageIcon = styled.div`
   height: 2rem;
 `;
 const LoginButton = styled.div`
-  background-color: #957f6a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 8rem;
-  height: 4.8rem;
-
+  height: 4rem;
+  background-color: #957f6a;
   background: #957f6a;
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.04);
   border-radius: 6px;
   color: #ffffff;
-  font-family: var(--Noto-B);
-  font-size: 1.2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 1.5rem;
   cursor: pointer;
-  position: absolute;
-  right: 11rem;
-  top: calc(50% - 2.4rem);
-
   &:hover {
     opacity: 0.8;
   }

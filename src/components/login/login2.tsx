@@ -23,9 +23,9 @@ export default function Login2({ setStep, setUser }: Step) {
   return (
     <>
       <LoginPage>
-        <Overlay></Overlay>
+        <Overlay />
         <SocialLoginBox>
-          <Line></Line>
+          <Line />
           <LoginContent>
             <h1>우선,사용하실 닉네임을 입력해주세요!</h1>
             <NickNameBox>
@@ -119,9 +119,6 @@ const NickNameBox = styled.div`
     cursor: pointer;
     &:focus {
       outline: none;
-    }
-    &::placeholder {
-      font-size: 0.4em;
     }
   }
 `;

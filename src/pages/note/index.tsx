@@ -6,10 +6,10 @@ import NoteDetail from '@/components/NoteDetail';
 import SendNote from '@/components/SendNote';
 
 function NotePage() {
-  const [noteIsOpen, setNoteIsOpen] = useState<boolean>(false);
+  const [isNoteOpen, setIsNoteOpen] = useState<boolean>(false);
 
   const onClickNoteModal = () => {
-    setNoteIsOpen((per) => !per);
+    setIsNoteOpen((prev) => !prev);
   };
 
   return (
@@ -30,7 +30,7 @@ function NotePage() {
             />
           </IconDiv>
         </TitleDiv>
-        {noteIsOpen ? <SendNote onClickNoteModal={onClickNoteModal} /> : null}
+        {isNoteOpen && <SendNote onClickNoteModal={onClickNoteModal} />}
         <NoteDetail />
       </ListDiv>
     </Div>

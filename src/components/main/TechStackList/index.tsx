@@ -5,14 +5,24 @@ import { TechStackItemType } from '@/types/techStack';
 import TechStackItem from '../TechStackItem';
 
 type TechStackListProps = {
+  position: string;
   language: string[];
   onChangeLanguage: (language: string) => void;
 };
 
-function TechStackList({ onChangeLanguage, language }: TechStackListProps) {
+function TechStackList({
+  position,
+  language,
+  onChangeLanguage,
+}: TechStackListProps) {
+  const filteredTechStack =
+    position === 'ALL'
+      ? techStackData
+      : techStackData.filter((data) => position === data.type);
+
   return (
     <TechStackUl>
-      {techStackData.map((item: TechStackItemType) => (
+      {filteredTechStack.map((item: TechStackItemType) => (
         <TechStackItem
           selected={language.includes(item.name)}
           key={item.id}

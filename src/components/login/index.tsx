@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import React, { useEffect } from 'react';
+import React from 'react';
 import githubButton from '@/assets/githubButton.png';
 import kakaoButton from '@/assets/kakaoButton.png';
-export default function Login({ nextStep }: any) {
+export default function Login() {
   const NEXT_PUBLIC_KAKAO_KEY = process.env.NEXT_PUBLIC_KAKAO_KEY;
   const handleKakaoLogin = () => {
     window.location.href = String(NEXT_PUBLIC_KAKAO_KEY);
@@ -12,9 +12,9 @@ export default function Login({ nextStep }: any) {
   return (
     <>
       <LoginPage>
-        <Overlay></Overlay>
+        <Overlay />
         <SocialLoginBox>
-          <Line></Line>
+          <Line />
           <WelCome>
             <h1>
               <span>모아모아</span>에 오신걸 환영합니다!
@@ -22,21 +22,13 @@ export default function Login({ nextStep }: any) {
             <SocialButtonBox>
               <GithubButtonBox>
                 <GithubButton>
-                  <Image
-                    fill
-                    src={githubButton}
-                    alt="깃허브 소셜로그인버튼"
-                  ></Image>
+                  <Image fill src={githubButton} alt="깃허브 소셜로그인버튼" />
                 </GithubButton>
                 <div>Github로그인</div>
               </GithubButtonBox>
               <KakaoButtonBox onClick={handleKakaoLogin}>
                 <KakaoButton>
-                  <Image
-                    fill
-                    src={kakaoButton}
-                    alt="카카오 소셜로그인버튼"
-                  ></Image>
+                  <Image fill src={kakaoButton} alt="카카오 소셜로그인버튼" />
                 </KakaoButton>
                 <div>Kakao로그인</div>
               </KakaoButtonBox>

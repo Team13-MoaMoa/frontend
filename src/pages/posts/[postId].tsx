@@ -9,14 +9,15 @@ import likeIcon from '@/assets/like.png';
 import Image from 'next/image';
 import dayjs from 'dayjs';
 import Comment from '@/components/Comment';
-import techStackData from '@/constants/techStackData';
+import getTechImageURL from '@/utils/getTechImageUrl';
+import SendNote from '@/components/SendNote';
 
 const DUMMY_DATA: PostType = {
   id: 1,
-  title: '성결대학교 전공종합설계 팀원 모집합니다.',
-  project_name: '모아모아',
+  title: '[ React ] 프로젝트 급구!',
+  project_name: 'MoaMoa',
   content:
-    '<h1>동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</h1>',
+    '<p><h1>저희는 리액트 프로젝트를 진행하려고 합니다😄</h1> <br/> <h3>Frontend에 능숙하신 분을 구하고 있습니다!</h3> <br/> 프로젝트 관심 있으신 분은 쪽지나 댓글 부탁드립니다 :)</p>',
   deadline: new Date('June 17, 2023 03:24:00'),
   headcount: 6,
   job_position: 'ALL',
@@ -61,13 +62,15 @@ const DUMMY_DATA: PostType = {
 export default function Post() {
   const router = useRouter();
   const [likeState, setLikeState] = useState(false);
-  const getTechImageURL = (id: number) => {
-    const url = techStackData.find((data) => data.id === id)?.img;
-    return url;
+  const [isNoteOpen, setIsNoteOpen] = useState(false);
+
+  const onClickNoteModal = () => {
+    setIsNoteOpen((prev) => !prev);
   };
+
   return (
     <S.PostWrapper>
-      <S.BackIconWrapper>
+      <S.BackIconWrapper onClick={() => router.push('/')}>
         <Image src={backIcon} alt="backIcon" fill />
       </S.BackIconWrapper>
       <h1>{DUMMY_DATA.title}</h1>
@@ -77,7 +80,12 @@ export default function Post() {
         </S.ProfileImage>
         <S.OptionBox>
           <S.OptionImage>
-            <Image src="/noteIcon.png" alt="noteIcon" fill />
+            <Image
+              src="/noteIcon.png"
+              alt="noteIcon"
+              fill
+              onClick={() => setIsNoteOpen(true)}
+            />
           </S.OptionImage>
           <S.OptionImage>
             {likeState ? (
@@ -129,15 +137,15 @@ export default function Post() {
           <S.Description>
             <p>사용 기술</p>
             <ul>
-              {DUMMY_DATA.tech_stack_list.map((tech) => {
-                const url = getTechImageURL(tech.id);
-                if (!url) return;
-                return (
-                  <S.TechIcon key={tech.id}>
-                    <Image src={url} alt="techIcon" fill />
-                  </S.TechIcon>
-                );
-              })}
+              {DUMMY_DATA.tech_stack_list.map((tech) => (
+                <S.TechIcon key={tech.id}>
+                  <Image
+                    src={getTechImageURL(tech.id) || ''}
+                    alt="techIcon"
+                    fill
+                  />
+                </S.TechIcon>
+              ))}
             </ul>
           </S.Description>
         </S.DescriptionBox>
@@ -165,10 +173,12 @@ export default function Post() {
               key={comment.id}
               content={comment.content}
               user={comment.user}
+              onClickNoteModal={onClickNoteModal}
             />
           ))}
         </S.CommentList>
       </S.CommentWrapper>
+      {isNoteOpen && <SendNote onClickNoteModal={onClickNoteModal} />}
     </S.PostWrapper>
   );
 }

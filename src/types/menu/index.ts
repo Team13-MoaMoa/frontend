@@ -1,4 +1,4 @@
-type MenuItemType = {
+export type MenuItemType = {
   name: string;
   type: string;
 };
