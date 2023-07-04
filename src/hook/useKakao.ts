@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 export default function useKakao(
   code: string | null,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
 ) {
   const [newUser, setNewUser] = useState(true);
 

@@ -8,7 +8,7 @@ import styles from './styles.module.scss';
 
 const YEARS = Array.from(
   { length: getYear(new Date()) + 1 - 2000 },
-  (_, i) => getYear(new Date()) + i
+  (_, i) => getYear(new Date()) + i,
 );
 const MONTHS = [
   'January',
