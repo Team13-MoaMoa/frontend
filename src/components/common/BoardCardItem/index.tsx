@@ -1,4 +1,4 @@
-import { BoardDataType } from '@/types/board';
+import { BoardType } from '@/types/board';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import { RxPerson } from 'react-icons/rx';
@@ -6,16 +6,17 @@ import { TbMessageCircle2 } from 'react-icons/tb';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import getTechImageURL from '@/utils/getTechImageUrl';
+import Avatar from '@/assets/avatar.png';
 type LetterDivType = {
   blue?: boolean;
 };
 
 type IconImgDivType = {
   width?: string;
-  heigth?: string;
+  height?: string;
 };
 
-type BoardCardItemProps = { card: BoardDataType };
+type BoardCardItemProps = { card: BoardType };
 
 function BoardCardItem({ card }: BoardCardItemProps) {
   const router = useRouter();
@@ -32,7 +33,16 @@ function BoardCardItem({ card }: BoardCardItemProps) {
           }}
         >
           <ProfileImage>
-            <Image src={card.user.image_url} alt="profileImage" fill />
+            {/*TODO: 현재 DB에 image_url 없으면 null로 되어있음
+                src에 null 들어가면 에러남
+                프로필 설정 하는 페이지 담당하시는 분이 처리 어떻게 할건지 물어보기
+                현재는 avatar.png 띄우게 처리함
+           */}
+            <Image
+              src={card.user.image_url || Avatar}
+              alt="profileImage"
+              fill
+            />
           </ProfileImage>
           <NameDiv>{card.user.nickname}</NameDiv>
         </section>
@@ -54,7 +64,7 @@ function BoardCardItem({ card }: BoardCardItemProps) {
           }}
         >
           {card.tech_stack_list.map((tech) => (
-            <IconImgDiv key={tech.id} width="5rem" heigth="5rem">
+            <IconImgDiv key={tech.id} width="5rem" height="5rem">
               <Image src={getTechImageURL(tech.id) || ''} alt="react" fill />
             </IconImgDiv>
           ))}
@@ -62,11 +72,11 @@ function BoardCardItem({ card }: BoardCardItemProps) {
         <InfoIconBox>
           <InfoIconItem style={{ marginRight: '1rem' }}>
             <RxPerson />
-            <div>2</div>
+            <div>{card.headcount}</div>
           </InfoIconItem>
           <InfoIconItem style={{ marginLeft: '1rem' }}>
             <TbMessageCircle2 />
-            <div>9</div>
+            <div>{card.comment_count}</div>
           </InfoIconItem>
         </InfoIconBox>
       </InfoDiv>
@@ -117,7 +127,7 @@ const IconImgDiv = styled.div<IconImgDivType>`
   border: 1px solid;
   border-radius: 100%;
   width: ${(props) => props.width};
-  height: ${(props) => props.heigth};
+  height: ${(props) => props.height};
 `;
 
 const ProfileImage = styled.div`

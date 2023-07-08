@@ -1,9 +1,10 @@
 import useLanguage from '@/hook/useLanguage';
+import { MenuItemType } from '@/types/menu';
 import styled from '@emotion/styled';
 import React from 'react';
 
 type MenuBarItemProps = {
-  item: MenuItem;
+  item: MenuItemType;
   selected: boolean;
   onChangePosition: (position: string) => void;
   clearLanguage: () => void;

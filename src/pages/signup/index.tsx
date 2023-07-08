@@ -1,6 +1,3 @@
-import Login2 from '@/components/Login/Login2';
-import Login3 from '@/components/Login/Login3';
-import Login4 from '@/components/Login/Login4';
 import useKakao from '@/hook/useKakao';
 import styled from '@emotion/styled';
 import loadingUI from '@/assets/loading.gif';
@@ -8,6 +5,9 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { User } from '@/types/login';
+import Login2 from '@/components/Login/login2';
+import Login3 from '@/components/Login/login3';
+import Login4 from '@/components/Login/login4';
 export default function Signup() {
   const [user, setUser] = useState<User>({
     id: 0,

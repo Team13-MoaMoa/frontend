@@ -4,18 +4,18 @@ import React from 'react';
 import { FiSearch } from 'react-icons/fi';
 
 type SearchBoxProps = {
-  keyword: string;
-  onChangeKeyword: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  search: string;
+  onChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-function SearchBox({ keyword, onChangeKeyword }: SearchBoxProps) {
+function SearchBox({ search, onChangeSearch }: SearchBoxProps) {
   return (
     <SearchDiv>
       <FiSearch></FiSearch>
       <SearchInput
         placeholder="Search anything"
-        value={keyword}
-        onChange={onChangeKeyword}
+        value={search}
+        onChange={onChangeSearch}
       />
     </SearchDiv>
   );
