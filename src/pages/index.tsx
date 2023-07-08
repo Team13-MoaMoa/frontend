@@ -15,6 +15,7 @@ import { ResponseBoardListType } from '@/types/board';
 import { boardCardsList } from '@/constants/boardCards';
 import { baseInstance } from '@/api/axiosCustom';
 import { AxiosRequestConfig } from 'axios';
+import useDebounceInput from '@/hook/useDebounce';
 
 export default function Home() {
   const { page, onChangePage } = usePage();
@@ -24,7 +25,8 @@ export default function Home() {
   const [search, onChangeSearch] = useInput();
   const [ResponseBoardListData, setResponseBoardListData] =
     useState<ResponseBoardListType>(boardCardsList);
-  console.log('ResponseBoardListData', ResponseBoardListData);
+  const debouncedSearch = useDebounceInput(search);
+
   useEffect(() => {
     const config: AxiosRequestConfig = {
       url: 'posts/all',
@@ -32,15 +34,15 @@ export default function Home() {
       params: {
         page,
         position: position === '' ? undefined : position,
-        language: language.join(',') === '' ? undefined : language,
-        search: search === '' ? undefined : search,
+        language: language.join(',') === '' ? undefined : language.join(','),
+        search: debouncedSearch === '' ? undefined : debouncedSearch,
       },
     };
 
     baseInstance.request(config).then((res) => {
       setResponseBoardListData(res.data);
     });
-  }, [page, position, language, search]);
+  }, [page, position, language, debouncedSearch]);
 
   return (
     <Div>
