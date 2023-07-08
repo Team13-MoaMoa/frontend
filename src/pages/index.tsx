@@ -11,24 +11,36 @@ import usePage from '@/hook/usePage';
 import usePosition from '@/hook/usePosition';
 import useLanguage from '@/hook/useLanguage';
 import useInput from '@/hook/useInput';
-import { BoardListDataType } from '@/types/board';
+import { ResponseBoardListType } from '@/types/board';
 import { boardCardsList } from '@/constants/boardCards';
+import { baseInstance } from '@/api/axiosCustom';
+import { AxiosRequestConfig } from 'axios';
 
 export default function Home() {
   const { page, onChangePage } = usePage();
   const { position, onChangePosition } = usePosition();
   //TODO: language 콤마 형식으로 보내는건지? -> 콤마 형식 맞다
   const { language, onChangeLanguage, clearLanguage } = useLanguage();
-  const [keyword, onChangeKeyword] = useInput();
-  const [BoardListData, setBoardListData] =
-    useState<BoardListDataType>(boardCardsList);
-
+  const [search, onChangeSearch] = useInput();
+  const [ResponseBoardListData, setResponseBoardListData] =
+    useState<ResponseBoardListType>(boardCardsList);
+  console.log('ResponseBoardListData', ResponseBoardListData);
   useEffect(() => {
-    //TODO: 게시글 리스트 불러오기 api 작성
-    // 게시글 페이지네이션 받아오면 boardListData에 넣어준다
-    // language -> 문자열로 바꿔서 보내야한다 ex) React,Java  <- join(',')활용하기
-    console.log(page, position, language, keyword); //<- 얘네들 params로 보내줘야한다.
-  }, [page, position, language, keyword]);
+    const config: AxiosRequestConfig = {
+      url: 'posts/all',
+      method: 'get',
+      params: {
+        page,
+        position: position === '' ? undefined : position,
+        language: language.join(',') === '' ? undefined : language,
+        search: search === '' ? undefined : search,
+      },
+    };
+
+    baseInstance.request(config).then((res) => {
+      setResponseBoardListData(res.data);
+    });
+  }, [page, position, language, search]);
 
   return (
     <Div>
@@ -42,7 +54,7 @@ export default function Home() {
               list={techStackMenu}
               onChangePosition={onChangePosition}
             />
-            <SearchBox keyword={keyword} onChangeKeyword={onChangeKeyword} />
+            <SearchBox search={search} onChangeSearch={onChangeSearch} />
           </div>
           <TechStackList
             position={position}
@@ -50,9 +62,9 @@ export default function Home() {
             onChangeLanguage={onChangeLanguage}
           />
         </section>
-        <BoardCardList boardCards={BoardListData?.content} />
+        <BoardCardList boardCards={ResponseBoardListData?.data.content} />
         <Pagination
-          totalPages={BoardListData?.totalPages}
+          totalPages={ResponseBoardListData?.data.totalPages}
           onChangePage={onChangePage}
         />
       </MainDiv>

@@ -1,48 +1,49 @@
-export type BoardListResponseType = {
+export type ResponseBoardListType = {
   code: string;
   message: string;
-  data: BoardListDataType;
+  data: BoardListType;
 };
 
-export type BoardListDataType = {
-  content: BoardDataType[];
+export type BoardListType = {
+  content: BoardType[];
   pageable: string;
-  last: boolean;
   totalPages: number;
   totalElements: number;
+  last: boolean;
+  sort: Sort;
+  numberOfElements: number;
   first: boolean;
   size: number;
   number: number;
-  sort: SortType;
-  numberOfElements: number;
   empty: boolean;
 };
 
-export type BoardDataType = {
+export type BoardType = {
   id: number;
   title: string;
   project_name: string;
   content: string;
   deadline: Date;
   headcount: number;
-  job_position: string[];
-  user: UserType;
-  tech_stack_list: TechStackListType[];
+  job_tag: string[];
+  user: User;
+  tech_stack_list: TechStackList[];
   comment_count: number;
+  created_at: Date;
 };
 
-export type TechStackListType = {
+export type TechStackList = {
   id: number;
 };
 
-export type UserType = {
+export type User = {
   id: number;
   nickname: string;
-  image_url: string;
+  image_url: null;
 };
 
-export type SortType = {
-  empty: boolean;
-  sorted: boolean;
+export type Sort = {
   unsorted: boolean;
+  sorted: boolean;
+  empty: boolean;
 };
