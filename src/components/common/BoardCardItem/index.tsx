@@ -6,6 +6,7 @@ import { TbMessageCircle2 } from 'react-icons/tb';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import getTechImageURL from '@/utils/getTechImageUrl';
+import Avatar from '@/assets/avatar.png';
 type LetterDivType = {
   blue?: boolean;
 };
@@ -35,9 +36,13 @@ function BoardCardItem({ card }: BoardCardItemProps) {
             {/*TODO: 현재 DB에 image_url 없으면 null로 되어있음
                 src에 null 들어가면 에러남
                 프로필 설정 하는 페이지 담당하시는 분이 처리 어떻게 할건지 물어보기
-                현재는 빈문자열로 처리함
+                현재는 avatar.png 띄우게 처리함
            */}
-            <Image src={card.user.image_url || ''} alt="profileImage" fill />
+            <Image
+              src={card.user.image_url || Avatar}
+              alt="profileImage"
+              fill
+            />
           </ProfileImage>
           <NameDiv>{card.user.nickname}</NameDiv>
         </section>
@@ -67,11 +72,11 @@ function BoardCardItem({ card }: BoardCardItemProps) {
         <InfoIconBox>
           <InfoIconItem style={{ marginRight: '1rem' }}>
             <RxPerson />
-            <div>2</div>
+            <div>{card.headcount}</div>
           </InfoIconItem>
           <InfoIconItem style={{ marginLeft: '1rem' }}>
             <TbMessageCircle2 />
-            <div>9</div>
+            <div>{card.comment_count}</div>
           </InfoIconItem>
         </InfoIconBox>
       </InfoDiv>
