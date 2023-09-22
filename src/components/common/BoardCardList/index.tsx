@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import BoardCardItem from '../BoardCardItem';
-import { BoardDataType } from '@/types/board';
+import { BoardType } from '@/types/board';
 
 type BoardCardListProps = {
-  boardCards: BoardDataType[] | undefined;
+  boardCards: BoardType[] | undefined;
 };
 
 function BoardCardList({ boardCards }: BoardCardListProps) {

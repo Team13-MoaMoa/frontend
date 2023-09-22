@@ -16,7 +16,7 @@ function TechStackList({
   onChangeLanguage,
 }: TechStackListProps) {
   const filteredTechStack =
-    position === 'ALL'
+    position === ''
       ? techStackData
       : techStackData.filter((data) => position === data.type);
 
