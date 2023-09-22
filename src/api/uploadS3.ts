@@ -3,12 +3,10 @@ import { AxiosError } from 'axios';
 import { v4 } from 'uuid';
 import { ApiResponseType } from '@/types/apiResponseType';
 
-const {
-  NEXT_PUBLIC_ACCESS_KEY,
-  NEXT_PUBLIC_SECRET_ACCESS_KEY,
-  NEXT_PUBLIC_BUCKET_NAME,
-  NEXT_PUBLIC_S3_REGION,
-} = process.env;
+const NEXT_PUBLIC_ACCESS_KEY = process.env.NEXT_PUBLIC_ACCESS_KEY;
+const NEXT_PUBLIC_SECRET_ACCESS_KEY = process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY;
+const NEXT_PUBLIC_BUCKET_NAME = process.env.NEXT_PUBLIC_BUCKET_NAME;
+const NEXT_PUBLIC_S3_REGION = process.env.NEXT_PUBLIC_S3_REGION;
 
 AWS.config.update({
   region: NEXT_PUBLIC_S3_REGION,
@@ -33,6 +31,7 @@ export const uploadFile = async (file: File) => {
     const { Location } = await s3.upload(params).promise();
     return Location;
   } catch (err) {
-    alert((err as AxiosError<ApiResponseType>).response?.data.message);
+    console.log(err);
+    // alert((err as AxiosError<ApiResponseType>).response?.data.message);
   }
 };
