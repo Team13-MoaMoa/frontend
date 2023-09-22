@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import avatar from '@/assets/avatar.png';
 import person from '@/assets/person.png';
 import logout from '@/assets/logout.png';

@@ -1,12 +1,16 @@
-import React, { useMemo, useRef, useState } from 'react';
-import * as S from './styles';
+import React, { useRef, useState } from 'react';
 import Select from '@/components/Select';
 import { SelectOption } from '@/types/select';
 import CalendarInput from '@/components/Calendar';
-import dynamic from 'next/dynamic';
-// import { uploadFile } from '@/services/uploadS3';
 import 'react-quill/dist/quill.snow.css';
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+import useQuillModules from '@/hook/useQuillModules';
+import ReactQuill from 'react-quill';
+import styled from '@emotion/styled';
+import dynamic from 'next/dynamic';
+const QuillNoSSRWrapper = dynamic(
+  () => import('@/utils/Quill/QuillNoSSRWrapper'),
+  { ssr: false },
+);
 
 const MemberOptions: SelectOption[] = [
   { label: '인원 미정', value: '1' },
@@ -45,133 +49,35 @@ export default function Write() {
     setContents(content);
   };
 
-  const QuillRef = useRef<typeof ReactQuill>(null);
+  const QuillRef = useRef<ReactQuill>(null);
 
-  const imageHandler = () => {
-    const input = document.createElement('input');
+  const modules = useQuillModules(QuillRef);
 
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
-
-    input.onchange = async () => {
-      if (input.files !== null) {
-        console.log(input.files[0]);
-      }
-      if (input.files !== null) {
-        const file = input.files[0];
-        // try {
-        //   const res = await uploadFile(file);
-        //   const url = res?.location || '';
-        //   const range = QuillRef.current?.getEditor().getSelection()?.index;
-        //   if (range !== null && range !== undefined) {
-        //     let quill = QuillRef.current?.getEditor();
-
-        //     quill?.setSelection(range, 1);
-
-        //     quill?.clipboard.dangerouslyPasteHTML(
-        //       range,
-        //       `<img src=${url} alt="이미지" />`
-        //     );
-        //   }
-
-        //   return { ...res, success: true };
-        // } catch (error) {
-        //   const err = error as AxiosError;
-        //   return { ...err.response, success: false };
-        // }
-      }
-    };
-  };
-
-  const modules = useMemo(
-    () => ({
-      toolbar: {
-        container: [
-          [{ header: [1, 2, false] }],
-          ['bold', 'underline', 'strike', 'blockquote'],
-          [
-            { list: 'ordered' },
-            { list: 'bullet' },
-            { indent: '-1' },
-            { indent: '+1' },
-          ],
-          ['link'],
-          [
-            {
-              color: [
-                '#000000',
-                '#e60000',
-                '#ff9900',
-                '#ffff00',
-                '#008a00',
-                '#0066cc',
-                '#9933ff',
-                '#ffffff',
-                '#facccc',
-                '#ffebcc',
-                '#ffffcc',
-                '#cce8cc',
-                '#cce0f5',
-                '#ebd6ff',
-                '#bbbbbb',
-                '#f06666',
-                '#ffc266',
-                '#ffff66',
-                '#66b966',
-                '#66a3e0',
-                '#c285ff',
-                '#888888',
-                '#a10000',
-                '#b26b00',
-                '#b2b200',
-                '#006100',
-                '#0047b2',
-                '#6b24b2',
-                '#444444',
-                '#5c0000',
-                '#663d00',
-                '#666600',
-                '#003700',
-                '#002966',
-                '#3d1466',
-                'custom-color',
-              ],
-            },
-          ],
-          ['image'],
-          ['clean'],
-        ],
-        handlers: { image: imageHandler },
-      },
-    }),
-    [],
-  );
   return (
-    <S.WriteWrapper>
-      <S.Section>
-        <S.SectionTitle>
+    <WriteWrapper>
+      <Section>
+        <SectionTitle>
           <span>1</span>
           <h1>프로젝트 기본 정보를 입력해주세요.</h1>
-        </S.SectionTitle>
-        <S.SectionContent>
-          <S.InputWrapper>
+        </SectionTitle>
+        <SectionContent>
+          <InputWrapper>
             <label htmlFor="name">프로젝트 이름</label>
             <input
               id="name"
               type="text"
               placeholder="프로젝트 이름을 입력하세요."
             />
-          </S.InputWrapper>
-          <S.InputWrapper>
+          </InputWrapper>
+          <InputWrapper>
             <label>모집 인원</label>
             <Select
               options={MemberOptions}
               value={member}
               onChange={(o) => setMember(o)}
             />
-          </S.InputWrapper>
-          <S.InputWrapper>
+          </InputWrapper>
+          <InputWrapper>
             <label>기술 스택</label>
             <Select
               multiple
@@ -179,8 +85,8 @@ export default function Write() {
               value={stack}
               onChange={(o) => setStack(o)}
             />
-          </S.InputWrapper>
-          <S.InputWrapper>
+          </InputWrapper>
+          <InputWrapper>
             <label>모집 분야</label>
             <Select
               multiple
@@ -188,39 +94,142 @@ export default function Write() {
               value={part}
               onChange={(o) => setPart(o)}
             />
-          </S.InputWrapper>
-          <S.InputWrapper>
+          </InputWrapper>
+          <InputWrapper>
             <label>모집 마감일</label>
             <CalendarInput />
-          </S.InputWrapper>
-        </S.SectionContent>
-      </S.Section>
-      <S.Section>
-        <S.SectionTitle>
+          </InputWrapper>
+        </SectionContent>
+      </Section>
+      <Section>
+        <SectionTitle>
           <span>2</span>
           <h1>프로젝트에 대해 소개해주세요.</h1>
-        </S.SectionTitle>
-        <S.SectionContent2>
-          <S.InputWrapper style={{ width: '100%', marginBottom: '1.6rem' }}>
+        </SectionTitle>
+        <SectionContent2>
+          <InputWrapper style={{ width: '100%', marginBottom: '1.6rem' }}>
             <label htmlFor="title">제목</label>
             <input
               id="title"
               type="text"
               placeholder="글 제목을 입력해주세요."
             />
-          </S.InputWrapper>
+          </InputWrapper>
           <div>
-            <S.StyledQuill
+            <StyledQuill
+              forwardedRef={QuillRef}
               onChange={onChange}
               modules={modules}
               placeholder="프로젝트에 대해 소개해주세요."
             />
           </div>
-          <S.ButtonWrapper>
+          <ButtonWrapper>
             <button>글 등록</button>
-          </S.ButtonWrapper>
-        </S.SectionContent2>
-      </S.Section>
-    </S.WriteWrapper>
+          </ButtonWrapper>
+        </SectionContent2>
+      </Section>
+    </WriteWrapper>
   );
 }
+
+export const WriteWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  max-width: 1024px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 6rem 3rem;
+  color: ${(props) => props.theme.text_color};
+`;
+
+export const Section = styled.section`
+  margin-bottom: 10rem;
+`;
+
+export const SectionTitle = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 3rem;
+  padding-top: 0;
+  border-bottom: 3px solid black;
+  & > span {
+    flex-shrink: 0;
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1.5rem;
+    text-align: center;
+    background-color: ${(props) => props.theme.main_brown};
+    color: white;
+    border-radius: 50%;
+    font-size: 3.5rem;
+  }
+  & > h1 {
+    font-family: var(--Noto-B);
+    font-size: 4rem;
+    color: #3d4a5c;
+  }
+`;
+
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 42rem;
+  & > label {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+  & > input,
+  select {
+    height: 4.6rem;
+    border: 1px solid ${(props) => props.theme.main_brown};
+    border-radius: 6px;
+    padding: 1rem;
+    outline: none;
+    font-size: 1.6rem;
+    color: ${(props) => props.theme.text_color};
+  }
+`;
+
+export const SectionContent = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(42rem, 1fr));
+  margin-top: 5rem;
+  row-gap: 2.5rem;
+`;
+
+export const StyledQuill = styled(QuillNoSSRWrapper)`
+  display: flex;
+  flex-direction: column;
+  font-family: 'NanumSquareAcR';
+  height: 40rem;
+  overflow-y: scroll;
+`;
+
+export const SectionContent2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rem;
+  & > div {
+    margin-bottom: 1rem;
+  }
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  & > button {
+    width: 12rem;
+    height: 4.5rem;
+    border: none;
+    border-radius: 6px;
+    background-color: ${(props) => props.theme.main_brown};
+    color: white;
+    font-size: 1.8rem;
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+`;
