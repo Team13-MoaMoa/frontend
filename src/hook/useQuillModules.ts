@@ -13,7 +13,7 @@ const useQuillModules = (
           border: 'none',
           color: 'white',
         },
-        modules: ['Resize', 'DisplaySize', 'Toolbar'],
+        modules: ['Resize', 'DisplaySize'],
       },
       toolbar: {
         container: [
