@@ -202,8 +202,11 @@ export const StyledQuill = styled(QuillNoSSRWrapper)`
   display: flex;
   flex-direction: column;
   font-family: 'NanumSquareAcR';
-  height: 40rem;
-  overflow-y: scroll;
+  width: 100%;
+  min-height: 40rem;
+  & > div:first-child {
+    top: 70px;
+  }
 `;
 
 export const SectionContent2 = styled.div`

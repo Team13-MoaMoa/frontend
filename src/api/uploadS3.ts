@@ -32,6 +32,6 @@ export const uploadFile = async (file: File) => {
     return Location;
   } catch (err) {
     console.log(err);
-    // alert((err as AxiosError<ApiResponseType>).response?.data.message);
+    alert((err as AxiosError<ApiResponseType>).response?.data.message);
   }
 };
