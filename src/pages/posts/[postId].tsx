@@ -183,7 +183,7 @@ export default function Post() {
   );
 }
 
-export const PostWrapper = styled.div`
+const PostWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -206,7 +206,7 @@ export const PostWrapper = styled.div`
   }
 `;
 
-export const BackIconWrapper = styled.div`
+const BackIconWrapper = styled.div`
   position: relative;
   width: 5rem;
   height: 5rem;
@@ -216,7 +216,7 @@ export const BackIconWrapper = styled.div`
   }
 `;
 
-export const DescriptionWrapper = styled.div`
+const DescriptionWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -227,13 +227,13 @@ export const DescriptionWrapper = styled.div`
   font-size: 2.2rem;
 `;
 
-export const DescriptionBox = styled.div`
+const DescriptionBox = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(42rem, 1fr));
   row-gap: 2.5rem;
 `;
 
-export const Description = styled.div`
+const Description = styled.div`
   display: flex;
   font-family: var(--Noto-B);
   & > p {
@@ -251,7 +251,7 @@ export const Description = styled.div`
   }
 `;
 
-export const OptionBadge = styled.li`
+const OptionBadge = styled.li`
   display: flex;
   align-items: center;
   text-align: center;
@@ -267,7 +267,7 @@ export const OptionBadge = styled.li`
   }
 `;
 
-export const ProfileImage = styled.div`
+const ProfileImage = styled.div`
   position: relative;
   position: absolute;
   top: -2.5rem;
@@ -277,14 +277,14 @@ export const ProfileImage = styled.div`
   border-radius: 50%;
   overflow: hidden;
 `;
-export const OptionBox = styled.div`
+const OptionBox = styled.div`
   display: flex;
   align-self: flex-end;
   gap: 2.5rem;
   margin-bottom: 2rem;
 `;
 
-export const OptionImage = styled.div`
+const OptionImage = styled.div`
   position: relative;
   width: 2.75rem;
   height: 2.75rem;
@@ -294,7 +294,7 @@ export const OptionImage = styled.div`
   }
 `;
 
-export const TechIcon = styled.div`
+const TechIcon = styled.div`
   position: relative;
   width: 3.3rem;
   height: 3.3rem;
@@ -303,7 +303,7 @@ export const TechIcon = styled.div`
   margin-right: 0.5rem;
 `;
 
-export const Introduce = styled.div`
+const Introduce = styled.div`
   margin-bottom: 20rem;
   & > h1 {
     font-family: var(--Noto-B);
@@ -326,7 +326,7 @@ export const Introduce = styled.div`
   }
 `;
 
-export const CommentWrapper = styled.div`
+const CommentWrapper = styled.div`
   & > h1 {
     font-family: var(--Noto-B);
     font-size: 3.2rem;
@@ -334,7 +334,7 @@ export const CommentWrapper = styled.div`
   }
 `;
 
-export const InputWrapper = styled.div`
+const InputWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -359,7 +359,7 @@ export const InputWrapper = styled.div`
   }
 `;
 
-export const ClickButton = styled.div`
+const ClickButton = styled.div`
   position: relative;
   width: 5rem;
   height: 5rem;
@@ -369,7 +369,7 @@ export const ClickButton = styled.div`
   }
 `;
 
-export const CommentList = styled.ul`
+const CommentList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 2.5rem;

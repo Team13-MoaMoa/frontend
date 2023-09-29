@@ -132,7 +132,7 @@ export default function Write() {
   );
 }
 
-export const WriteWrapper = styled.div`
+const WriteWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -143,11 +143,11 @@ export const WriteWrapper = styled.div`
   color: ${(props) => props.theme.text_color};
 `;
 
-export const Section = styled.section`
+const Section = styled.section`
   margin-bottom: 10rem;
 `;
 
-export const SectionTitle = styled.div`
+const SectionTitle = styled.div`
   display: flex;
   align-items: center;
   padding: 3rem;
@@ -171,7 +171,7 @@ export const SectionTitle = styled.div`
   }
 `;
 
-export const InputWrapper = styled.div`
+const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 42rem;
@@ -191,14 +191,14 @@ export const InputWrapper = styled.div`
   }
 `;
 
-export const SectionContent = styled.div`
+const SectionContent = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(42rem, 1fr));
   margin-top: 5rem;
   row-gap: 2.5rem;
 `;
 
-export const StyledQuill = styled(QuillNoSSRWrapper)`
+const StyledQuill = styled(QuillNoSSRWrapper)`
   display: flex;
   flex-direction: column;
   font-family: 'NanumSquareAcR';
@@ -209,7 +209,7 @@ export const StyledQuill = styled(QuillNoSSRWrapper)`
   }
 `;
 
-export const SectionContent2 = styled.div`
+const SectionContent2 = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 5rem;
@@ -218,7 +218,7 @@ export const SectionContent2 = styled.div`
   }
 `;
 
-export const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   & > button {
