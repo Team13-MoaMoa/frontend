@@ -150,6 +150,7 @@ const GlobalStyle = () => (
         z-index: 50;
         border: 1px solid #957f6a !important;
         border-radius: 6px 6px 0 0;
+        background-color: white;
       }
       .ql-container {
         flex-grow: 1;
