@@ -16,6 +16,12 @@ import { boardCardsList } from '@/constants/boardCards';
 import { baseInstance } from '@/api/axiosCustom';
 import { AxiosRequestConfig } from 'axios';
 import useDebounceInput from '@/hook/useDebounce';
+import { useSelector } from 'react-redux';
+import Login2 from '@/components/Login/login2';
+import Login3 from '@/components/Login/login3';
+import Login4 from '@/components/Login/login4';
+import { useDispatch } from 'react-redux';
+import { UserState, setIsLogin } from '@/store/user';
 
 export default function Home() {
   const { page, onChangePage } = usePage();
@@ -26,6 +32,21 @@ export default function Home() {
   const [ResponseBoardListData, setResponseBoardListData] =
     useState<ResponseBoardListType>(boardCardsList);
   const debouncedSearch = useDebounceInput(search);
+
+  const user = useSelector((state: UserState) => state.user);
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [step, setStep] = useState(1);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (typeof localStorage !== 'undefined') {
+      const access_token = localStorage.getItem('access_token');
+      if (!access_token && user.id !== 0) {
+        setIsSignUp(true);
+      } else if (access_token) {
+        dispatch(setIsLogin(true));
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const config: AxiosRequestConfig = {
@@ -43,6 +64,33 @@ export default function Home() {
       setResponseBoardListData(res.data);
     });
   }, [page, position, language, debouncedSearch]);
+
+  if (!isSignUp) {
+    switch (step) {
+      case 1:
+        return (
+          <>
+            <Empty />
+            <Login2 setStep={setStep} />
+          </>
+        );
+
+      case 2:
+        return (
+          <>
+            <Empty />
+            <Login3 setStep={setStep} />
+          </>
+        );
+      case 3:
+        return (
+          <>
+            <Empty />
+            <Login4 />
+          </>
+        );
+    }
+  }
 
   return (
     <Div>
@@ -104,4 +152,10 @@ const MainDiv = styled.div`
       flex-wrap: wrap;
     }
   }
+`;
+
+const Empty = styled.div`
+  width: 100vw;
+  background-color: whitesmoke;
+  min-height: calc(100vh - 70px - 159px);
 `;

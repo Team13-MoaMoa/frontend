@@ -5,7 +5,14 @@ import githubButton from '@/assets/githubButton.png';
 import kakaoButton from '@/assets/kakaoButton.png';
 export default function Login() {
   const NEXT_PUBLIC_KAKAO_KEY = process.env.NEXT_PUBLIC_KAKAO_KEY;
+
   const handleKakaoLogin = () => {
+    localStorage.setItem('auth_provider', 'kakao');
+    window.location.href = String(NEXT_PUBLIC_KAKAO_KEY);
+  };
+
+  const handleGithubLogin = () => {
+    localStorage.setItem('auth_provider', 'github');
     window.location.href = String(NEXT_PUBLIC_KAKAO_KEY);
   };
 
@@ -20,7 +27,7 @@ export default function Login() {
               <span>모아모아</span>에 오신걸 환영합니다!
             </h1>
             <SocialButtonBox>
-              <GithubButtonBox>
+              <GithubButtonBox onClick={handleGithubLogin}>
                 <GithubButton>
                   <Image fill src={githubButton} alt="깃허브 소셜로그인버튼" />
                 </GithubButton>

@@ -1,23 +1,23 @@
 import useInput from '@/hook/useInput';
+import { updateUserGitHubUrl, updateUserPortFolioUrl } from '@/store/user';
 import { Step } from '@/types/login';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
-export default function Login3({ setStep, setUser }: Step) {
+export default function Login3({ setStep }: Step) {
   const [gitAddress, gitChangeHandle] = useInput();
   const [portfolioAddress, portfolioChangeHandle] = useInput();
+  const dispatch = useDispatch();
 
   const nextStep = () => {
     if (gitAddress === '' || portfolioAddress === '') {
       alert('깃허브주소 또는 포트폴리오주소를 입력해주세요 !');
       return;
     }
+    dispatch(updateUserPortFolioUrl(portfolioAddress));
+    dispatch(updateUserGitHubUrl(gitAddress));
     setStep(3);
-    setUser((pre) => ({
-      ...pre,
-      gitAddress,
-      portfolioAddress,
-    }));
   };
 
   const skipStep = () => {

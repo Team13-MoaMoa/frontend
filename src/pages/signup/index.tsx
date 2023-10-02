@@ -1,27 +1,40 @@
-import useKakao from '@/hook/useKakao';
-import styled from '@emotion/styled';
-import loadingUI from '@/assets/loading.gif';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateUserId } from '@/store/user';
+import { userAuthApi } from '@/api/userAuth';
+import styled from '@emotion/styled';
+import loadingUI from '../../assets/loading.gif';
 import Image from 'next/image';
-import { User } from '@/types/login';
-import Login2 from '@/components/Login/login2';
-import Login3 from '@/components/Login/login3';
-import Login4 from '@/components/Login/login4';
+
 export default function Signup() {
-  const [user, setUser] = useState<User>({
-    id: 0,
-    nickname: '',
-    image_url: '',
-    github_url: '',
-    portfolio_url: '',
-  });
-  const [step, setStep] = useState(1);
+  let auth: string | null;
+  if (typeof localStorage !== 'undefined') {
+    // localStorage를 사용할 수 있는 경우
+    auth = localStorage.getItem('auth_provider');
+  }
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const searchParams = new URLSearchParams(router.asPath.split(/\?/)[1]);
   const code = searchParams.get('code');
-  const [loading, setLoading] = useState(true);
-  const [hasUser] = useKakao(code, setLoading);
+
+  useEffect(() => {
+    (async () => {
+      let data = await userAuthApi(auth);
+      if (data.access_token && data.refresh_token) {
+        localStorage.setItem('access_token', data.access_token);
+        localStorage.setItem('refresh_token', data.refresh_token);
+      }
+      if (data.kakao_user_info) {
+        dispatch(updateUserId(data.kakao_user_info.id));
+      } else if (data.github_user_info) {
+        dispatch(updateUserId(data.github_user_info.id));
+      }
+      setLoading(false);
+      router.push('/');
+    })();
+  }, [code, dispatch]);
 
   if (loading) {
     return (
@@ -31,35 +44,6 @@ export default function Signup() {
         </ImageBox>
       </ImageMiddleBox>
     );
-  }
-
-  // if (hasUser) {
-  //   router.push('/');
-  // }
-
-  switch (step) {
-    case 1:
-      return (
-        <>
-          <Empty />
-          <Login2 setUser={setUser} setStep={setStep} />
-        </>
-      );
-
-    case 2:
-      return (
-        <>
-          <Empty />
-          <Login3 setUser={setUser} setStep={setStep} />
-        </>
-      );
-    case 3:
-      return (
-        <>
-          <Empty />
-          <Login4 />
-        </>
-      );
   }
 }
 

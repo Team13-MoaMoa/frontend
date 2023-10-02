@@ -19,6 +19,7 @@ type NavbarProps = {
 
 export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
   const isLogin = useSelector<RootState>((state) => state.user.isLogin);
+  const user = useSelector<RootState>((state) => state.user);
   const [profileToggle, setProfileToggle] = useState(false);
   const [hamburgerToggle, setHamburgerToggle] = useState(false);
   const [sideToggle, setSideToggle] = useState(false);

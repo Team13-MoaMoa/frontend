@@ -1,11 +1,12 @@
 import useInput from '@/hook/useInput';
+import { updateUserNickname } from '@/store/user';
 import { Step } from '@/types/login';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
-export default function Login2({ setStep, setUser }: Step) {
-  // useinput
-  //초기값 init , 리턴값 onchange , nickname , setnickname
+export default function Login2({ setStep }: Step) {
+  const dispatch = useDispatch();
   const [nickName, changeHandle] = useInput();
 
   const nextStepHandle = () => {
@@ -14,10 +15,7 @@ export default function Login2({ setStep, setUser }: Step) {
       return;
     }
     setStep(2);
-    setUser((pre) => ({
-      ...pre,
-      nickName,
-    }));
+    dispatch(updateUserNickname(nickName));
   };
 
   return (

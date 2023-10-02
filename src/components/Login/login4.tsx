@@ -1,25 +1,35 @@
 import styled from '@emotion/styled';
-import Image from 'next/image';
 import React, { useRef } from 'react';
-import defaultProfile from '@/assets/defaultProfile.png';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { setIsLogin } from '@/store/user';
 import usePreView from '@/hook/usePreview';
 import PreviewImage from './PreviewImage';
+import { uploadFile } from '@/api/uploadS3';
+import { signUpApi } from '@/api/signUp';
+import { UserState } from '@/store/user';
+import { useSelector } from 'react-redux';
+
 export default function Login4() {
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const user = useSelector((state: UserState) => state.user);
+  const [previewImage, handleFileInputChange, file] = usePreView();
+
+  const imageHandle = () => {
+    inputRef.current?.click();
+  };
+
   const dispatch = useDispatch();
-  const onSubmit = () => {
+
+  const onSubmit = async () => {
+    console.log(file);
+    const res = await uploadFile(file);
+    console.log(res);
+    await signUpApi(user);
     alert('가입완료!');
     router.push('/');
     dispatch(setIsLogin(true));
-  };
-
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [previewImage, handleFileInputChange] = usePreView();
-  const imageHandle = () => {
-    inputRef.current?.click();
   };
 
   return (
