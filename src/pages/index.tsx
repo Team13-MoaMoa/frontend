@@ -50,7 +50,7 @@ export default function Home() {
 
   useEffect(() => {
     const config: AxiosRequestConfig = {
-      url: 'posts/all',
+      url: '/api/v1/posts/all',
       method: 'get',
       params: {
         page,
@@ -65,7 +65,7 @@ export default function Home() {
     });
   }, [page, position, language, debouncedSearch]);
 
-  if (!isSignUp) {
+  if (isSignUp) {
     switch (step) {
       case 1:
         return (

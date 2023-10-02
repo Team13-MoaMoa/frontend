@@ -12,6 +12,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { baseInstance } from '@/api/axiosCustom';
 
 type NavbarProps = {
   setIsLoginModalClicked: React.Dispatch<React.SetStateAction<boolean>>;
@@ -123,7 +124,7 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
                           </MyPageIcon>
                           <div>마이페이지</div>
                         </div>
-                        <div>
+                        <div onClick={signOut}>
                           <MyPageIcon>
                             <Image fill src={logout} alt="로그아웃" />
                           </MyPageIcon>

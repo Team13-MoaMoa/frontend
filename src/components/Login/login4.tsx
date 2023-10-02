@@ -23,9 +23,7 @@ export default function Login4() {
   const dispatch = useDispatch();
 
   const onSubmit = async () => {
-    console.log(file);
-    const res = await uploadFile(file);
-    console.log(res);
+    await uploadFile(file);
     await signUpApi(user);
     alert('가입완료!');
     router.push('/');

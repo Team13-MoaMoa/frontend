@@ -5,6 +5,7 @@ import githubButton from '@/assets/githubButton.png';
 import kakaoButton from '@/assets/kakaoButton.png';
 export default function Login() {
   const NEXT_PUBLIC_KAKAO_KEY = process.env.NEXT_PUBLIC_KAKAO_KEY;
+  const NEXT_PUBLIC_GITHUB_KEY = process.env.NEXT_PUBLIC_GITHUB_KEY;
 
   const handleKakaoLogin = () => {
     localStorage.setItem('auth_provider', 'kakao');
@@ -13,7 +14,7 @@ export default function Login() {
 
   const handleGithubLogin = () => {
     localStorage.setItem('auth_provider', 'github');
-    window.location.href = String(NEXT_PUBLIC_KAKAO_KEY);
+    window.location.href = String(NEXT_PUBLIC_GITHUB_KEY);
   };
 
   return (
