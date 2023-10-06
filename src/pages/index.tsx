@@ -21,7 +21,7 @@ import Login2 from '@/components/Login/login2';
 import Login3 from '@/components/Login/login3';
 import Login4 from '@/components/Login/login4';
 import { useDispatch } from 'react-redux';
-import { UserState, setIsLogin } from '@/store/user';
+import { setIsLogin } from '@/store/user';
 
 export default function Home() {
   const { page, onChangePage } = usePage();
@@ -75,7 +75,7 @@ export default function Home() {
     });
   }, [page, position, language, debouncedSearch]);
 
-  if (!isSignUp) {
+  if (isSignUp) {
     switch (step) {
       case 1:
         return (

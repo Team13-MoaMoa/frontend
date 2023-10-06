@@ -6,16 +6,22 @@ import { userAuthApi } from '@/api/userAuth';
 import Loading from '@/components/Loading';
 
 export default function Kakao() {
-  let auth: string | null;
-  if (typeof localStorage !== 'undefined') {
-    // localStorage를 사용할 수 있는 경우
-    auth = localStorage.getItem('auth_provider');
-  }
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
+  let auth: string | null;
+  if (typeof window !== 'undefined') {
+    // 현재 경로를 가져옵니다
+    const currentPath = router.pathname;
+
+    // 경로를 분석하고 필요한 부분을 추출합니다
+    const pathParts = currentPath.split('/'); // 경로를 슬래시로 분할
+    auth = pathParts[2]; // "kakao" 부분을 가져옵니다
+  }
+
   const searchParams = new URLSearchParams(router.asPath.split(/\?/)[1]);
   const code = searchParams.get('code');
+
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
