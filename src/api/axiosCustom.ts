@@ -10,7 +10,7 @@ export const authInstance = axios.create({
   baseURL: BASE_URL,
   // TODO: 토큰 관리하는 방법에 따라 변경할 수 있음
   headers: {
-    Authorization: `Barear ${
+    Authorization: `Bearer ${
       typeof window === 'object' ? localStorage.getItem('access_token') : ''
     }`,
   },

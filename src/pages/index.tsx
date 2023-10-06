@@ -13,7 +13,7 @@ import useLanguage from '@/hook/useLanguage';
 import useInput from '@/hook/useInput';
 import { ResponseBoardListType } from '@/types/board';
 import { boardCardsList } from '@/constants/boardCards';
-import { baseInstance } from '@/api/axiosCustom';
+import { authInstance, baseInstance } from '@/api/axiosCustom';
 import { AxiosRequestConfig } from 'axios';
 import useDebounceInput from '@/hook/useDebounce';
 import { useSelector } from 'react-redux';
@@ -33,19 +33,29 @@ export default function Home() {
     useState<ResponseBoardListType>(boardCardsList);
   const debouncedSearch = useDebounceInput(search);
 
-  const user = useSelector((state: UserState) => state.user);
+  const user = useSelector((state: any) => state.user);
   const [isSignUp, setIsSignUp] = useState(false);
   const [step, setStep] = useState(1);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
-      const access_token = localStorage.getItem('access_token');
-      if (!access_token && user.id !== 0) {
+      const token = localStorage.getItem('access_token');
+      if (!token && user.user.id !== 0) {
         setIsSignUp(true);
-      } else if (access_token) {
+      } else if (token) {
         dispatch(setIsLogin(true));
+      } else if (!token) {
+        dispatch(setIsLogin(false));
       }
     }
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const res = await authInstance.get('api/v1/posts/2');
+      console.log(res);
+    })();
   }, []);
 
   useEffect(() => {
@@ -65,7 +75,7 @@ export default function Home() {
     });
   }, [page, position, language, debouncedSearch]);
 
-  if (isSignUp) {
+  if (!isSignUp) {
     switch (step) {
       case 1:
         return (

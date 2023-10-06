@@ -5,7 +5,7 @@ import { updateUserId } from '@/store/user';
 import { userAuthApi } from '@/api/userAuth';
 import Loading from '@/components/Loading';
 
-export default function Signup() {
+export default function Kakao() {
   let auth: string | null;
   if (typeof localStorage !== 'undefined') {
     // localStorage를 사용할 수 있는 경우

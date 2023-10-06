@@ -1,6 +1,6 @@
 import { baseInstance } from './axiosCustom';
 
-type SignUpType = {
+export type SignUpType = {
   id: number;
   nickname: string;
   email: string;
@@ -11,6 +11,7 @@ type SignUpType = {
 };
 
 export const signUpApi = async (user: SignUpType) => {
-  const res = await baseInstance.post('api/v1/users/signup', user);
+  const newUser = { ...user, id: 2788971752, auth_provider: 'KAKAO' };
+  const res = await baseInstance.post('api/v1/users/signup', newUser);
   return res.data;
 };

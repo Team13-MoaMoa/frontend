@@ -7,13 +7,14 @@ import usePreView from '@/hook/usePreview';
 import PreviewImage from './PreviewImage';
 import { uploadFile } from '@/api/uploadS3';
 import { signUpApi } from '@/api/signUp';
-import { UserState } from '@/store/user';
 import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 export default function Login4() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
-  const user = useSelector((state: UserState) => state.user);
+  const user = useSelector((state: RootState) => state.user);
+  console.log(user);
   const [previewImage, handleFileInputChange, file] = usePreView();
 
   const imageHandle = () => {
@@ -23,8 +24,9 @@ export default function Login4() {
   const dispatch = useDispatch();
 
   const onSubmit = async () => {
-    await uploadFile(file);
-    await signUpApi(user);
+    const res = await uploadFile(file);
+
+    await signUpApi(user.user);
     alert('가입완료!');
     router.push('/');
     dispatch(setIsLogin(true));
