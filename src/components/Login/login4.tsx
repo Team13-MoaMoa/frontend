@@ -9,6 +9,7 @@ import { uploadFile } from '@/api/uploadS3';
 import { signUpApi } from '@/api/signUp';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { userAuthApi } from '@/api/userAuth';
 
 export default function Login4() {
   const router = useRouter();
@@ -27,9 +28,8 @@ export default function Login4() {
     const url = await uploadFile(file);
     dispatch(updateUserImageUrl(url));
     await signUpApi(user.user, url);
-    alert('가입완료!');
+    alert('가입완료! 다시 로그인을 해주세요 !');
     router.push('/');
-    dispatch(setIsLogin(true));
   };
 
   return (

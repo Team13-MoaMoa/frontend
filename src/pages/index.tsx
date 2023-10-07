@@ -13,7 +13,7 @@ import useLanguage from '@/hook/useLanguage';
 import useInput from '@/hook/useInput';
 import { ResponseBoardListType } from '@/types/board';
 import { boardCardsList } from '@/constants/boardCards';
-import { authInstance, baseInstance } from '@/api/axiosCustom';
+import { baseInstance } from '@/api/axiosCustom';
 import { AxiosRequestConfig } from 'axios';
 import useDebounceInput from '@/hook/useDebounce';
 import { useSelector } from 'react-redux';
@@ -22,6 +22,7 @@ import Login3 from '@/components/Login/login3';
 import Login4 from '@/components/Login/login4';
 import { useDispatch } from 'react-redux';
 import { setIsLogin } from '@/store/user';
+import { RootState } from '@/store';
 
 export default function Home() {
   const { page, onChangePage } = usePage();
@@ -33,7 +34,7 @@ export default function Home() {
     useState<ResponseBoardListType>(boardCardsList);
   const debouncedSearch = useDebounceInput(search);
 
-  const user = useSelector((state: any) => state.user);
+  const user = useSelector((state: RootState) => state.user);
   const [isSignUp, setIsSignUp] = useState(false);
   const [step, setStep] = useState(1);
   const dispatch = useDispatch();
@@ -51,18 +52,18 @@ export default function Home() {
     }
   }, []);
 
-  useEffect(() => {
-    if (typeof localStorage !== 'undefined' && typeof window !== 'undefined') {
-      const token = localStorage.getItem('access_token');
-      console.log(token);
-      if (token) {
-        (async () => {
-          const res = await authInstance.get('api/v1/posts/2');
-          console.log(res);
-        })();
-      }
-    }
-  }, []);
+  //호출 예시
+  // useEffect(() => {
+  //   if (typeof localStorage !== 'undefined' && typeof window !== 'undefined') {
+  //     const token = localStorage.getItem('access_token');
+  //     if (token) {
+  //       (async () => {
+  //         const res = await authInstance.get('api/v1/posts/2');
+  //         console.log(res);
+  //       })();
+  //     }
+  //   }
+  // }, []);
 
   useEffect(() => {
     const config: AxiosRequestConfig = {

@@ -36,9 +36,7 @@ export default function Kakao() {
       } else if (data.github_user_info) {
         dispatch(updateUserId(data.github_user_info.id));
       }
-      console.log('호출');
       dispatch(updateAuthProvider(auth));
-      setLoading(false);
       router.push('/');
     })();
   }, [code, dispatch]);

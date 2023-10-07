@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { updateAuthProvider, updateUserId } from '@/store/user';
 import { userAuthApi } from '@/api/userAuth';
 import Loading from '@/components/Loading';
+import { createAuthInstance } from '@/api/axiosCustom';
 
 export default function Github() {
   const router = useRouter();
@@ -28,6 +29,8 @@ export default function Github() {
       if (data.access_token && data.refresh_token) {
         localStorage.setItem('access_token', data.access_token);
         localStorage.setItem('refresh_token', data.refresh_token);
+        const token = localStorage.getItem('access_token');
+        createAuthInstance(token);
       }
       if (data.kakao_user_info) {
         dispatch(updateUserId(data.kakao_user_info.id));
@@ -35,7 +38,6 @@ export default function Github() {
         dispatch(updateUserId(data.github_user_info.id));
       }
       dispatch(updateAuthProvider(auth));
-      setLoading(false);
       router.push('/');
     })();
   }, [code, dispatch]);
