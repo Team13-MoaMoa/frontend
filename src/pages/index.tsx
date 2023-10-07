@@ -52,10 +52,16 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    (async () => {
-      const res = await authInstance.get('api/v1/posts/2');
-      console.log(res);
-    })();
+    if (typeof localStorage !== 'undefined' && typeof window !== 'undefined') {
+      const token = localStorage.getItem('access_token');
+      console.log(token);
+      if (token) {
+        (async () => {
+          const res = await authInstance.get('api/v1/posts/2');
+          console.log(res);
+        })();
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -75,7 +81,7 @@ export default function Home() {
     });
   }, [page, position, language, debouncedSearch]);
 
-  if (isSignUp) {
+  if (!isSignUp) {
     switch (step) {
       case 1:
         return (

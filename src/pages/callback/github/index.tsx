@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateUserId } from '@/store/user';
+import { updateAuthProvider, updateUserId } from '@/store/user';
 import { userAuthApi } from '@/api/userAuth';
 import Loading from '@/components/Loading';
 
@@ -36,6 +36,7 @@ export default function Github() {
       } else if (data.github_user_info) {
         dispatch(updateUserId(data.github_user_info.id));
       }
+      dispatch(updateAuthProvider(auth));
       setLoading(false);
       router.push('/');
     })();

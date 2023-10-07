@@ -8,12 +8,10 @@ export default function Login() {
   const NEXT_PUBLIC_GITHUB_KEY = process.env.NEXT_PUBLIC_GITHUB_KEY;
 
   const handleKakaoLogin = () => {
-    localStorage.setItem('auth_provider', 'kakao');
     window.location.href = String(NEXT_PUBLIC_KAKAO_KEY);
   };
 
   const handleGithubLogin = () => {
-    localStorage.setItem('auth_provider', 'github');
     window.location.href = String(NEXT_PUBLIC_GITHUB_KEY);
   };
 

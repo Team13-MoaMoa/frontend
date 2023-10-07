@@ -22,9 +22,11 @@ type NavbarProps = {
 
 export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
   const isLogin = useSelector<RootState>((state) => state.user.isLogin);
-  const user = useSelector<RootState>((state) => state.user);
   const dispatch = useDispatch();
 
+  const authProvider = useSelector(
+    (state: RootState) => state.user.user.auth_provider,
+  );
   const [profileToggle, setProfileToggle] = useState(false);
   const [hamburgerToggle, setHamburgerToggle] = useState(false);
   const [sideToggle, setSideToggle] = useState(false);
@@ -44,7 +46,7 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
   };
 
   const signOut = async () => {
-    logoutApi();
+    logoutApi(authProvider);
     dispatch(setIsLogin(false));
     dispatch(updateUserId(0));
     localStorage.removeItem('access_token');
