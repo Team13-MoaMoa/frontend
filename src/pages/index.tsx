@@ -81,7 +81,7 @@ export default function Home() {
     });
   }, [page, position, language, debouncedSearch]);
 
-  if (!isSignUp) {
+  if (isSignUp) {
     switch (step) {
       case 1:
         return (

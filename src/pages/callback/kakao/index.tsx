@@ -10,12 +10,10 @@ export default function Kakao() {
   const router = useRouter();
   let auth: string | null;
   if (typeof window !== 'undefined') {
-    // 현재 경로를 가져옵니다
     const currentPath = router.pathname;
 
-    // 경로를 분석하고 필요한 부분을 추출합니다
-    const pathParts = currentPath.split('/'); // 경로를 슬래시로 분할
-    auth = pathParts[2]; // "kakao" 부분을 가져옵니다
+    const pathParts = currentPath.split('/');
+    auth = pathParts[2];
   }
 
   const searchParams = new URLSearchParams(router.asPath.split(/\?/)[1]);
