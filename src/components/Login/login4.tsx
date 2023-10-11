@@ -2,14 +2,13 @@ import styled from '@emotion/styled';
 import React, { useRef } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { setIsLogin, updateUserImageUrl } from '@/store/user';
+import { updateUserImageUrl } from '@/store/user';
 import usePreView from '@/hook/usePreview';
 import PreviewImage from './PreviewImage';
 import { uploadFile } from '@/api/uploadS3';
 import { signUpApi } from '@/api/signUp';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { userAuthApi } from '@/api/userAuth';
 
 export default function Login4() {
   const router = useRouter();
