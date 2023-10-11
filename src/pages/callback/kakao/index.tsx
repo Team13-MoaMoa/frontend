@@ -30,8 +30,6 @@ export default function Kakao() {
       }
       if (data.kakao_user_info) {
         dispatch(updateUserId(data.kakao_user_info.id));
-      } else if (data.github_user_info) {
-        dispatch(updateUserId(data.github_user_info.id));
       }
       dispatch(updateAuthProvider(auth));
       router.push('/');

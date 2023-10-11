@@ -29,9 +29,7 @@ export default function Github() {
         localStorage.setItem('access_token', data.access_token);
         localStorage.setItem('refresh_token', data.refresh_token);
       }
-      if (data.kakao_user_info) {
-        dispatch(updateUserId(data.kakao_user_info.id));
-      } else if (data.github_user_info) {
+      if (data.github_user_info) {
         dispatch(updateUserId(data.github_user_info.id));
       }
       dispatch(updateAuthProvider(auth));
