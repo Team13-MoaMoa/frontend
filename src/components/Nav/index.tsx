@@ -46,7 +46,7 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
   };
 
   const signOut = async () => {
-    logoutApi(authProvider);
+    await logoutApi(authProvider);
     dispatch(setIsLogin(false));
     dispatch(updateUserId(0));
     localStorage.removeItem('access_token');

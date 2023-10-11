@@ -10,15 +10,14 @@ export let authInstance = axios.create({
   baseURL: BASE_URL,
 });
 
-export const createAuthInstance = (accessToken: string | null) => {
-  authInstance = axios.create({
-    baseURL: BASE_URL,
-    // TODO: 토큰 관리하는 방법에 따라 변경할 수 있음
-    headers: {
-      Authorization: accessToken ? `Bearer ${accessToken}` : '',
-    },
-  });
-};
+authInstance.interceptors.request.use((config) => {
+  if (typeof window === 'object') {
+    const accesstoken = localStorage.getItem('access_token');
+    config.headers['Authorization'] = `Bearer ${accesstoken}`;
+  }
+
+  return config;
+});
 
 // TODO: interceptor 재인증 로직 추가
 authInstance.interceptors.response.use(

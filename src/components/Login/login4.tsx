@@ -28,7 +28,7 @@ export default function Login4() {
     const url = await uploadFile(file);
     dispatch(updateUserImageUrl(url));
     await signUpApi(user.user, url);
-    alert('가입완료! 다시 로그인을 해주세요 !');
+    alert('회원가입 완료! 다시 로그인을 해주세요 !');
     router.push('/');
   };
 
