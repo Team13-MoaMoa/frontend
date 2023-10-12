@@ -9,12 +9,12 @@ import { uploadFile } from '@/api/uploadS3';
 import { signUpApi } from '@/api/signUp';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { DEFAULT_PROFILE_URL } from '@/constants/defaultProfile';
 
 export default function Login4() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const user = useSelector((state: RootState) => state.user);
-
   const dispatch = useDispatch();
 
   const [previewImage, handleFileInputChange, file] = usePreView();
@@ -24,8 +24,16 @@ export default function Login4() {
   };
 
   const onSubmit = async () => {
-    const url = await uploadFile(file);
-    dispatch(updateUserImageUrl(url));
+    let url: string;
+
+    if (file) {
+      url = await uploadFile(file);
+      dispatch(updateUserImageUrl(url));
+    } else {
+      url = DEFAULT_PROFILE_URL;
+      dispatch(updateUserImageUrl(DEFAULT_PROFILE_URL));
+    }
+
     await signUpApi(user.user, url);
     alert('회원가입 완료! 다시 로그인을 해주세요 !');
     router.push('/');

@@ -4,7 +4,7 @@ export type SignUpType = {
   id: number;
   nickname: string;
   email: string;
-  auth_provider: string;
+  auth_provider: 'kakao' | 'github' | '';
   image_url: string;
   port_folio_url: string;
   github_url: string;

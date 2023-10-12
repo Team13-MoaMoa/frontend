@@ -6,7 +6,7 @@ export type UserState = {
     id: number;
     nickname: string;
     email: string;
-    auth_provider: string;
+    auth_provider: 'kakao' | 'github' | '';
     image_url: string;
     github_url: string;
     port_folio_url: string;
