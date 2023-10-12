@@ -7,7 +7,7 @@ const Loading = () => {
   return (
     <ImageMiddleBox>
       <ImageBox>
-        <Image fill src={loadingUI} alt="" />
+        <Image fill src={loadingUI} alt="로딩중 사진" />
       </ImageBox>
     </ImageMiddleBox>
   );
