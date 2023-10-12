@@ -7,12 +7,8 @@ export default function Login() {
   const NEXT_PUBLIC_KAKAO_KEY = process.env.NEXT_PUBLIC_KAKAO_KEY;
   const NEXT_PUBLIC_GITHUB_KEY = process.env.NEXT_PUBLIC_GITHUB_KEY;
 
-  const handleKakaoLogin = () => {
-    window.location.href = String(NEXT_PUBLIC_KAKAO_KEY);
-  };
-
-  const handleGithubLogin = () => {
-    window.location.href = String(NEXT_PUBLIC_GITHUB_KEY);
+  const handleLogin = (LOGIN_KEY: string | undefined) => {
+    window.location.href = String(LOGIN_KEY);
   };
 
   return (
@@ -26,13 +22,17 @@ export default function Login() {
               <span>모아모아</span>에 오신걸 환영합니다!
             </h1>
             <SocialButtonBox>
-              <GithubButtonBox onClick={handleGithubLogin}>
+              <GithubButtonBox
+                onClick={() => handleLogin(NEXT_PUBLIC_GITHUB_KEY)}
+              >
                 <GithubButton>
                   <Image fill src={githubButton} alt="깃허브 소셜로그인버튼" />
                 </GithubButton>
                 <div>Github로그인</div>
               </GithubButtonBox>
-              <KakaoButtonBox onClick={handleKakaoLogin}>
+              <KakaoButtonBox
+                onClick={() => handleLogin(NEXT_PUBLIC_KAKAO_KEY)}
+              >
                 <KakaoButton>
                   <Image fill src={kakaoButton} alt="카카오 소셜로그인버튼" />
                 </KakaoButton>
