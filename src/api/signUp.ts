@@ -13,6 +13,6 @@ export type SignUpType = {
 export const signUpApi = async (user: SignUpType, url: string) => {
   const auth_provider = user.auth_provider.toUpperCase();
   const newUser = { ...user, auth_provider: auth_provider, image_url: url };
-  const res = await baseInstance.post('api/v1/users/signup', newUser);
+  const res = await baseInstance.post('users/signup', newUser);
   return res.data;
 };

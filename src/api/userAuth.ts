@@ -1,7 +1,9 @@
 import axios from 'axios';
-import { baseInstance } from './axiosCustom';
 
 export const userAuthApi = async (auth: string | null, code: string | null) => {
-  const res = await baseInstance.get(`login/oauth2/code/${auth}?code=${code}`);
+  const BASE_URL = 'http://43.200.45.247:8080/';
+  const res = await axios.get(
+    `${BASE_URL}login/oauth2/code/${auth}?code=${code}`,
+  );
   return res.data;
 };

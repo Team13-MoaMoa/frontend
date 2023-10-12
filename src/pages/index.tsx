@@ -67,7 +67,7 @@ export default function Home() {
 
   useEffect(() => {
     const config: AxiosRequestConfig = {
-      url: '/api/v1/posts/all',
+      url: '/posts/all',
       method: 'get',
       params: {
         page,
