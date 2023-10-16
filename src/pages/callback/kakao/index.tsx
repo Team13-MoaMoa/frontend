@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { updateAuthProvider, updateUserId } from '@/store/user';
 import { userAuthApi } from '@/api/userAuth';
 import Loading from '@/components/Loading';
-import { updateCode } from '@/store/code';
 
 export default function Kakao() {
   const router = useRouter();
@@ -34,7 +33,6 @@ export default function Kakao() {
         router.push('/login/step1');
       }
       dispatch(updateAuthProvider(auth));
-      dispatch(updateCode(code));
       router.push('/');
     })();
   }, [code, dispatch]);

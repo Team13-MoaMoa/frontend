@@ -17,7 +17,6 @@ export default function Step3() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const user = useSelector((state: RootState) => state.user);
-  const code = useSelector((state: RootState) => state.code.code);
   const dispatch = useDispatch();
 
   const [previewImage, handleFileInputChange, file] = usePreView();

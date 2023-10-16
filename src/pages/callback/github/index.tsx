@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { updateAuthProvider, updateUserId } from '@/store/user';
 import { userAuthApi } from '@/api/userAuth';
 import Loading from '@/components/Loading';
-import { updateCode } from '@/store/code';
 
 export default function Github() {
   const router = useRouter();
@@ -36,7 +35,6 @@ export default function Github() {
         router.push('/login/step1');
       }
       dispatch(updateAuthProvider(auth));
-      dispatch(updateCode(code));
 
       router.push('/');
     })();
