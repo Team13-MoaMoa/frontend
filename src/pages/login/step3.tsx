@@ -2,19 +2,22 @@ import styled from '@emotion/styled';
 import React, { useRef } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { updateUserImageUrl } from '@/store/user';
+import { updateUserId, updateUserImageUrl } from '@/store/user';
 import usePreView from '@/hook/usePreview';
-import PreviewImage from './PreviewImage';
 import { uploadFile } from '@/api/uploadS3';
 import { signUpApi } from '@/api/signUp';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { DEFAULT_PROFILE_URL } from '@/constants/defaultProfile';
+import { userAuthApi } from '@/api/userAuth';
+import PreviewImage from '@/components/Login/PreviewImage';
+import { Empty } from '..';
 
-export default function Login4() {
+export default function Step3() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const user = useSelector((state: RootState) => state.user);
+  const code = useSelector((state: RootState) => state.code.code);
   const dispatch = useDispatch();
 
   const [previewImage, handleFileInputChange, file] = usePreView();
@@ -33,14 +36,15 @@ export default function Login4() {
       url = DEFAULT_PROFILE_URL;
       dispatch(updateUserImageUrl(DEFAULT_PROFILE_URL));
     }
-
+    dispatch(updateUserId(0));
     await signUpApi(user.user, url);
-    alert('회원가입 완료! 다시 로그인을 해주세요 !');
+    alert('회원가입 완료!');
     router.push('/');
   };
 
   return (
     <>
+      <Empty />
       <LoginPage>
         <Overlay />
         <SocialLoginBox>

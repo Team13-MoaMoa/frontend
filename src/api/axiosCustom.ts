@@ -2,14 +2,12 @@ import axios from 'axios';
 
 const BASE_URL = 'http://43.200.45.247:8080/api/v1';
 
-const LOGIN_URL = 'http://43.200.45.247:8080/';
-
 export const baseInstance = axios.create({
   baseURL: BASE_URL,
 });
 
 export const authInstance = axios.create({
-  baseURL: LOGIN_URL,
+  baseURL: BASE_URL,
 });
 
 authInstance.interceptors.request.use((config) => {

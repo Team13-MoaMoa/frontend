@@ -4,8 +4,11 @@ import { Step } from '@/types/login';
 import styled from '@emotion/styled';
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Empty } from '..';
+import { useRouter } from 'next/router';
 
-export default function Login3({ setStep }: Step) {
+export default function Step2() {
+  const router = useRouter();
   const [gitAddress, gitChangeHandle] = useInput();
   const [portfolioAddress, portfolioChangeHandle] = useInput();
   const dispatch = useDispatch();
@@ -17,15 +20,16 @@ export default function Login3({ setStep }: Step) {
     }
     dispatch(updateUserPortFolioUrl(portfolioAddress));
     dispatch(updateUserGitHubUrl(gitAddress));
-    setStep(3);
+    router.push('/login/step3');
   };
 
   const skipStep = () => {
-    setStep(3);
+    router.push('/login/step3');
   };
 
   return (
     <>
+      <Empty />
       <LoginPage>
         <Overlay />
         <SocialLoginBox>

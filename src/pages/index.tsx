@@ -17,14 +17,14 @@ import { baseInstance } from '@/api/axiosCustom';
 import { AxiosRequestConfig } from 'axios';
 import useDebounceInput from '@/hook/useDebounce';
 import { useSelector } from 'react-redux';
-import Login2 from '@/components/Login/login2';
-import Login3 from '@/components/Login/login3';
-import Login4 from '@/components/Login/login4';
 import { useDispatch } from 'react-redux';
 import { setIsLogin } from '@/store/user';
 import { RootState } from '@/store';
+import { useRouter } from 'next/router';
 
 export default function Home() {
+  const router = useRouter();
+
   const { page, onChangePage } = usePage();
   const { position, onChangePosition } = usePosition();
   //TODO: language 콤마 형식으로 보내는건지? -> 콤마 형식 맞다
@@ -36,7 +36,7 @@ export default function Home() {
 
   const user = useSelector((state: RootState) => state.user);
   const [isSignUp, setIsSignUp] = useState(false);
-  const [step, setStep] = useState(1);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -82,31 +82,8 @@ export default function Home() {
     });
   }, [page, position, language, debouncedSearch]);
 
-  if (!isSignUp) {
-    switch (step) {
-      case 1:
-        return (
-          <>
-            <Empty />
-            <Login2 setStep={setStep} />
-          </>
-        );
-
-      case 2:
-        return (
-          <>
-            <Empty />
-            <Login3 setStep={setStep} />
-          </>
-        );
-      case 3:
-        return (
-          <>
-            <Empty />
-            <Login4 />
-          </>
-        );
-    }
+  if (isSignUp) {
+    router.push('/login/step1');
   }
 
   return (
@@ -171,7 +148,7 @@ const MainDiv = styled.div`
   }
 `;
 
-const Empty = styled.div`
+export const Empty = styled.div`
   width: 100vw;
   background-color: whitesmoke;
   min-height: calc(100vh - 70px - 159px);
