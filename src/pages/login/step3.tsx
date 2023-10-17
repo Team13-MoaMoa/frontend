@@ -14,6 +14,14 @@ import PreviewImage from '@/components/Login/PreviewImage';
 import { Empty } from '..';
 
 export default function Step3() {
+  const NEXT_PUBLIC_KAKAO_KEY = process.env.NEXT_PUBLIC_KAKAO_KEY;
+  const NEXT_PUBLIC_GITHUB_KEY = process.env.NEXT_PUBLIC_GITHUB_KEY;
+
+  const handleLogin = (auth: string | undefined) => {
+    const LOGIN_KEY =
+      auth === 'kakao' ? NEXT_PUBLIC_KAKAO_KEY : NEXT_PUBLIC_GITHUB_KEY;
+    window.location.href = String(LOGIN_KEY);
+  };
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const user = useSelector((state: RootState) => state.user);
@@ -38,7 +46,7 @@ export default function Step3() {
     dispatch(updateUserId(0));
     await signUpApi(user.user, url);
     alert('회원가입 완료!');
-    router.push('/');
+    handleLogin(user.user.auth_provider);
   };
 
   return (

@@ -1,4 +1,3 @@
-import useInput from '@/hook/useInput';
 import styled from '@emotion/styled';
 import React from 'react';
 import { FiSearch } from 'react-icons/fi';
