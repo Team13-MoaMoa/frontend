@@ -24,7 +24,7 @@ export type BoardType = {
   project_name: string;
   content: string;
   deadline: Date;
-  headcount: number;
+  headcount: string;
   job_tag: string[];
   user: User;
   tech_stack_list: TechStackList[];

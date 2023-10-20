@@ -26,3 +26,13 @@ export type User = {
 export type TechStackList = {
   id: number;
 };
+
+export type PostSubmit = {
+  title: string;
+  project_name: string;
+  content: string;
+  deadline: string;
+  headcount: string;
+  job_tag: string[];
+  tech_stack_arr: string[];
+};
