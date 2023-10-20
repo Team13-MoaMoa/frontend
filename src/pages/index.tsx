@@ -52,19 +52,6 @@ export default function Home() {
     }
   }, []);
 
-  //호출 예시
-  // useEffect(() => {
-  //   if (typeof localStorage !== 'undefined' && typeof window !== 'undefined') {
-  //     const token = localStorage.getItem('access_token');
-  //     if (token) {
-  //       (async () => {
-  //         const res = await authInstance.get('api/v1/posts/2');
-  //         console.log(res);
-  //       })();
-  //     }
-  //   }
-  // }, []);
-
   useEffect(() => {
     const config: AxiosRequestConfig = {
       url: '/posts/all',
