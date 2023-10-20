@@ -1,10 +1,11 @@
+import { Auth } from '@/types/login';
 import { baseInstance } from './axiosCustom';
 
 export type SignUpType = {
   id: number;
   nickname: string;
   email: string;
-  auth_provider: 'kakao' | 'github' | '';
+  auth_provider: Auth;
   image_url: string;
   port_folio_url: string;
   github_url: string;

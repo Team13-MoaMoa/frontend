@@ -1,3 +1,4 @@
+import { Auth } from '@/types/login';
 import { createSlice } from '@reduxjs/toolkit';
 
 export type UserState = {
@@ -6,7 +7,7 @@ export type UserState = {
     id: number;
     nickname: string;
     email: string;
-    auth_provider: 'kakao' | 'github' | '';
+    auth_provider: Auth;
     image_url: string;
     github_url: string;
     port_folio_url: string;

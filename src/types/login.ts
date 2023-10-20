@@ -9,3 +9,5 @@ export type User = {
   github_url: string;
   portfolio_url: string;
 };
+
+export type Auth = 'kakao' | 'github' | '';
