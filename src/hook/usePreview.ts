@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 export default function usePreView(): any {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  console.log(previewImage);
+  const [file, setFile] = useState<File | null>(null);
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
+    setFile(file);
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -12,5 +13,5 @@ export default function usePreView(): any {
       };
     }
   };
-  return [previewImage, handleFileInputChange];
+  return [previewImage, handleFileInputChange, file];
 }

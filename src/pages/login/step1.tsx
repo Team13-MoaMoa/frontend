@@ -1,11 +1,14 @@
 import useInput from '@/hook/useInput';
-import { Step } from '@/types/login';
+import { updateUserNickname } from '@/store/user';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Empty } from '..';
+import { useRouter } from 'next/router';
 
-export default function Login2({ setStep, setUser }: Step) {
-  // useinput
-  //초기값 init , 리턴값 onchange , nickname , setnickname
+export default function Step1() {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const [nickName, changeHandle] = useInput();
 
   const nextStepHandle = () => {
@@ -13,15 +16,13 @@ export default function Login2({ setStep, setUser }: Step) {
       alert('닉네임을 입력해주세요!');
       return;
     }
-    setStep(2);
-    setUser((pre) => ({
-      ...pre,
-      nickName,
-    }));
+    dispatch(updateUserNickname(nickName));
+    router.push('/login/step2');
   };
 
   return (
     <>
+      <Empty />
       <LoginPage>
         <Overlay />
         <SocialLoginBox>

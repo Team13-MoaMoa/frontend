@@ -1,8 +1,5 @@
-import { UserState } from '@/store/user';
-
 export type Step = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
 };
 
 export type User = {
@@ -12,3 +9,5 @@ export type User = {
   github_url: string;
   portfolio_url: string;
 };
+
+export type Auth = 'kakao' | 'github' | '';

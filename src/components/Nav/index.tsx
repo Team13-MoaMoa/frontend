@@ -12,6 +12,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { useDispatch } from 'react-redux';
+import { setIsLogin, updateUserId } from '@/store/user';
+import { logoutApi } from '@/api/logout';
 
 type NavbarProps = {
   setIsLoginModalClicked: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,6 +22,11 @@ type NavbarProps = {
 
 export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
   const isLogin = useSelector<RootState>((state) => state.user.isLogin);
+  const dispatch = useDispatch();
+
+  const authProvider = useSelector(
+    (state: RootState) => state.user.user.auth_provider,
+  );
   const [profileToggle, setProfileToggle] = useState(false);
   const [hamburgerToggle, setHamburgerToggle] = useState(false);
   const [sideToggle, setSideToggle] = useState(false);
@@ -35,6 +43,14 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
     if (id === 'over') {
       setSideToggle((pre) => !pre);
     }
+  };
+
+  const signOut = async () => {
+    await logoutApi(authProvider);
+    dispatch(setIsLogin(false));
+    dispatch(updateUserId(0));
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
   };
 
   useEffect(() => {
@@ -122,7 +138,7 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
                           </MyPageIcon>
                           <div>마이페이지</div>
                         </div>
-                        <div>
+                        <div onClick={signOut}>
                           <MyPageIcon>
                             <Image fill src={logout} alt="로그아웃" />
                           </MyPageIcon>

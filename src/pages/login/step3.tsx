@@ -1,29 +1,57 @@
 import styled from '@emotion/styled';
-import Image from 'next/image';
 import React, { useRef } from 'react';
-import defaultProfile from '@/assets/defaultProfile.png';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { setIsLogin } from '@/store/user';
+import { updateUserId, updateUserImageUrl } from '@/store/user';
 import usePreView from '@/hook/usePreview';
-import PreviewImage from './PreviewImage';
-export default function Login4() {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const onSubmit = () => {
-    alert('가입완료!');
-    router.push('/');
-    dispatch(setIsLogin(true));
-  };
+import { uploadFile } from '@/api/uploadS3';
+import { signUpApi } from '@/api/signUp';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { DEFAULT_PROFILE_URL } from '@/constants/defaultProfile';
+import { userAuthApi } from '@/api/userAuth';
+import PreviewImage from '@/components/Login/PreviewImage';
+import { Empty } from '..';
 
+export default function Step3() {
+  const NEXT_PUBLIC_KAKAO_KEY = process.env.NEXT_PUBLIC_KAKAO_KEY;
+  const NEXT_PUBLIC_GITHUB_KEY = process.env.NEXT_PUBLIC_GITHUB_KEY;
+
+  const handleLogin = (auth: string | undefined) => {
+    const LOGIN_KEY =
+      auth === 'kakao' ? NEXT_PUBLIC_KAKAO_KEY : NEXT_PUBLIC_GITHUB_KEY;
+    window.location.href = String(LOGIN_KEY);
+  };
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [previewImage, handleFileInputChange] = usePreView();
+  const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
+
+  const [previewImage, handleFileInputChange, file] = usePreView();
+
   const imageHandle = () => {
     inputRef.current?.click();
   };
 
+  const onSubmit = async () => {
+    let url: string;
+
+    if (file) {
+      url = await uploadFile(file);
+      dispatch(updateUserImageUrl(url));
+    } else {
+      url = DEFAULT_PROFILE_URL;
+      dispatch(updateUserImageUrl(DEFAULT_PROFILE_URL));
+    }
+    dispatch(updateUserId(0));
+    await signUpApi(user.user, url);
+    alert('회원가입 완료!');
+    handleLogin(user.user.auth_provider);
+  };
+
   return (
     <>
+      <Empty />
       <LoginPage>
         <Overlay />
         <SocialLoginBox>
