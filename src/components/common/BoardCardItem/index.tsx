@@ -72,7 +72,7 @@ function BoardCardItem({ card }: BoardCardItemProps) {
         <InfoIconBox>
           <InfoIconItem style={{ marginRight: '1rem' }}>
             <RxPerson />
-            <div>{card.headcount}</div>
+            <div>{card.headcount.replace('over ', '')}</div>
           </InfoIconItem>
           <InfoIconItem style={{ marginLeft: '1rem' }}>
             <TbMessageCircle2 />
