@@ -6,7 +6,7 @@ import { TbMessageCircle2 } from 'react-icons/tb';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import getTechImageURL from '@/utils/getTechImageUrl';
-import Avatar from '@/assets/avatar.png';
+import AvatarPng from '@/assets/avatar.png';
 type LetterDivType = {
   blue?: boolean;
 };
@@ -39,7 +39,7 @@ function BoardCardItem({ card }: BoardCardItemProps) {
                 현재는 avatar.png 띄우게 처리함
            */}
             <Image
-              src={card.user.image_url || Avatar}
+              src={card.user.image_url || AvatarPng}
               alt="profileImage"
               fill
             />
@@ -72,7 +72,7 @@ function BoardCardItem({ card }: BoardCardItemProps) {
         <InfoIconBox>
           <InfoIconItem style={{ marginRight: '1rem' }}>
             <RxPerson />
-            <div>{card.headcount.replace('over ', '')}</div>
+            <div>{replaceHeadcount(card.headcount)}</div>
           </InfoIconItem>
           <InfoIconItem style={{ marginLeft: '1rem' }}>
             <TbMessageCircle2 />
@@ -84,12 +84,13 @@ function BoardCardItem({ card }: BoardCardItemProps) {
   );
 }
 
+const replaceHeadcount = (headcount: string) => {
+  if (headcount === '미정') return '미정';
+  else if (headcount === 'over 6') return '6+';
+  return headcount;
+};
+
 const Div = styled.div`
-  /* ${(props) => props.theme.mq.mobile} {
-    zoom: 0.8;
-    width: calc(37.8rem * 1.2);
-    height: calc(37.8rem * 1.2);
-  } */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -100,8 +101,10 @@ const Div = styled.div`
   border-radius: 2rem;
   margin-bottom: 3rem;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
   &:hover {
     opacity: 0.8;
+    transform: translateY(-10px);
   }
 `;
 
@@ -155,7 +158,7 @@ const InfoIconBox = styled.div`
 const InfoIconItem = styled.div`
   font-size: 2rem;
   display: flex;
-  width: 4rem;
+  gap: 0.5rem;
   justify-content: space-between;
 `;
 
