@@ -12,7 +12,6 @@ import usePosition from '@/hook/usePosition';
 import useLanguage from '@/hook/useLanguage';
 import useInput from '@/hook/useInput';
 import { ResponseBoardListType } from '@/types/board';
-import { boardCardsList } from '@/constants/boardCards';
 import { baseInstance } from '@/api/axiosCustom';
 import { AxiosRequestConfig } from 'axios';
 import useDebounceInput from '@/hook/useDebounce';
@@ -31,7 +30,7 @@ export default function Home() {
   const { language, onChangeLanguage, clearLanguage } = useLanguage();
   const [search, onChangeSearch] = useInput();
   const [ResponseBoardListData, setResponseBoardListData] =
-    useState<ResponseBoardListType>(boardCardsList);
+    useState<ResponseBoardListType>();
   const debouncedSearch = useDebounceInput(search);
 
   const user = useSelector((state: RootState) => state.user);
