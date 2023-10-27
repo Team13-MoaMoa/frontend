@@ -48,7 +48,11 @@ function BoardCardItem({ card }: BoardCardItemProps) {
         </section>
         <section>
           <LetterDiv style={{ fontSize: '2.6rem' }}>{card.title}</LetterDiv>
-          <LetterDiv>{card.content}</LetterDiv>
+          <LetterDiv>
+            <div
+              dangerouslySetInnerHTML={{ __html: deleteImgTag(card.content) }}
+            ></div>
+          </LetterDiv>
         </section>
       </>
 
@@ -90,6 +94,10 @@ const replaceHeadcount = (headcount: string) => {
   return headcount;
 };
 
+const deleteImgTag = (content: string) => {
+  return content.replace(/<img[^>]*>/g, '');
+};
+
 const Div = styled.div`
   display: flex;
   flex-direction: column;
@@ -110,6 +118,7 @@ const Div = styled.div`
 
 const NameDiv = styled.div`
   color: ${(props) => props.theme.sub_bluegray};
+  white-space: normal;
 `;
 
 const LetterDiv = styled.div<LetterDivType>`
@@ -120,6 +129,8 @@ const LetterDiv = styled.div<LetterDivType>`
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  white-space: nowrap;
+
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;
