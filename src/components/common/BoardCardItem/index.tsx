@@ -28,7 +28,6 @@ function BoardCardItem({ card }: BoardCardItemProps) {
           style={{
             display: 'flex',
             alignItems: 'center',
-            marginBottom: '1rem',
             gap: '1rem',
           }}
         >
@@ -48,18 +47,13 @@ function BoardCardItem({ card }: BoardCardItemProps) {
         </section>
         <section>
           <LetterDiv style={{ fontSize: '2.6rem' }}>{card.title}</LetterDiv>
-          <LetterDiv>
-            <div
-              dangerouslySetInnerHTML={{ __html: deleteImgTag(card.content) }}
-            ></div>
-          </LetterDiv>
+          {/* <LetterDiv>{card.content.replace(/<[^>]*>/g, '')}</LetterDiv> */}
         </section>
       </>
-
+      <LetterDiv blue>
+        마감일 {dayjs(card.deadline).format('YYYY.MM.DD')}
+      </LetterDiv>
       <InfoDiv>
-        <LetterDiv blue>
-          마감일 {dayjs(card.deadline).format('YYYY.MM.DD')}
-        </LetterDiv>
         <div
           style={{
             display: 'flex',
@@ -103,7 +97,7 @@ const Div = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 40rem;
+  height: 35rem;
   padding: 2rem;
   border: 1px solid;
   border-radius: 2rem;
@@ -123,14 +117,12 @@ const NameDiv = styled.div`
 
 const LetterDiv = styled.div<LetterDivType>`
   color: ${(props) => (props.blue ? props.theme.sub_bluegray : 'black')};
-  margin-bottom: 2rem;
-  line-height: 3rem;
-  white-space: normal;
+  // TODO: 글자가 2줄 이상이면 ... 처리 작동 안함
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  white-space: nowrap;
-
+  white-space: normal;
+  text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;
