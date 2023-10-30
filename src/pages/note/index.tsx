@@ -29,6 +29,18 @@ function NotePage() {
       });
   }, []);
 
+  authInstance
+    .post('/notes', {
+      user_id: '',
+      content: '',
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   return (
     <Div>
       <ListDiv
