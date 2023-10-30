@@ -25,6 +25,7 @@ const MONTHS = [
   'December',
 ];
 
+<<<<<<< HEAD
 export default function CalendarInput() {
   const [value, onChange] = useState<Date | null>();
 
@@ -33,6 +34,22 @@ export default function CalendarInput() {
       selected={value || null}
       shouldCloseOnSelect
       onChange={(date: Date) => onChange(date)}
+=======
+type CalendarInputProps = {
+  deadline: Date | null | undefined;
+  setDeadline: React.Dispatch<React.SetStateAction<Date | null | undefined>>;
+};
+
+export default function CalendarInput({
+  deadline,
+  setDeadline,
+}: CalendarInputProps) {
+  return (
+    <CustomCalendar
+      selected={deadline || null}
+      shouldCloseOnSelect
+      onChange={(date: Date) => setDeadline(date)}
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
       onChangeRaw={(e) => e.preventDefault()}
       onFocus={(e) => e.target.blur()}
       dateFormat="yyyy-MM-dd"
@@ -42,7 +59,11 @@ export default function CalendarInput() {
       placeholderText="마감 날짜를 선택하세요."
       calendarClassName={styles.calenderWrapper}
       dayClassName={(d) =>
+<<<<<<< HEAD
         value && d.getDate() === value!.getDate()
+=======
+        deadline && d.getDate() === deadline!.getDate()
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
           ? styles.selectedDay
           : styles.unselectedDay
       }
@@ -77,7 +98,10 @@ export default function CalendarInput() {
               className={styles.monthButton}
               disabled={prevMonthButtonDisabled}
             >
+<<<<<<< HEAD
               {/* <LeftArrow fill='#ffffff' /> */}
+=======
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
               <p>&lt;</p>
             </button>
             <button
@@ -86,7 +110,10 @@ export default function CalendarInput() {
               className={styles.monthButton}
               disabled={nextMonthButtonDisabled}
             >
+<<<<<<< HEAD
               {/* <RightArrow fill='#ffffff' /> */}
+=======
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
               <p>&gt;</p>
             </button>
           </div>
@@ -96,6 +123,7 @@ export default function CalendarInput() {
   );
 }
 
+<<<<<<< HEAD
 // const Container = styled.div`
 //   height: 4.6rem;
 //   border: 1px solid ${(props) => props.theme.main_brown};
@@ -108,6 +136,8 @@ export default function CalendarInput() {
 //     color: ${(props) => props.theme.text_color};
 //   }
 // `;
+=======
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
 const CustomCalendar = styled(DatePicker)`
   width: 100%;
   height: 4.6rem;

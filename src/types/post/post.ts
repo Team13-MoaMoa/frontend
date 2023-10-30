@@ -26,3 +26,16 @@ export type User = {
 export type TechStackList = {
   id: number;
 };
+<<<<<<< HEAD
+=======
+
+export type PostSubmit = {
+  title: string;
+  project_name: string;
+  content: string;
+  deadline: string;
+  headcount: string;
+  job_tag: string[];
+  tech_stack_arr: string[];
+};
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d

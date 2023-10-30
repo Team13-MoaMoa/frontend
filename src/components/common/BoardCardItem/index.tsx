@@ -21,8 +21,19 @@ type BoardCardItemProps = { card: BoardType };
 function BoardCardItem({ card }: BoardCardItemProps) {
   const router = useRouter();
 
+<<<<<<< HEAD
   return (
     <Div onClick={() => router.push('/posts/1')}>
+=======
+  const getHeadCount = (headCount: string) => {
+    if (headCount === 'undecided') return '미정';
+    else if (headCount === 'over 6') return '6명 이상';
+    else return headCount;
+  };
+
+  return (
+    <Div onClick={() => router.push(`/posts/${card.id}`)}>
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
       <>
         <section
           style={{
@@ -48,7 +59,11 @@ function BoardCardItem({ card }: BoardCardItemProps) {
         </section>
         <section>
           <LetterDiv style={{ fontSize: '2.6rem' }}>{card.title}</LetterDiv>
+<<<<<<< HEAD
           <LetterDiv>{card.content}</LetterDiv>
+=======
+          <LetterDiv>{card.content.replace(/<[^>]*>/g, '')}</LetterDiv>
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
         </section>
       </>
 
@@ -72,7 +87,11 @@ function BoardCardItem({ card }: BoardCardItemProps) {
         <InfoIconBox>
           <InfoIconItem style={{ marginRight: '1rem' }}>
             <RxPerson />
+<<<<<<< HEAD
             <div>{card.headcount}</div>
+=======
+            <div>{getHeadCount(card.headcount)}</div>
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
           </InfoIconItem>
           <InfoIconItem style={{ marginLeft: '1rem' }}>
             <TbMessageCircle2 />
@@ -155,8 +174,12 @@ const InfoIconBox = styled.div`
 const InfoIconItem = styled.div`
   font-size: 2rem;
   display: flex;
+<<<<<<< HEAD
   width: 4rem;
   justify-content: space-between;
+=======
+  gap: 0.5rem;
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
 `;
 
 export default BoardCardItem;

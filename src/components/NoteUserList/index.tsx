@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+<<<<<<< HEAD
 import { UserListType } from '@/types/note';
 
 type UserListProps = {
@@ -26,6 +27,27 @@ function NoteUserList({ noteUserList, setUserName }: UserListProps) {
               {/* {user.image_url} */}
             </UserImgDiv>
             <UserNameDiv className="test">{user.nickname}</UserNameDiv>
+=======
+
+function NoteUserList() {
+  const DummyUsers = [
+    { name: '최연지' },
+    { name: '김철수' },
+    { name: '홍길동' },
+  ];
+  return (
+    <Div>
+      {DummyUsers.map((user, i) => (
+        <UserListDiv key={i}>
+          <UserInfoDiv>
+            <UserImgDiv>
+              <Image src="/avatar.png" alt="avatar-img" fill />
+            </UserImgDiv>
+            <UserNameDiv className="test">{user.name}</UserNameDiv>
+            <UserImgDiv>
+              <Image src="/mypageIcon.png" alt="mypageIcon-img" fill />
+            </UserImgDiv>
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
           </UserInfoDiv>
         </UserListDiv>
       ))}

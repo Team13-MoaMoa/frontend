@@ -24,7 +24,11 @@ export type BoardType = {
   project_name: string;
   content: string;
   deadline: Date;
+<<<<<<< HEAD
   headcount: number;
+=======
+  headcount: string;
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
   job_tag: string[];
   user: User;
   tech_stack_list: TechStackList[];
@@ -32,6 +36,23 @@ export type BoardType = {
   created_at: Date;
 };
 
+<<<<<<< HEAD
+=======
+export type DetailBoardType = Omit<BoardType, 'comment_count'> & {
+  comment_list: Comment[];
+};
+
+export type Comment = {
+  id: number;
+  content: string;
+  user: {
+    id: number;
+    nickname: string;
+    image_url: string;
+  };
+};
+
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
 export type TechStackList = {
   id: number;
 };
@@ -39,7 +60,11 @@ export type TechStackList = {
 export type User = {
   id: number;
   nickname: string;
+<<<<<<< HEAD
   image_url: null;
+=======
+  image_url: string;
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
 };
 
 export type Sort = {

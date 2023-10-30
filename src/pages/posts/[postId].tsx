@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+<<<<<<< HEAD
 import { PostType } from '@/types/post/post';
+=======
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
 import backIcon from '@/assets/backIcon.png';
 import noLikeIcon from '@/assets/noLike.png';
 import enterIcon from '@/assets/enterIcon.svg';
@@ -11,6 +14,7 @@ import Comment from '@/components/Comment';
 import getTechImageURL from '@/utils/getTechImageUrl';
 import SendNote from '@/components/SendNote';
 import styled from '@emotion/styled';
+<<<<<<< HEAD
 
 const DUMMY_DATA: PostType = {
   id: 1,
@@ -61,6 +65,17 @@ const DUMMY_DATA: PostType = {
 
 export default function Post() {
   const router = useRouter();
+=======
+import { getPostAPI } from '@/api/post';
+import useSWR from 'swr';
+import Avatar from '@/assets/avatar.png';
+
+export default function Post() {
+  const router = useRouter();
+
+  const { data: postData } = useSWR(`${router.query.postId}`, getPostAPI);
+
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
   const [likeState, setLikeState] = useState(false);
   const [isNoteOpen, setIsNoteOpen] = useState(false);
 
@@ -68,15 +83,39 @@ export default function Post() {
     setIsNoteOpen((prev) => !prev);
   };
 
+<<<<<<< HEAD
+=======
+  const getHeadCount = (headCount: string) => {
+    if (headCount === 'undecided') return '인원 미정';
+    if (headCount === 'over 6') return '6명 이상';
+    else return `${headCount}명`;
+  };
+
+  if (!postData) {
+    return <div>존재하지 않는 게시글입니다.</div>;
+  }
+
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
   return (
     <PostWrapper>
       <BackIconWrapper onClick={() => router.push('/')}>
         <Image src={backIcon} alt="backIcon" fill />
       </BackIconWrapper>
+<<<<<<< HEAD
       <h1>{DUMMY_DATA.title}</h1>
       <DescriptionWrapper>
         <ProfileImage>
           <Image src={DUMMY_DATA.user.image_url} alt="profileImage" fill />
+=======
+      <h1>{postData.title || ''}</h1>
+      <DescriptionWrapper>
+        <ProfileImage>
+          <Image
+            src={postData.user.image_url || Avatar}
+            alt="profileImage"
+            fill
+          />
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
         </ProfileImage>
         <OptionBox>
           <OptionImage>
@@ -108,6 +147,7 @@ export default function Post() {
         <DescriptionBox>
           <Description>
             <p>작성자</p>
+<<<<<<< HEAD
             <text>{DUMMY_DATA.user.nickname}</text>
           </Description>
           <Description>
@@ -117,27 +157,54 @@ export default function Post() {
           <Description>
             <p>생성일</p>
             <text>{dayjs(new Date()).format('YYYY.MM.DD')}</text>
+=======
+            <text>{postData.user.nickname || ''}</text>
+          </Description>
+          <Description>
+            <p>프로젝트명</p>
+            <text>{postData.project_name || ''}</text>
+          </Description>
+          <Description>
+            <p>생성일</p>
+            <text>{dayjs(postData.created_at || '').format('YYYY.MM.DD')}</text>
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
           </Description>
           <Description>
             <p>모집 분야</p>
             <ul>
+<<<<<<< HEAD
               {['프론트엔드', '백엔드'].map((position, idx) => (
+=======
+              {(postData.job_tag || []).map((position, idx) => (
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
                 <OptionBadge key={idx}>{position}</OptionBadge>
               ))}
             </ul>
           </Description>
           <Description>
             <p>모집 인원</p>
+<<<<<<< HEAD
             <text>{DUMMY_DATA.headcount}명</text>
           </Description>
           <Description>
             <p>모집 마감</p>
             <text>{dayjs(DUMMY_DATA.deadline).format('YYYY.MM.DD')}</text>
+=======
+            <text>{getHeadCount(postData.headcount || '0')}</text>
+          </Description>
+          <Description>
+            <p>모집 마감</p>
+            <text>{dayjs(postData.deadline || '').format('YYYY.MM.DD')}</text>
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
           </Description>
           <Description>
             <p>사용 기술</p>
             <ul>
+<<<<<<< HEAD
               {DUMMY_DATA.tech_stack_list.map((tech) => (
+=======
+              {(postData.tech_stack_list || []).map((tech) => (
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
                 <TechIcon key={tech.id}>
                   <Image
                     src={getTechImageURL(tech.id) || ''}
@@ -151,16 +218,28 @@ export default function Post() {
         </DescriptionBox>
       </DescriptionWrapper>
       <h3>
+<<<<<<< HEAD
         모집마감 {dayjs(DUMMY_DATA.deadline).diff(dayjs(new Date()), 'days')}일
+=======
+        모집마감{' '}
+        {dayjs(postData.deadline || '').diff(dayjs(new Date()), 'days')}일
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
         남았어요!
       </h3>
       <Introduce className="introduce">
         <h1>프로젝트 소개</h1>
         <hr />
+<<<<<<< HEAD
         <div dangerouslySetInnerHTML={{ __html: DUMMY_DATA.content }} />
       </Introduce>
       <CommentWrapper>
         <h1>{DUMMY_DATA.comment_list.length}개의 댓글이 있습니다.</h1>
+=======
+        <div dangerouslySetInnerHTML={{ __html: postData.content || '' }} />
+      </Introduce>
+      <CommentWrapper>
+        <h1>{postData.comment_list.length || ''}개의 댓글이 있습니다.</h1>
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
         <InputWrapper>
           <textarea placeholder="내용을 입력하세요." />
           <ClickButton>
@@ -168,7 +247,11 @@ export default function Post() {
           </ClickButton>
         </InputWrapper>
         <CommentList>
+<<<<<<< HEAD
           {DUMMY_DATA.comment_list.map((comment) => (
+=======
+          {(postData.comment_list || []).map((comment) => (
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
             <Comment
               key={comment.id}
               content={comment.content}

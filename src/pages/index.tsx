@@ -50,7 +50,11 @@ export default function Home() {
         dispatch(setIsLogin(false));
       }
     }
+<<<<<<< HEAD
   }, []);
+=======
+  }, [dispatch, user.user.id]);
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
 
   useEffect(() => {
     const config: AxiosRequestConfig = {

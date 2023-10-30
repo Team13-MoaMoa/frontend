@@ -7,13 +7,25 @@ import useQuillModules from '@/hook/useQuillModules';
 import ReactQuill from 'react-quill';
 import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
+<<<<<<< HEAD
+=======
+import useInput from '@/hook/useInput';
+import dayjs from 'dayjs';
+import { PostSubmit } from '@/types/post/post';
+import { onPostAPI } from '@/api/post';
+import { useRouter } from 'next/router';
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
 const QuillNoSSRWrapper = dynamic(
   () => import('@/utils/Quill/QuillNoSSRWrapper'),
   { ssr: false },
 );
 
 const MemberOptions: SelectOption[] = [
+<<<<<<< HEAD
   { label: '인원 미정', value: '1' },
+=======
+  { label: '인원 미정', value: 'undecided' },
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
   { label: '2명', value: '2' },
   { label: '3명', value: '3' },
   { label: '4명', value: '4' },
@@ -22,6 +34,7 @@ const MemberOptions: SelectOption[] = [
 ];
 const StackOptions: SelectOption[] = [
   { label: 'React', value: 'React' },
+<<<<<<< HEAD
   { label: 'TypeScript', value: 'TypeScript' },
   { label: 'Vue', value: 'Vue' },
   { label: 'SpringBoot', value: 'SpringBoot' },
@@ -34,17 +47,44 @@ const PartOptions: SelectOption[] = [
   { label: '디자이너', value: 'Designer' },
   { label: '기획', value: 'planner' },
   { label: '마케팅', value: 'Marketing' },
+=======
+  { label: 'Html', value: 'Html' },
+  { label: 'NodeJs', value: 'NodeJs' },
+  { label: 'Figma', value: 'Figma' },
+  { label: 'Docker', value: 'Docker' },
+  { label: 'JavaScript', value: 'JavaScript' },
+  { label: 'Python', value: 'Python' },
+  { label: 'Git', value: 'Git' },
+  { label: 'Gatsby', value: 'Gatsby' },
+];
+const PartOptions: SelectOption[] = [
+  { label: '프론트엔드', value: '프론트엔드' },
+  { label: '백엔드', value: '백엔드' },
+  { label: '디자이너', value: '디자이너' },
+  { label: '기획', value: '기획' },
+  { label: '마케팅', value: '마케팅' },
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
   { label: 'AI', value: 'AI' },
 ];
 
 export default function Write() {
+<<<<<<< HEAD
   const [contents, setContents] = useState('');
+=======
+  const router = useRouter();
+
+  const [title, handleTitle] = useInput();
+  const [projectName, handleProjectName] = useInput();
+  const [content, setContent] = useState('');
+  const [deadline, setDeadline] = useState<Date | null | undefined>();
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
   const [member, setMember] = useState<SelectOption | undefined>(
     MemberOptions[0],
   );
   const [stack, setStack] = useState<SelectOption[]>([]);
   const [part, setPart] = useState<SelectOption[]>([]);
 
+<<<<<<< HEAD
   const onChange = (content: string) => {
     setContents(content);
   };
@@ -52,6 +92,45 @@ export default function Write() {
   const QuillRef = useRef<ReactQuill>(null);
 
   const modules = useQuillModules(QuillRef);
+=======
+  const QuillRef = useRef<ReactQuill>(null);
+  const modules = useQuillModules(QuillRef);
+
+  const onChange = (content: string) => {
+    setContent(content);
+  };
+
+  const onSubmit = async () => {
+    if (
+      !title ||
+      !projectName ||
+      !content ||
+      !deadline ||
+      !member ||
+      !part ||
+      !stack
+    ) {
+      alert('모든 정보를 입력해주세요.');
+      return;
+    }
+    const form: PostSubmit = {
+      title,
+      project_name: projectName,
+      content,
+      deadline: dayjs(deadline).format('YYYY-MM-DD hh:mm:ss'),
+      headcount: member?.value,
+      job_tag: part.map((option) => option.value),
+      tech_stack_arr: stack.map((item) => item.value),
+    };
+    const response = await onPostAPI(form);
+    if (response.id) {
+      alert('게시글이 작성되었습니다.');
+      router.push(`/posts/${response.id}`);
+    } else {
+      alert('게시글 작성에 실패했습니다.');
+    }
+  };
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
 
   return (
     <WriteWrapper>
@@ -66,6 +145,11 @@ export default function Write() {
             <input
               id="name"
               type="text"
+<<<<<<< HEAD
+=======
+              value={projectName}
+              onChange={handleProjectName}
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
               placeholder="프로젝트 이름을 입력하세요."
             />
           </InputWrapper>
@@ -97,7 +181,11 @@ export default function Write() {
           </InputWrapper>
           <InputWrapper>
             <label>모집 마감일</label>
+<<<<<<< HEAD
             <CalendarInput />
+=======
+            <CalendarInput deadline={deadline} setDeadline={setDeadline} />
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
           </InputWrapper>
         </SectionContent>
       </Section>
@@ -112,6 +200,11 @@ export default function Write() {
             <input
               id="title"
               type="text"
+<<<<<<< HEAD
+=======
+              value={title}
+              onChange={handleTitle}
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
               placeholder="글 제목을 입력해주세요."
             />
           </InputWrapper>
@@ -124,7 +217,11 @@ export default function Write() {
             />
           </div>
           <ButtonWrapper>
+<<<<<<< HEAD
             <button>글 등록</button>
+=======
+            <button onClick={onSubmit}>글 등록</button>
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
           </ButtonWrapper>
         </SectionContent2>
       </Section>

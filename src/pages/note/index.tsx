@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 import { useState, useEffect } from 'react';
+=======
+import React, { useState } from 'react';
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import NoteUserList from '@/components/NoteUserList';
 import NoteDetail from '@/components/NoteDetail';
 import SendNote from '@/components/SendNote';
+<<<<<<< HEAD
 import { authInstance } from '@/api/axiosCustom';
 import { UserListType } from '@/types/note';
 import Lottie from 'lottie-react';
@@ -13,11 +18,17 @@ function NotePage() {
   const [isNoteOpen, setIsNoteOpen] = useState<boolean>(false);
   const [noteUserList, setNoteUserList] = useState<UserListType[]>([]);
   const [userName, setUserName] = useState<string>('');
+=======
+
+function NotePage() {
+  const [isNoteOpen, setIsNoteOpen] = useState<boolean>(false);
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
 
   const onClickNoteModal = () => {
     setIsNoteOpen((prev) => !prev);
   };
 
+<<<<<<< HEAD
   useEffect(() => {
     authInstance
       .get('/notes')
@@ -75,6 +86,28 @@ function NotePage() {
             <NoteDetail />
           </>
         )}
+=======
+  return (
+    <Div>
+      <ListDiv style={{ margin: '0 20px 0 0' }}>
+        <TitleDiv>쪽지함</TitleDiv>
+        <NoteUserList />
+      </ListDiv>
+      <ListDiv style={{ width: '83rem' }}>
+        <TitleDiv>
+          user name
+          <IconDiv>
+            <Image
+              src="/noteIcon.png"
+              alt="noteIcon-img"
+              fill
+              onClick={onClickNoteModal}
+            />
+          </IconDiv>
+        </TitleDiv>
+        {isNoteOpen && <SendNote onClickNoteModal={onClickNoteModal} />}
+        <NoteDetail />
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
       </ListDiv>
     </Div>
   );

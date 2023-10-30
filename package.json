@@ -34,13 +34,20 @@
     "aws-sdk": "^2.1413.0",
     "axios": "^1.3.6",
     "date-fns": "^2.29.3",
+<<<<<<< HEAD
     "dayjs": "^1.11.7",
+=======
+    "dayjs": "^1.11.10",
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "framer-motion": "^10.12.4",
     "husky": "^8.0.3",
     "lodash": "^4.17.21",
+<<<<<<< HEAD
     "lottie-react": "^2.4.0",
+=======
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
     "next": "13.2.4",
     "quill-image-resize-module-ts": "^3.0.3",
     "react": "18.2.0",
@@ -53,6 +60,10 @@
     "react-slick": "^0.29.0",
     "sass": "^1.61.0",
     "slick-carousel": "^1.8.1",
+<<<<<<< HEAD
+=======
+    "swr": "^2.2.4",
+>>>>>>> cab08a18296caf8400d23aa7e0228eecbbecfa9d
     "typescript": "5.0.2",
     "uuid": "^9.0.0"
   },
