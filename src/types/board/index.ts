@@ -24,12 +24,26 @@ export type BoardType = {
   project_name: string;
   content: string;
   deadline: Date;
-  headcount: number;
+  headcount: string;
   job_tag: string[];
   user: User;
   tech_stack_list: TechStackList[];
   comment_count: number;
   created_at: Date;
+};
+
+export type DetailBoardType = Omit<BoardType, 'comment_count'> & {
+  comment_list: Comment[];
+};
+
+export type Comment = {
+  id: number;
+  content: string;
+  user: {
+    id: number;
+    nickname: string;
+    image_url: string;
+  };
 };
 
 export type TechStackList = {
@@ -39,7 +53,7 @@ export type TechStackList = {
 export type User = {
   id: number;
   nickname: string;
-  image_url: null;
+  image_url: string;
 };
 
 export type Sort = {

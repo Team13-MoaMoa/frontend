@@ -25,14 +25,20 @@ const MONTHS = [
   'December',
 ];
 
-export default function CalendarInput() {
-  const [value, onChange] = useState<Date | null>();
+type CalendarInputProps = {
+  deadline: Date | null | undefined;
+  setDeadline: React.Dispatch<React.SetStateAction<Date | null | undefined>>;
+};
 
+export default function CalendarInput({
+  deadline,
+  setDeadline,
+}: CalendarInputProps) {
   return (
     <CustomCalendar
-      selected={value || null}
+      selected={deadline || null}
       shouldCloseOnSelect
-      onChange={(date: Date) => onChange(date)}
+      onChange={(date: Date) => setDeadline(date)}
       onChangeRaw={(e) => e.preventDefault()}
       onFocus={(e) => e.target.blur()}
       dateFormat="yyyy-MM-dd"
@@ -42,7 +48,7 @@ export default function CalendarInput() {
       placeholderText="마감 날짜를 선택하세요."
       calendarClassName={styles.calenderWrapper}
       dayClassName={(d) =>
-        value && d.getDate() === value!.getDate()
+        deadline && d.getDate() === deadline!.getDate()
           ? styles.selectedDay
           : styles.unselectedDay
       }
@@ -77,7 +83,6 @@ export default function CalendarInput() {
               className={styles.monthButton}
               disabled={prevMonthButtonDisabled}
             >
-              {/* <LeftArrow fill='#ffffff' /> */}
               <p>&lt;</p>
             </button>
             <button
@@ -86,7 +91,6 @@ export default function CalendarInput() {
               className={styles.monthButton}
               disabled={nextMonthButtonDisabled}
             >
-              {/* <RightArrow fill='#ffffff' /> */}
               <p>&gt;</p>
             </button>
           </div>
@@ -96,18 +100,6 @@ export default function CalendarInput() {
   );
 }
 
-// const Container = styled.div`
-//   height: 4.6rem;
-//   border: 1px solid ${(props) => props.theme.main_brown};
-//   border-radius: 6px;
-//   padding: 0.5em;
-//   outline: none;
-//   font-size: 1.6rem;
-//   color: ${(props) => props.theme.text_color};
-//   & input {
-//     color: ${(props) => props.theme.text_color};
-//   }
-// `;
 const CustomCalendar = styled(DatePicker)`
   width: 100%;
   height: 4.6rem;
