@@ -1,22 +1,30 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import { UserListType } from '@/types/note';
 
-function NoteUserList() {
-  const DummyUsers = [
-    { name: '최연지' },
-    { name: '김철수' },
-    { name: '홍길동' },
-  ];
+type UserListProps = {
+  noteUserList: UserListType[];
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
+};
+
+function NoteUserList({ noteUserList, setUserName }: UserListProps) {
+  console.log(noteUserList); //userList 잘 받아오는지 확인 console
+
   return (
     <Div>
-      {DummyUsers.map((user, i) => (
-        <UserListDiv key={i}>
+      {noteUserList.map((user, i) => (
+        <UserListDiv
+          key={i}
+          onClick={() => {
+            setUserName(noteUserList[i].nickname);
+          }}
+        >
           <UserInfoDiv>
             <UserImgDiv>
               <Image src="/avatar.png" alt="avatar-img" fill />
             </UserImgDiv>
-            <UserNameDiv className="test">{user.name}</UserNameDiv>
+            <UserNameDiv className="test">{user.nickname}</UserNameDiv>
             <UserImgDiv>
               <Image src="/mypageIcon.png" alt="mypageIcon-img" fill />
             </UserImgDiv>

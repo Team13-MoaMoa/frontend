@@ -4,34 +4,69 @@ import Image from 'next/image';
 import NoteUserList from '@/components/NoteUserList';
 import NoteDetail from '@/components/NoteDetail';
 import SendNote from '@/components/SendNote';
+import { authInstance } from '@/api/axiosCustom';
+import { UserListType } from '@/types/note';
+import Lottie from 'lottie-react';
+import emptyNote from '@/assets/emptyNote.json';
 
 function NotePage() {
   const [isNoteOpen, setIsNoteOpen] = useState<boolean>(false);
+  const [noteUserList, setNoteUserList] = useState<UserListType[]>([]);
+  const [userName, setUserName] = useState<string>('');
 
   const onClickNoteModal = () => {
     setIsNoteOpen((prev) => !prev);
   };
 
+  useEffect(() => {
+    authInstance
+      .get('/notes')
+      .then((data) => {
+        setNoteUserList(data.data.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
+  authInstance
+    .post('/notes', {
+      user_id: '',
+      content: '',
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   return (
     <Div>
       <ListDiv style={{ margin: '0 20px 0 0' }}>
         <TitleDiv>쪽지함</TitleDiv>
-        <NoteUserList />
+        <NoteUserList noteUserList={noteUserList} setUserName={setUserName} />
       </ListDiv>
       <ListDiv style={{ width: '83rem' }}>
-        <TitleDiv>
-          user name
-          <IconDiv>
-            <Image
-              src="/noteIcon.png"
-              alt="noteIcon-img"
-              fill
-              onClick={onClickNoteModal}
-            />
-          </IconDiv>
-        </TitleDiv>
-        {isNoteOpen && <SendNote onClickNoteModal={onClickNoteModal} />}
-        <NoteDetail />
+        {userName === '' ? (
+          <Lottie animationData={emptyNote} />
+        ) : (
+          <>
+            <TitleDiv>
+              <span>{userName}</span>
+              <IconDiv>
+                <Image
+                  src="/noteIcon.png"
+                  alt="noteIcon-img"
+                  fill
+                  onClick={onClickNoteModal}
+                />
+              </IconDiv>
+            </TitleDiv>
+            {isNoteOpen && <SendNote onClickNoteModal={onClickNoteModal} />}
+            <NoteDetail />
+          </>
+        )}
       </ListDiv>
     </Div>
   );
