@@ -20,9 +20,8 @@ type BoardCardItemProps = { card: BoardType };
 
 function BoardCardItem({ card }: BoardCardItemProps) {
   const router = useRouter();
-
   return (
-    <Div onClick={() => router.push('/posts/1')}>
+    <Div onClick={() => router.push(`/posts/${card.id}`)}>
       <>
         <section
           style={{

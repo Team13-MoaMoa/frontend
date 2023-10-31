@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import BoardCardList from '../common/BoardCardList';
 import { useEffect, useState } from 'react';
@@ -6,14 +7,19 @@ import { BoardListType } from '@/types/board';
 import styled from '@emotion/styled';
 import SelectBar from '../SelectBar';
 import { select } from '@/types/mypage';
+import usePage from '@/hook/usePage';
+import Pagination from '../Main/Pagination';
 
 const UserProjects = () => {
   const [selectButton, setselectButton] = useState<select>('SAVE');
   const [saveList, setSaveList] = useState<BoardListType>();
   const [writeList, setWriteList] = useState<BoardListType>();
 
+  const { page, onChangePage } = usePage();
+
   useEffect(() => {
     (async () => {
+      onChangePage(1);
       try {
         if (selectButton === 'SAVE') {
           const res = await authInstance('/users/likes?page=1');
@@ -28,6 +34,22 @@ const UserProjects = () => {
     })();
   }, [selectButton]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        if (selectButton === 'SAVE') {
+          const res = await authInstance(`/users/likes?page=${page}`);
+          setSaveList(res.data.data);
+        } else if (selectButton === 'WRITE') {
+          const res = await authInstance(`/users/projects?page=${page}`);
+          setWriteList(res.data.data);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, [page, selectButton]);
+
   return (
     <UserProjectsBox>
       <SelectBar
@@ -35,9 +57,21 @@ const UserProjects = () => {
         selectButton={selectButton}
       />
       {selectButton === 'SAVE' ? (
-        <BoardCardList boardCards={saveList?.content} />
+        <>
+          <BoardCardList boardCards={saveList?.content} />
+          <Pagination
+            totalPages={saveList?.totalPages}
+            onChangePage={onChangePage}
+          />
+        </>
       ) : (
-        <BoardCardList boardCards={writeList?.content} />
+        <>
+          <BoardCardList boardCards={writeList?.content} />
+          <Pagination
+            totalPages={writeList?.totalPages}
+            onChangePage={onChangePage}
+          />
+        </>
       )}
     </UserProjectsBox>
   );

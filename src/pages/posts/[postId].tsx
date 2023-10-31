@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PostType } from '@/types/post/post';
 import backIcon from '@/assets/backIcon.png';
 import noLikeIcon from '@/assets/noLike.png';
@@ -11,6 +11,7 @@ import Comment from '@/components/Comment';
 import getTechImageURL from '@/utils/getTechImageUrl';
 import SendNote from '@/components/SendNote';
 import styled from '@emotion/styled';
+import { authInstance } from '@/api/axiosCustom';
 
 const DUMMY_DATA: PostType = {
   id: 1,
@@ -67,6 +68,12 @@ export default function Post() {
   const onClickNoteModal = () => {
     setIsNoteOpen((prev) => !prev);
   };
+
+  // useEffect(() => {
+  //   (async () => {
+  //     await authInstance.post('/users/likes/1');
+  //   })();
+  // }, []);
 
   return (
     <PostWrapper>

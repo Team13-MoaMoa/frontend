@@ -22,7 +22,6 @@ export default MyPage;
 
 const Div = styled.div`
   color: ${(props) => props.theme.main_brown};
-  height: 100vh;
   margin: 0 0 15rem 0;
 `;
 
