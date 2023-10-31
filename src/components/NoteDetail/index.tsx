@@ -1,7 +1,19 @@
-import React from 'react';
+import { useEffect } from 'react';
 import styled from '@emotion/styled';
+import { authInstance } from '@/api/axiosCustom';
 
 function NoteDetail() {
+  useEffect(() => {
+    authInstance
+      .get('/notes')
+      .then((data) => {
+        setNoteUserList(data.data.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
   return (
     <Div>
       <div style={{ display: 'flex' }}>

@@ -1,6 +1,7 @@
-import React from 'react';
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import { authInstance } from '@/api/axiosCustom';
 
 type SendNoteProps = {
   onClickNoteModal: () => void;

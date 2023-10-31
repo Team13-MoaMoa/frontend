@@ -6,9 +6,10 @@ import { UserListType } from '@/types/note';
 type UserListProps = {
   noteUserList: UserListType[];
   setUserName: React.Dispatch<React.SetStateAction<string>>;
+  setUserId: React.Dispatch<React.SetStateAction<number | undefined>>;
 };
 
-function NoteUserList({ noteUserList, setUserName }: UserListProps) {
+function NoteUserList({ noteUserList, setUserName, setUserId }: UserListProps) {
   console.log(noteUserList); //userList 잘 받아오는지 확인 console
 
   return (
@@ -18,6 +19,7 @@ function NoteUserList({ noteUserList, setUserName }: UserListProps) {
           key={i}
           onClick={() => {
             setUserName(noteUserList[i].nickname);
+            setUserId(noteUserList[i].id);
           }}
         >
           <UserInfoDiv>
@@ -26,7 +28,7 @@ function NoteUserList({ noteUserList, setUserName }: UserListProps) {
             </UserImgDiv>
             <UserNameDiv className="test">{user.nickname}</UserNameDiv>
             <UserImgDiv>
-              <Image src="/mypageIcon.png" alt="mypageIcon-img" fill />
+              {/* <Image src="/mypageIcon.png" alt="mypageIcon-img" fill /> */}
             </UserImgDiv>
           </UserInfoDiv>
         </UserListDiv>

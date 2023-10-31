@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import NoteUserList from '@/components/NoteUserList';
@@ -13,6 +13,9 @@ function NotePage() {
   const [isNoteOpen, setIsNoteOpen] = useState<boolean>(false);
   const [noteUserList, setNoteUserList] = useState<UserListType[]>([]);
   const [userName, setUserName] = useState<string>('');
+  const [userId, setUserId] = useState<number>();
+
+  console.log(`name${userName}, userid${userId}`);
 
   const onClickNoteModal = () => {
     setIsNoteOpen((prev) => !prev);
@@ -29,23 +32,15 @@ function NotePage() {
       });
   }, []);
 
-  authInstance
-    .post('/notes', {
-      user_id: '',
-      content: '',
-    })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
   return (
     <Div>
       <ListDiv style={{ margin: '0 20px 0 0' }}>
         <TitleDiv>쪽지함</TitleDiv>
-        <NoteUserList noteUserList={noteUserList} setUserName={setUserName} />
+        <NoteUserList
+          noteUserList={noteUserList}
+          setUserName={setUserName}
+          setUserId={setUserId}
+        />
       </ListDiv>
       <ListDiv style={{ width: '83rem' }}>
         {userName === '' ? (
