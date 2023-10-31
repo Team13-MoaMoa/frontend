@@ -10,20 +10,17 @@ type UserInfoProps = {
 function NoteDetail({ userId }: UserInfoProps) {
   const [noteContent, setNoteContent] = useState<NoteContentType[]>([]);
 
-  console.log(`userId : ${userId}`);
-
   useEffect(() => {
     authInstance
       .get(`/notes/${userId}/`)
       .then((data) => {
-        console.log(`noteContent ${data}`);
-        console.log(data.data.data);
+        console.log(data.data);
         setNoteContent(data.data.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  });
 
   return (
     <Div>
@@ -33,31 +30,41 @@ function NoteDetail({ userId }: UserInfoProps) {
             style={{
               fontWeight: 'bold',
               color: '#F8D23E',
-              fontSize: '2rem',
+              fontSize: '1.7rem',
+              marginBottom: '20px',
             }}
           >
             보낸쪽지
           </span>
-          <span style={{ float: 'right' }}>2023.04.10</span>
-          <p style={{ color: 'black', marginTop: '20px' }}>네</p>
+          <span style={{ float: 'right', fontWeight: '400' }}>2023.04.10</span>
+          <p style={{ color: 'black', marginTop: '20px', fontWeight: '500' }}>
+            네
+          </p>
         </NoteListDiv>
       </div>
-      <div style={{ display: 'flex' }}>
-        <NoteListDiv>
-          <span
-            style={{
-              fontWeight: 'bold',
-              color: '#42A2AE',
-              fontSize: '2rem',
-              marginBottom: '20px',
-            }}
-          >
-            받은쪽지
-          </span>
-          <span style={{ float: 'right' }}>2023.04.10</span>
-          <p style={{ color: 'black', marginTop: '20px' }}>안녕하세요~</p>
-        </NoteListDiv>
-      </div>
+
+      {noteContent.map((note, i) => (
+        <div style={{ display: 'flex' }}>
+          <NoteListDiv key={i}>
+            <span
+              style={{
+                fontWeight: 'bold',
+                color: '#42A2AE',
+                fontSize: '1.7rem',
+                marginBottom: '20px',
+              }}
+            >
+              받은쪽지
+            </span>
+            <span style={{ float: 'right', fontWeight: '400' }}>
+              {note.created_at.substring(0, 10).replace(/-/g, '.')}
+            </span>
+            <p style={{ color: 'black', marginTop: '20px', fontWeight: '500' }}>
+              {note.content}
+            </p>
+          </NoteListDiv>
+        </div>
+      ))}
     </Div>
   );
 }

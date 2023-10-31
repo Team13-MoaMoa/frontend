@@ -80,6 +80,7 @@ const ListDiv = styled.div`
   border: 2px solid #d9d9d9;
   border-radius: 10px;
   float: left;
+  overflow: auto;
 `;
 
 const TitleDiv = styled.div`
