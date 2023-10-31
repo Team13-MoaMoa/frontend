@@ -1,18 +1,10 @@
 import styled from '@emotion/styled';
 
 import ProfileZone from '@/components/ProfileZone';
-import { useEffect, useState } from 'react';
-import { authInstance } from '@/api/axiosCustom';
+
+import UserProjects from '@/components/UserProjects';
 
 function MyPage() {
-  const [data, setData] = useState<any>();
-  useEffect(() => {
-    (async () => {
-      const res = await authInstance('/users/projects?page=1');
-      setData(res.data.data);
-      console.log(res.data);
-    })();
-  }, []);
   return (
     <Div>
       <InfoBackgroundSection>
@@ -21,7 +13,7 @@ function MyPage() {
           <ProfileZone />
         </InfoUserDiv>
       </InfoBackgroundSection>
-      hi
+      <UserProjects />
     </Div>
   );
 }
@@ -47,7 +39,7 @@ const BackgroundDiv = styled.div`
 `;
 
 const InfoUserDiv = styled.div`
-  height: 98rem;
+  height: 50rem;
   width: 119rem;
   border-radius: 4rem;
   position: absolute;
