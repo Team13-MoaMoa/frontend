@@ -20,6 +20,13 @@ type BoardCardItemProps = { card: BoardType };
 
 function BoardCardItem({ card }: BoardCardItemProps) {
   const router = useRouter();
+
+  const getHeadCount = (headCount: string) => {
+    if (headCount === 'undecided') return '미정';
+    else if (headCount === 'over 6') return '6명 이상';
+    else return headCount;
+  };
+
   return (
     <Div onClick={() => router.push(`/posts/${card.id}`)}>
       <>
@@ -47,7 +54,7 @@ function BoardCardItem({ card }: BoardCardItemProps) {
         </section>
         <section>
           <LetterDiv style={{ fontSize: '2.6rem' }}>{card.title}</LetterDiv>
-          <LetterDiv>{card.content}</LetterDiv>
+          <LetterDiv>{card.content.replace(/<[^>]*>/g, '')}</LetterDiv>
         </section>
       </>
 
@@ -71,7 +78,7 @@ function BoardCardItem({ card }: BoardCardItemProps) {
         <InfoIconBox>
           <InfoIconItem style={{ marginRight: '1rem' }}>
             <RxPerson />
-            <div>{card.headcount}</div>
+            <div>{getHeadCount(card.headcount)}</div>
           </InfoIconItem>
           <InfoIconItem style={{ marginLeft: '1rem' }}>
             <TbMessageCircle2 />
@@ -154,8 +161,7 @@ const InfoIconBox = styled.div`
 const InfoIconItem = styled.div`
   font-size: 2rem;
   display: flex;
-  width: 4rem;
-  justify-content: space-between;
+  gap: 0.5rem;
 `;
 
 export default BoardCardItem;
