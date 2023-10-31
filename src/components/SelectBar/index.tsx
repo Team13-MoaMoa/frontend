@@ -43,6 +43,7 @@ const SelectUl = styled.ul<{ selectButton: select }>`
     font-weight: bold;
     color: ${(props) => props.theme.text_color};
     cursor: pointer;
+    transition: 0.3s all;
   }
   & > li:nth-of-type(1) {
     border-bottom: ${(props) =>

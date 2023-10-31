@@ -69,12 +69,6 @@ export default function Post() {
     setIsNoteOpen((prev) => !prev);
   };
 
-  // useEffect(() => {
-  //   (async () => {
-  //     await authInstance.post('/users/likes/1');
-  //   })();
-  // }, []);
-
   return (
     <PostWrapper>
       <BackIconWrapper onClick={() => router.push('/')}>
