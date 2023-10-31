@@ -44,8 +44,8 @@ function NoteDetail({ userId }: UserInfoProps) {
       </div>
 
       {noteContent.map((note, i) => (
-        <div style={{ display: 'flex' }}>
-          <NoteListDiv key={i}>
+        <div style={{ display: 'flex' }} key={i}>
+          <NoteListDiv>
             <span
               style={{
                 fontWeight: 'bold',
