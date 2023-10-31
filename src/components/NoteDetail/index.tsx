@@ -1,16 +1,27 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { authInstance } from '@/api/axiosCustom';
+import { NoteContentType } from '@/types/note';
 
-function NoteDetail() {
+type UserInfoProps = {
+  userId: number | undefined;
+};
+
+function NoteDetail({ userId }: UserInfoProps) {
+  const [noteContent, setNoteContent] = useState<NoteContentType[]>([]);
+
+  console.log(`userId : ${userId}`);
+
   useEffect(() => {
     authInstance
-      .get('/notes')
+      .get(`/notes/${userId}/`)
       .then((data) => {
-        setNoteUserList(data.data.data);
+        console.log(`noteContent ${data}`);
+        console.log(data.data.data);
+        setNoteContent(data.data.data);
       })
       .catch((error) => {
-        alert(error);
+        console.log(error);
       });
   }, []);
 

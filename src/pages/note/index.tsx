@@ -15,20 +15,18 @@ function NotePage() {
   const [userName, setUserName] = useState<string>('');
   const [userId, setUserId] = useState<number>();
 
-  console.log(`name${userName}, userid${userId}`);
-
   const onClickNoteModal = () => {
     setIsNoteOpen((prev) => !prev);
   };
 
   useEffect(() => {
     authInstance
-      .get('/notes')
+      .get('/notes/')
       .then((data) => {
         setNoteUserList(data.data.data);
       })
       .catch((error) => {
-        alert(error);
+        console.log(error);
       });
   }, []);
 
@@ -59,7 +57,7 @@ function NotePage() {
               </IconDiv>
             </TitleDiv>
             {isNoteOpen && <SendNote onClickNoteModal={onClickNoteModal} />}
-            <NoteDetail />
+            <NoteDetail userId={userId} />
           </>
         )}
       </ListDiv>

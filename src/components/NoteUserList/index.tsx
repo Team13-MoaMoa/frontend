@@ -10,8 +10,6 @@ type UserListProps = {
 };
 
 function NoteUserList({ noteUserList, setUserName, setUserId }: UserListProps) {
-  console.log(noteUserList); //userList 잘 받아오는지 확인 console
-
   return (
     <Div>
       {noteUserList.map((user, i) => (

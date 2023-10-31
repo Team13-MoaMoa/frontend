@@ -8,5 +8,5 @@ export type NoteContentType = {
   user_id: number;
   content: string;
   created_at: string;
-  sender: true;
+  sender: boolean;
 };
