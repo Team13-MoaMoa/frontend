@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import { authInstance } from '@/api/axiosCustom';
@@ -8,6 +8,20 @@ type SendNoteProps = {
 };
 
 function SendNote({ onClickNoteModal }: SendNoteProps) {
+  // const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   console.log(e.target.value);
+  // };
+  // const onSubmitNote = () => {
+  //   authInstance
+  //     .post('/notes/')
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
   return (
     <BackGround>
       <Div>
@@ -23,8 +37,12 @@ function SendNote({ onClickNoteModal }: SendNoteProps) {
               />
             </IconDiv>
           </div>
-          <DetailInput name="text" placeholder="내용을 입력해주세요." />
-          <SubmitBtn>전송</SubmitBtn>
+          <ContentInput
+            name="text"
+            placeholder="내용을 입력해주세요."
+            /*onChange={onChangeContent}*/
+          />
+          <SubmitBtn /*</SendDiv>onClick={onSubmitNote}*/>전송</SubmitBtn>
         </SendDiv>
       </Div>
     </BackGround>
@@ -73,7 +91,7 @@ const SendDiv = styled.div`
   }
 `;
 
-const DetailInput = styled.textarea`
+const ContentInput = styled.input`
   width: 100%;
   height: 19rem;
   border: 2px solid #d9d9d9;

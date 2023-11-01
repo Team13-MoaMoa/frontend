@@ -10,17 +10,24 @@ type UserInfoProps = {
 function NoteDetail({ userId }: UserInfoProps) {
   const [noteContent, setNoteContent] = useState<NoteContentType[]>([]);
 
+  console.log('noteContent');
+  console.log(noteContent);
+
+  console.log('userId');
+  console.log(userId);
+
   useEffect(() => {
     authInstance
       .get(`/notes/${userId}/`)
       .then((data) => {
+        console.log('data.data');
         console.log(data.data);
         setNoteContent(data.data.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, [userId]);
 
   return (
     <Div>
