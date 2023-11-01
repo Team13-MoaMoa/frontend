@@ -45,11 +45,29 @@ const UserListDiv = styled.div`
   height: 8rem;
   width: 100%;
   padding: 10px;
-  color: #5e718d;
+  display: inline-block;
+  transform: perspective(1px) translateZ(0);
+  position: relative;
+  transition: color 0.2s;
   cursor: pointer;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: ${(props) => props.theme.main_brown};
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.3s ease-out;
+  }
   &:hover {
     color: white;
-    background-color: ${(props) => props.theme.main_brown};
+  }
+  &:hover:before {
+    transform: scaleX(1);
   }
 `;
 

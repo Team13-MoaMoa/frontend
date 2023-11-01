@@ -88,6 +88,7 @@ const SendDiv = styled.div`
   color: black;
   font-size: 2.8rem;
   font-weight: bold;
+  border-radius: 1rem;
   background-color: white;
   & > div {
     display: flex;
@@ -106,7 +107,8 @@ const ContentInput = styled.input`
   outline: none;
   resize: none;
   padding: 1.5rem;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
+  font-weight: 500;
   line-height: 2rem;
 `;
 
