@@ -10,18 +10,10 @@ type UserInfoProps = {
 function NoteDetail({ userId }: UserInfoProps) {
   const [noteContent, setNoteContent] = useState<NoteContentType[]>([]);
 
-  console.log('noteContent');
-  console.log(noteContent);
-
-  console.log('userId');
-  console.log(userId);
-
   useEffect(() => {
     authInstance
       .get(`/notes/${userId}/`)
       .then((data) => {
-        console.log('data.data');
-        console.log(data.data);
         setNoteContent(data.data.data);
       })
       .catch((error) => {
@@ -36,12 +28,12 @@ function NoteDetail({ userId }: UserInfoProps) {
           <span
             style={{
               fontWeight: 'bold',
-              color: '#F8D23E',
+              color: '#42A2AE',
               fontSize: '1.7rem',
               marginBottom: '20px',
             }}
           >
-            보낸쪽지
+            받은쪽지
           </span>
           <span style={{ float: 'right', fontWeight: '400' }}>2023.04.10</span>
           <p style={{ color: 'black', marginTop: '20px', fontWeight: '500' }}>
@@ -56,12 +48,12 @@ function NoteDetail({ userId }: UserInfoProps) {
             <span
               style={{
                 fontWeight: 'bold',
-                color: '#42A2AE',
+                color: '#F8D23E',
                 fontSize: '1.7rem',
                 marginBottom: '20px',
               }}
             >
-              받은쪽지
+              보낸쪽지
             </span>
             <span style={{ float: 'right', fontWeight: '400' }}>
               {note.created_at.substring(0, 10).replace(/-/g, '.')}

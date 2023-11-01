@@ -4,23 +4,31 @@ import Image from 'next/image';
 import { authInstance } from '@/api/axiosCustom';
 
 type SendNoteProps = {
+  userId: number | undefined;
   onClickNoteModal: () => void;
 };
 
-function SendNote({ onClickNoteModal }: SendNoteProps) {
-  // const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   console.log(e.target.value);
-  // };
-  // const onSubmitNote = () => {
-  //   authInstance
-  //     .post('/notes/')
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+function SendNote({ userId, onClickNoteModal }: SendNoteProps) {
+  const [inputContent, setInputContent] = useState<string>('');
+  console.log(inputContent);
+
+  const onChangeNote = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputContent(e.target.value);
+  };
+
+  const onSubmitNote = () => {
+    authInstance
+      .post('/notes', {
+        user_id: userId,
+        content: inputContent,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <BackGround>
@@ -40,9 +48,9 @@ function SendNote({ onClickNoteModal }: SendNoteProps) {
           <ContentInput
             name="text"
             placeholder="내용을 입력해주세요."
-            /*onChange={onChangeContent}*/
+            onChange={onChangeNote}
           />
-          <SubmitBtn /*</SendDiv>onClick={onSubmitNote}*/>전송</SubmitBtn>
+          <SubmitBtn onClick={onSubmitNote}>전송</SubmitBtn>
         </SendDiv>
       </Div>
     </BackGround>
