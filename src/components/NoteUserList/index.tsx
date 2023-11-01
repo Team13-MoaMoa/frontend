@@ -50,6 +50,7 @@ const UserListDiv = styled.div`
   position: relative;
   transition: color 0.2s;
   cursor: pointer;
+  color: #5e718d;
   &:before {
     content: '';
     position: absolute;

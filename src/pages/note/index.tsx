@@ -45,7 +45,7 @@ function NotePage() {
           <Lottie animationData={emptyNote} />
         ) : (
           <>
-            <TitleDiv>
+            <TitleDiv style={{ marginLeft: '2.7rem' }}>
               <span>{userName}</span>
               <IconDiv>
                 <Image
@@ -101,6 +101,7 @@ const IconDiv = styled.div`
   float: right;
   margin-right: 50px;
   cursor: pointer;
+
   &:hover {
     opacity: 0.8;
   }
