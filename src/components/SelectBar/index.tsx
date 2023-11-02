@@ -37,7 +37,7 @@ const SelectUl = styled.ul<{ selectButton: select }>`
     align-items: center;
 
     margin-bottom: 5rem;
-    font-size: 3.2rem;
+    font-size: 2.5rem;
     width: 19rem;
     height: 8.5rem;
     font-weight: bold;

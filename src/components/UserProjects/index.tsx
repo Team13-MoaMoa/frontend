@@ -56,23 +56,17 @@ const UserProjects = () => {
         setselectButton={setselectButton}
         selectButton={selectButton}
       />
-      {selectButton === 'SAVE' ? (
-        <>
-          <BoardCardList boardCards={saveList?.content} />
-          <Pagination
-            totalPages={saveList?.totalPages}
-            onChangePage={onChangePage}
-          />
-        </>
-      ) : (
-        <>
-          <BoardCardList boardCards={writeList?.content} />
-          <Pagination
-            totalPages={writeList?.totalPages}
-            onChangePage={onChangePage}
-          />
-        </>
-      )}
+      <BoardCardList
+        boardCards={
+          selectButton === 'SAVE' ? saveList?.content : writeList?.content
+        }
+      />
+      <Pagination
+        totalPages={
+          selectButton === 'SAVE' ? saveList?.totalPages : writeList?.totalPages
+        }
+        onChangePage={onChangePage}
+      />
     </UserProjectsBox>
   );
 };
@@ -80,7 +74,8 @@ const UserProjects = () => {
 export default UserProjects;
 
 const UserProjectsBox = styled.div`
-  width: 100vw;
+  width: 119rem;
   max-width: 1280px;
   margin: 0 auto;
+  padding-left: 7.5rem;
 `;

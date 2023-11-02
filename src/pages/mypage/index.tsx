@@ -38,7 +38,7 @@ const BackgroundDiv = styled.div`
 `;
 
 const InfoUserDiv = styled.div`
-  height: 50rem;
+  height: 45rem;
   width: 119rem;
   border-radius: 4rem;
   position: absolute;
