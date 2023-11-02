@@ -147,7 +147,7 @@ export default function Post() {
           ? `모집마감일이 ${Math.abs(
               dayjs(postData.deadline || '').diff(dayjs(new Date()), 'days'),
             )}일 지났어요!`
-          : `모집마감{' '}
+          : `모집마감
           ${dayjs(postData.deadline || '').diff(dayjs(new Date()), 'days')}일
           남았어요!`}
       </h3>
