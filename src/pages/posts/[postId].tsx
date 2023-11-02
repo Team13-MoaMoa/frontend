@@ -13,11 +13,15 @@ import styled from '@emotion/styled';
 import { getPostAPI } from '@/api/post';
 import useSWR from 'swr';
 import Avatar from '@/assets/avatar.png';
+import Loading from '@/components/Loading';
 
 export default function Post() {
   const router = useRouter();
 
-  const { data: postData } = useSWR(`${router.query.postId}`, getPostAPI);
+  const { data: postData, isLoading } = useSWR(
+    `${router.query.postId}`,
+    getPostAPI,
+  );
 
   const [likeState, setLikeState] = useState(false);
   const [isNoteOpen, setIsNoteOpen] = useState(false);
@@ -34,6 +38,10 @@ export default function Post() {
 
   if (!postData) {
     return <div>존재하지 않는 게시글입니다.</div>;
+  }
+
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (
@@ -123,9 +131,13 @@ export default function Post() {
         </DescriptionBox>
       </DescriptionWrapper>
       <h3>
-        모집마감{' '}
-        {dayjs(postData.deadline || '').diff(dayjs(new Date()), 'days')}일
-        남았어요!
+        {dayjs(postData.deadline || '').diff(dayjs(new Date()), 'days') < 0
+          ? `모집마감일이 ${Math.abs(
+              dayjs(postData.deadline || '').diff(dayjs(new Date()), 'days'),
+            )}일 지났어요!`
+          : `모집마감{' '}
+          ${dayjs(postData.deadline || '').diff(dayjs(new Date()), 'days')}일
+          남았어요!`}
       </h3>
       <Introduce className="introduce">
         <h1>프로젝트 소개</h1>
@@ -133,7 +145,7 @@ export default function Post() {
         <div dangerouslySetInnerHTML={{ __html: postData.content || '' }} />
       </Introduce>
       <CommentWrapper>
-        <h1>{postData.comment_list.length || ''}개의 댓글이 있습니다.</h1>
+        <h1>{postData.comment_list.length || '0'}개의 댓글이 있습니다.</h1>
         <InputWrapper>
           <textarea placeholder="내용을 입력하세요." />
           <ClickButton>
