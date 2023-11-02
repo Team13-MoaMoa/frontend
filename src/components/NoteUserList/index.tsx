@@ -22,7 +22,12 @@ function NoteUserList({ noteUserList, setUserName, setUserId }: UserListProps) {
         >
           <UserInfoDiv>
             <UserImgDiv>
-              <Image src="/avatar.png" alt="avatar-img" fill />
+              <Image
+                src={`${user.image_url}`}
+                alt={`${user.nickname} profile`}
+                fill
+                style={{ borderRadius: '50%' }}
+              />
             </UserImgDiv>
             <UserNameDiv className="test">{user.nickname}</UserNameDiv>
           </UserInfoDiv>
@@ -72,14 +77,14 @@ const UserListDiv = styled.div`
 const UserInfoDiv = styled.div`
   display: flex;
   height: 100%;
-  padding: 0.3rem 0.3rem;
+  padding: 0.3rem 1.5rem;
   align-items: center;
 `;
 
 const UserImgDiv = styled.div`
+  width: 6rem;
+  height: 6rem;
   border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
   position: relative;
   flex-shrink: 0;
 `;
