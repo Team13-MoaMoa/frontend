@@ -136,7 +136,9 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
                           <MyPageIcon>
                             <Image fill src={person} alt="마이페이지" />
                           </MyPageIcon>
-                          <div>마이페이지</div>
+                          <div onClick={() => router.push('/mypage')}>
+                            마이페이지
+                          </div>
                         </div>
                         <div onClick={signOut}>
                           <MyPageIcon>
