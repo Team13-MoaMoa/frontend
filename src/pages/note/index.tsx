@@ -28,7 +28,7 @@ function NotePage() {
     setIsNoteOpen((prev) => !prev);
   };
 
-  const onPostNote = async (userId: string, content: string) => {
+  const onPostNote = async (userId: number, content: string) => {
     if (!(content.length > 0)) return;
     const response = await postNoteAPI(userId, content);
     if (response) {

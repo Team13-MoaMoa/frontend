@@ -39,16 +39,16 @@ export default function Post() {
   const onPostComment = async () => {
     if (!postData) return;
     const response = await postCommentAPI((postData?.id).toString(), comment);
-    if (response) {
+    if (response.data) {
       mutate(`${router.query.postId}`);
       setComment('');
     }
   };
 
-  const onPostNote = async (userId: string, content: string) => {
+  const onPostNote = async (userId: number, content: string) => {
     if (!(content.length > 0)) return;
     const response = await postNoteAPI(userId, content);
-    if (response) {
+    if (response.data) {
       alert('쪽지를 보냈습니다.');
     } else {
       alert('쪽지를 보내는데 실패했습니다.');
