@@ -38,11 +38,6 @@ function BoardCardItem({ card }: BoardCardItemProps) {
           }}
         >
           <ProfileImage>
-            {/*TODO: 현재 DB에 image_url 없으면 null로 되어있음
-                src에 null 들어가면 에러남
-                프로필 설정 하는 페이지 담당하시는 분이 처리 어떻게 할건지 물어보기
-                현재는 avatar.png 띄우게 처리함
-           */}
             <Image
               src={card.user.image_url || AvatarPng}
               alt="profileImage"
@@ -52,12 +47,19 @@ function BoardCardItem({ card }: BoardCardItemProps) {
           <NameDiv>{card.user.nickname}</NameDiv>
         </section>
         <section>
-          <LetterDiv style={{ fontSize: '2.6rem' }}>{card.title}</LetterDiv>
-          {/* <LetterDiv>{card.content.replace(/<[^>]*>/g, '')}</LetterDiv> */}
+          <LetterDiv
+            style={{
+              fontSize: '2.6rem',
+              lineHeight: '3rem',
+              marginTop: '2rem',
+            }}
+          >
+            {card.title}
+          </LetterDiv>
         </section>
       </>
-      <LetterDiv blue>
-        마감일 {dayjs(card.deadline).format('YYYY.MM.DD')}
+      <LetterDiv blue style={{ marginTop: 'auto', marginBottom: '2rem' }}>
+        마감일 | {dayjs(card.deadline).format('YYYY.MM.DD')}
       </LetterDiv>
       <InfoDiv>
         <div
@@ -101,11 +103,10 @@ const deleteImgTag = (content: string) => {
 const Div = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 100%;
-  height: 35rem;
+  height: 38rem;
   padding: 2rem;
-  border: 1px solid;
+  border: 2px solid;
   border-radius: 2rem;
   margin-bottom: 3rem;
   cursor: pointer;

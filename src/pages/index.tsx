@@ -1,7 +1,7 @@
 import BoardCardList from '@/components/common/BoardCardList';
 import Pagination from '@/components/Main/Pagination';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import BannerSlider from '@/components/Main/Slider';
 import MenuBarList from '@/components/common/MenuBarList';
 import { techStackMenu } from '@/constants/menuList';
@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux';
 import { setIsLogin } from '@/store/user';
 import { RootState } from '@/store';
 import { useRouter } from 'next/router';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 export default function Home() {
   const router = useRouter();
@@ -92,11 +93,25 @@ export default function Home() {
             onChangeLanguage={onChangeLanguage}
           />
         </section>
-        <BoardCardList boardCards={ResponseBoardListData?.data.content} />
-        <Pagination
-          totalPages={ResponseBoardListData?.data.totalPages}
-          onChangePage={onChangePage}
-        />
+        {ResponseBoardListData?.data.content.length !== 0 ? (
+          <>
+            <div style={{ margin: '5rem 0px' }}>
+              <BoardCardList boardCards={ResponseBoardListData?.data.content} />
+            </div>
+            <Pagination
+              totalPages={ResponseBoardListData?.data.totalPages}
+              onChangePage={onChangePage}
+            />
+          </>
+        ) : (
+          <Player
+            src="https://lottie.host/7ae0aec4-8aa6-4b41-83c1-03d4425de47f/gAYjA2s4bt.json"
+            className="players"
+            loop
+            autoplay
+            style={{ height: '400px', width: '100%', marginBottom: '4rem' }}
+          />
+        )}
       </MainDiv>
     </Div>
   );
@@ -119,7 +134,6 @@ const MainDiv = styled.div`
   & > section {
     display: flex;
     flex-direction: column;
-    margin-bottom: 8rem;
     & > div {
       display: flex;
       margin-bottom: 1rem;
