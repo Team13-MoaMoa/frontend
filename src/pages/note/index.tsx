@@ -1,37 +1,83 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import NoteUserList from '@/components/NoteUserList';
 import NoteDetail from '@/components/NoteDetail';
 import SendNote from '@/components/SendNote';
+import { UserListType } from '@/types/note';
+import Lottie from 'lottie-react';
+import emptyNote from '@/assets/emptyNote.json';
+import { postNoteAPI } from '@/api/note';
+import { authInstance } from '@/api/axiosCustom';
 
 function NotePage() {
   const [isNoteOpen, setIsNoteOpen] = useState<boolean>(false);
+  const [noteUserList, setNoteUserList] = useState<UserListType[]>([]);
+  const [userName, setUserName] = useState<string>('');
+  const [userId, setUserId] = useState<number>();
 
   const onClickNoteModal = () => {
     setIsNoteOpen((prev) => !prev);
   };
 
+  const onPostNote = async (userId: string, content: string) => {
+    if (!(content.length > 0)) return;
+    const response = await postNoteAPI(userId, content);
+    if (response) {
+      alert('쪽지를 보냈습니다.');
+    } else {
+      alert('쪽지를 보내는데 실패했습니다.');
+    }
+  };
+
+  useEffect(() => {
+    authInstance
+      .get('/notes')
+      .then((data) => {
+        setNoteUserList(data.data.data);
+        setUserId(data.data.data[0].id);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <Div>
       <ListDiv style={{ margin: '0 20px 0 0' }}>
         <TitleDiv>쪽지함</TitleDiv>
-        <NoteUserList />
+        <NoteUserList
+          noteUserList={noteUserList}
+          setUserName={setUserName}
+          setUserId={setUserId}
+        />
       </ListDiv>
       <ListDiv style={{ width: '83rem' }}>
-        <TitleDiv>
-          user name
-          <IconDiv>
-            <Image
-              src="/noteIcon.png"
-              alt="noteIcon-img"
-              fill
-              onClick={onClickNoteModal}
-            />
-          </IconDiv>
-        </TitleDiv>
-        {isNoteOpen && <SendNote onClickNoteModal={onClickNoteModal} />}
-        <NoteDetail />
+        {userName === '' ? (
+          <Lottie animationData={emptyNote} />
+        ) : (
+          <>
+            <TitleDiv style={{ marginLeft: '2.7rem' }}>
+              <span>{userName}</span>
+              <IconDiv>
+                <Image
+                  src="/noteIcon.png"
+                  alt="noteIcon-img"
+                  fill
+                  onClick={onClickNoteModal}
+                />
+              </IconDiv>
+            </TitleDiv>
+            {isNoteOpen && (
+              <SendNote
+                userId={userId || 0}
+                onClickNoteModal={onClickNoteModal}
+                onPostNote={onPostNote}
+              />
+            )}
+            <NoteDetail userId={userId} />
+          </>
+        )}
       </ListDiv>
     </Div>
   );
@@ -52,6 +98,7 @@ const ListDiv = styled.div`
   border: 2px solid #d9d9d9;
   border-radius: 10px;
   float: left;
+  overflow: auto;
 `;
 
 const TitleDiv = styled.div`
@@ -70,6 +117,7 @@ const IconDiv = styled.div`
   float: right;
   margin-right: 50px;
   cursor: pointer;
+
   &:hover {
     opacity: 0.8;
   }

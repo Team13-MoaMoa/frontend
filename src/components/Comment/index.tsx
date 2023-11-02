@@ -3,22 +3,29 @@ import styled from '@emotion/styled';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import React from 'react';
+import avatar from '@/assets/avatar.png';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { UserState } from '@/store/user';
 
 type CommentProps = {
   content: string;
   user: User;
   onClickNoteModal: () => void;
+  setClickedUserId: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function Comment({
   content,
   user,
   onClickNoteModal,
+  setClickedUserId,
 }: CommentProps) {
+  const loggedInUser = useSelector((state: RootState) => state.user.user);
   return (
-    <CommentWrapper onClick={onClickNoteModal}>
+    <CommentWrapper>
       <ProfileImage>
-        <Image src={user.image_url} alt="profileImage" fill />
+        <Image src={user.image_url || avatar} alt="profileImage" fill />
       </ProfileImage>
       <div>
         <InfoWrapper>
@@ -28,9 +35,16 @@ export default function Comment({
               'YYYY-MM-DD HH:MM',
             )}
           </p>
-          <NoteIcon>
-            <Image src="/noteIcon.png" alt="noteIcon" fill />
-          </NoteIcon>
+          {loggedInUser.id !== user.id && (
+            <NoteIcon
+              onClick={() => {
+                onClickNoteModal();
+                setClickedUserId(user.id);
+              }}
+            >
+              <Image src="/noteIcon.png" alt="noteIcon" fill />
+            </NoteIcon>
+          )}
         </InfoWrapper>
         <p>{content}</p>
       </div>

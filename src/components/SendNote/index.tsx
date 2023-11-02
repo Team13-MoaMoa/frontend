@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import useInput from '@/hook/useInput';
 
 type SendNoteProps = {
+  userId: number;
   onClickNoteModal: () => void;
+  onPostNote: (userId: string, content: string) => Promise<void>;
 };
 
-function SendNote({ onClickNoteModal }: SendNoteProps) {
+function SendNote({ userId, onClickNoteModal, onPostNote }: SendNoteProps) {
+  const [content, handleContent, setContent] = useInput();
   return (
     <BackGround>
       <Div>
@@ -22,8 +26,21 @@ function SendNote({ onClickNoteModal }: SendNoteProps) {
               />
             </IconDiv>
           </div>
-          <DetailInput name="text" placeholder="내용을 입력해주세요." />
-          <SubmitBtn>전송</SubmitBtn>
+          <DetailInput
+            name="text"
+            placeholder="내용을 입력해주세요."
+            value={content}
+            onChange={handleContent}
+          />
+          <SubmitBtn
+            onClick={() => {
+              onPostNote(userId.toString(), content);
+              setContent('');
+              onClickNoteModal();
+            }}
+          >
+            전송
+          </SubmitBtn>
         </SendDiv>
       </Div>
     </BackGround>
@@ -61,6 +78,7 @@ const SendDiv = styled.div`
   color: black;
   font-size: 2.8rem;
   font-weight: bold;
+  border-radius: 1rem;
   background-color: white;
   & > div {
     display: flex;
