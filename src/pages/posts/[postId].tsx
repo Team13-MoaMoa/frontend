@@ -16,6 +16,7 @@ import Avatar from '@/assets/avatar.png';
 import Loading from '@/components/Loading';
 import useInput from '@/hook/useInput';
 import { postNoteAPI } from '@/api/note';
+import { authInstance } from '@/api/axiosCustom';
 
 export default function Post() {
   const router = useRouter();
