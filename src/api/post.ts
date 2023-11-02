@@ -24,3 +24,15 @@ export const getPostAPI = async (postId: string) => {
     return Promise.reject(e);
   }
 };
+
+export const postCommentAPI = async (postId: string, content: string) => {
+  try {
+    const response = await authInstance.post<ApiResponseWithDataType<{}>>(
+      `/comments/${postId}`,
+      { content },
+    );
+    return response.data;
+  } catch (e) {
+    return Promise.reject(e);
+  }
+};

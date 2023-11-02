@@ -78,13 +78,19 @@ export default function Write() {
       alert('모든 정보를 입력해주세요.');
       return;
     }
+    const jobArr = part.map((option) => option.value);
+    const job_tag = jobArr.some((i) =>
+      ['디자이너', '기획', 'AI', '마케팅'].includes(i),
+    )
+      ? [...jobArr, '기타']
+      : jobArr;
     const form: PostSubmit = {
       title,
       project_name: projectName,
       content,
       deadline: dayjs(deadline).format('YYYY-MM-DD hh:mm:ss'),
       headcount: member?.value,
-      job_tag: part.map((option) => option.value),
+      job_tag,
       tech_stack_arr: stack.map((item) => item.value),
     };
     const response = await onPostAPI(form);

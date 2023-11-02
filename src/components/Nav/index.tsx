@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React, { useEffect, useRef, useState } from 'react';
-import avatar from '@/assets/avatar.png';
 import person from '@/assets/person.png';
+import bear from '@/assets/bear.png';
 import logout from '@/assets/logout.png';
 import Image from 'next/image';
 import useWindow from '@/hook/useWindow';
@@ -119,7 +119,7 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
                     id="profile"
                     onClick={() => setProfileToggle((pre) => !pre)}
                   >
-                    <Image fill src={avatar} alt="프로필" />
+                    <Image fill src={bear} alt="프로필" />
                   </ProfileImg>
                   <AnimatePresence>
                     {profileToggle ? (
@@ -136,7 +136,9 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
                           <MyPageIcon>
                             <Image fill src={person} alt="마이페이지" />
                           </MyPageIcon>
-                          <div>마이페이지</div>
+                          <div onClick={() => router.push('/mypage')}>
+                            마이페이지
+                          </div>
                         </div>
                         <div onClick={signOut}>
                           <MyPageIcon>
@@ -270,6 +272,7 @@ const ProfileImg = styled.div`
   position: relative;
   width: 4rem;
   height: 4rem;
+  overflow: hidden;
   border-radius: 50%;
   cursor: pointer;
   &:hover {
