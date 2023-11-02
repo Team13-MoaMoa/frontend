@@ -28,6 +28,7 @@ export default function Post() {
 
   const [likeState, setLikeState] = useState(false);
   const [isNoteOpen, setIsNoteOpen] = useState(false);
+  const [clickedUserId, setClickedUserId] = useState(postData?.user.id || 0);
   const [comment, handleComment, setComment] = useInput();
 
   const onClickNoteModal = () => {
@@ -87,7 +88,10 @@ export default function Post() {
               src="/noteIcon.png"
               alt="noteIcon"
               fill
-              onClick={() => setIsNoteOpen(true)}
+              onClick={() => {
+                setClickedUserId(postData.user.id);
+                setIsNoteOpen(true);
+              }}
             />
           </OptionImage>
           <OptionImage>
@@ -186,13 +190,14 @@ export default function Post() {
               content={comment.content}
               user={comment.user}
               onClickNoteModal={onClickNoteModal}
+              setClickedUserId={setClickedUserId}
             />
           ))}
         </CommentList>
       </CommentWrapper>
       {isNoteOpen && (
         <SendNote
-          userId={postData.user.id}
+          userId={clickedUserId}
           onClickNoteModal={onClickNoteModal}
           onPostNote={onPostNote}
         />

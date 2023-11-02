@@ -12,18 +12,18 @@ type CommentProps = {
   content: string;
   user: User;
   onClickNoteModal: () => void;
+  setClickedUserId: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function Comment({
   content,
   user,
   onClickNoteModal,
+  setClickedUserId,
 }: CommentProps) {
   const loggedInUser = useSelector((state: RootState) => state.user.user);
-  console.log('user: ', user);
-  console.log('loggedUser: ', loggedInUser);
   return (
-    <CommentWrapper onClick={onClickNoteModal}>
+    <CommentWrapper>
       <ProfileImage>
         <Image src={user.image_url || avatar} alt="profileImage" fill />
       </ProfileImage>
@@ -36,7 +36,12 @@ export default function Comment({
             )}
           </p>
           {loggedInUser.id !== user.id && (
-            <NoteIcon>
+            <NoteIcon
+              onClick={() => {
+                onClickNoteModal();
+                setClickedUserId(user.id);
+              }}
+            >
               <Image src="/noteIcon.png" alt="noteIcon" fill />
             </NoteIcon>
           )}
