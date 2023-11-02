@@ -1,7 +1,7 @@
 import BoardCardList from '@/components/common/BoardCardList';
 import Pagination from '@/components/Main/Pagination';
 import styled from '@emotion/styled';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import BannerSlider from '@/components/Main/Slider';
 import MenuBarList from '@/components/common/MenuBarList';
 import { techStackMenu } from '@/constants/menuList';
@@ -20,7 +20,8 @@ import { useDispatch } from 'react-redux';
 import { setIsLogin } from '@/store/user';
 import { RootState } from '@/store';
 import { useRouter } from 'next/router';
-import { Player } from '@lottiefiles/react-lottie-player';
+import NoData from '@/assets/NoData.json';
+import Lottie from 'lottie-react';
 
 export default function Home() {
   const router = useRouter();
@@ -104,12 +105,9 @@ export default function Home() {
             />
           </>
         ) : (
-          <Player
-            src="https://lottie.host/7ae0aec4-8aa6-4b41-83c1-03d4425de47f/gAYjA2s4bt.json"
-            className="players"
-            loop
-            autoplay
-            style={{ height: '400px', width: '100%', marginBottom: '4rem' }}
+          <Lottie
+            animationData={NoData}
+            style={{ width: '100%', height: '50rem' }}
           />
         )}
       </MainDiv>
