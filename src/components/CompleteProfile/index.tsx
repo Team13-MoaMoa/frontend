@@ -1,10 +1,20 @@
 import styled from '@emotion/styled';
+import { Auth } from 'aws-sdk/clients/docdbelastic';
 
 type CompleteProfileProps = {
   onClickButton: () => void;
+  user: {
+    id: number;
+    nickname: string;
+    email: string;
+    auth_provider: Auth;
+    image_url: string;
+    github_url: string;
+    port_folio_url: string;
+  };
 };
 
-function CompleteProfile({ onClickButton }: CompleteProfileProps) {
+function CompleteProfile({ onClickButton, user }: CompleteProfileProps) {
   return (
     <InfoDiv>
       <CompleteProfileDiv>
@@ -12,7 +22,7 @@ function CompleteProfile({ onClickButton }: CompleteProfileProps) {
           <p>깃허브</p>
         </TitleDiv>
         <DetailDiv>
-          <p>wisdomyeon</p>
+          <p>{user.github_url}</p>
         </DetailDiv>
       </CompleteProfileDiv>
       <CompleteProfileDiv>
@@ -20,7 +30,7 @@ function CompleteProfile({ onClickButton }: CompleteProfileProps) {
           <p>포트폴리오</p>
         </TitleDiv>
         <DetailDiv>
-          <p>포트폴리오.pdf</p>
+          <p>{user.port_folio_url}</p>
         </DetailDiv>
       </CompleteProfileDiv>
       <EditButton>
@@ -54,6 +64,7 @@ const CompleteProfileDiv = styled.div`
 const TitleDiv = styled.div`
   height: 3.2rem;
   width: 11.2rem;
+  flex-shrink: 0;
   text-align: center;
   line-height: 3.2rem;
   border-radius: 6px;
@@ -65,7 +76,7 @@ const TitleDiv = styled.div`
 
 const DetailDiv = styled.div`
   & > p {
-    margin-left: 7rem;
+    margin-left: 3rem;
   }
 `;
 

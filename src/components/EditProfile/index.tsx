@@ -1,10 +1,20 @@
 import styled from '@emotion/styled';
+import { Auth } from 'aws-sdk/clients/docdbelastic';
 
 type EditProfileProps = {
   onClickButton: () => void;
+  user: {
+    id: number;
+    nickname: string;
+    email: string;
+    auth_provider: Auth;
+    image_url: string;
+    github_url: string;
+    port_folio_url: string;
+  };
 };
 
-function EditProfile({ onClickButton }: EditProfileProps) {
+function EditProfile({ onClickButton, user }: EditProfileProps) {
   return (
     <InfoDiv>
       <div>닉네임</div>
