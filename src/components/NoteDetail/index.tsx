@@ -2,26 +2,21 @@ import { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { authInstance } from '@/api/axiosCustom';
 import { NoteContentType } from '@/types/note';
+import useSWR from 'swr';
+import { getNoteContentAPI } from '@/api/note';
 
 type UserInfoProps = {
-  userId: number | undefined;
+  userId: number;
 };
 
 function NoteDetail({ userId }: UserInfoProps) {
   const [noteContent, setNoteContent] = useState<NoteContentType[]>([]);
 
-  console.log(noteContent);
-
-  useEffect(() => {
-    authInstance
-      .get(`/notes/${userId}/`)
-      .then((data) => {
-        setNoteContent(data.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [userId]);
+  const { data } = useSWR(`/notes/${userId}`, () => getNoteContentAPI(userId), {
+    onSuccess: (res) => {
+      setNoteContent(res.data);
+    },
+  });
 
   return (
     <>
@@ -88,11 +83,7 @@ const CreateNoteSpan = styled.span`
 `;
 
 const SendTextSpan = styled.span`
-margin-bottom: '20px',
-font-size: '1.7rem',
-font-weight: 'bold',
+  margin-bottom: '20px';
+  font-size: '1.7rem';
+  font-weight: 'bold';
 `;
-
-('#F8D23E'); //보낸쪽지 노란색
-
-('#42A2AE'); //받은쪽지 파란색
