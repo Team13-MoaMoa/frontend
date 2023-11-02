@@ -1,7 +1,7 @@
 import BoardCardList from '@/components/common/BoardCardList';
 import Pagination from '@/components/Main/Pagination';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import BannerSlider from '@/components/Main/Slider';
 import MenuBarList from '@/components/common/MenuBarList';
 import { techStackMenu } from '@/constants/menuList';
@@ -38,6 +38,10 @@ export default function Home() {
   const user = useSelector((state: RootState) => state.user);
   const [isSignUp, setIsSignUp] = useState(false);
 
+  const prePosition = useRef(position);
+  const preLanguage = useRef(language);
+  const preSearch = useRef(debouncedSearch);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,6 +58,14 @@ export default function Home() {
   }, [dispatch, user.user.id]);
 
   useEffect(() => {
+    if (
+      prePosition.current !== position ||
+      preLanguage.current !== language ||
+      preSearch.current !== debouncedSearch
+    ) {
+      onChangePage(1);
+    }
+
     const config: AxiosRequestConfig = {
       url: '/posts/all',
       method: 'get',
@@ -68,6 +80,10 @@ export default function Home() {
     baseInstance.request(config).then((res) => {
       setResponseBoardListData(res.data);
     });
+
+    prePosition.current = position;
+    preLanguage.current = language;
+    preSearch.current = debouncedSearch;
   }, [page, position, language, debouncedSearch]);
 
   if (isSignUp) {

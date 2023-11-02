@@ -62,19 +62,14 @@ function BoardCardItem({ card }: BoardCardItemProps) {
         마감일 | {dayjs(card.deadline).format('YYYY.MM.DD')}
       </LetterDiv>
       <InfoDiv>
-        <div
-          style={{
-            display: 'flex',
-            paddingBottom: '2rem',
-            borderBottom: '2px solid',
-          }}
-        >
+        <ScrollDiv>
           {card.tech_stack_list.map((tech) => (
             <IconImgDiv key={tech.id} width="5rem" height="5rem">
               <Image src={getTechImageURL(tech.id) || ''} alt="react" fill />
             </IconImgDiv>
           ))}
-        </div>
+        </ScrollDiv>
+
         <InfoIconBox>
           <InfoIconItem style={{ marginRight: '1rem' }}>
             <RxPerson />
@@ -136,11 +131,25 @@ const LetterDiv = styled.div<LetterDivType>`
 
 const IconImgDiv = styled.div<IconImgDivType>`
   position: relative;
-  margin-right: 1rem;
+  /* margin-right: 1rem; */
   border: 1px solid;
   border-radius: 100%;
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
+  min-width: ${(props) => props.width};
+  min-height: ${(props) => props.height};
+`;
+
+const ScrollDiv = styled.div`
+  display: flex;
+  align-items: center;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid;
+  gap: 1rem;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 const ProfileImage = styled.div`
