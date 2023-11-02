@@ -3,7 +3,7 @@ import NavBar from './Nav';
 import Footer from './common/Footer';
 import OverlaySocialLogin from './Login/OverlaySocialLogin';
 import { useDispatch } from 'react-redux';
-import { setIsLogin } from '@/store/user';
+import { setIsLogin, updateUserId } from '@/store/user';
 
 export default function Layout({ children }: React.PropsWithChildren) {
   const [isLoginModalClicked, setIsLoginModalClicked] = useState(false);
@@ -18,6 +18,10 @@ export default function Layout({ children }: React.PropsWithChildren) {
         dispatch(setIsLogin(true));
       } else if (!token) {
         dispatch(setIsLogin(false));
+      }
+
+      if (userId) {
+        dispatch(updateUserId(userId));
       }
     }
   }, [dispatch]);

@@ -17,8 +17,12 @@ import Loading from '@/components/Loading';
 import useInput from '@/hook/useInput';
 import { postNoteAPI } from '@/api/note';
 import { authInstance } from '@/api/axiosCustom';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 export default function Post() {
+  const loggedInUserId = useSelector((state: RootState) => state.user.user.id);
+
   const router = useRouter();
   const { mutate } = useSWRConfig();
 
@@ -93,17 +97,19 @@ export default function Post() {
           />
         </ProfileImage>
         <OptionBox>
-          <OptionImage>
-            <Image
-              src="/noteIcon.png"
-              alt="noteIcon"
-              fill
-              onClick={() => {
-                setClickedUserId(postData.user.id);
-                setIsNoteOpen(true);
-              }}
-            />
-          </OptionImage>
+          {loggedInUserId + '' !== postData.user.id + '' && (
+            <OptionImage>
+              <Image
+                src="/noteIcon.png"
+                alt="noteIcon"
+                fill
+                onClick={() => {
+                  setClickedUserId(postData.user.id);
+                  setIsNoteOpen(true);
+                }}
+              />
+            </OptionImage>
+          )}
           <OptionImage>
             {likeState ? (
               <Image
