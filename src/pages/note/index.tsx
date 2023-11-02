@@ -14,7 +14,7 @@ function NotePage() {
   const { data } = useSWR('/notes', getNoteUserListAPI, {
     onSuccess: (res) => {
       setNoteUserList(res.data);
-      setUserId(res.data[0].id);
+      // setUserId(res.data[0].id);
     },
   });
   const { mutate } = useSWRConfig();
