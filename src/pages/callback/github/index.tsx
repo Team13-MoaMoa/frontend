@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateAuthProvider, updateUserId } from '@/store/user';
+import { setIsLogin, updateAuthProvider, updateUserId } from '@/store/user';
 import { userAuthApi } from '@/api/userAuth';
 import Loading from '@/components/Loading';
 
@@ -25,7 +25,9 @@ export default function Github() {
   useEffect(() => {
     (async () => {
       const data = await userAuthApi(auth, code);
-      console.log(data);
+      if (data.user_info) {
+        localStorage.setItem('user_id', data.user_info.id);
+      }
       if (data.access_token && data.refresh_token) {
         localStorage.setItem('access_token', data.access_token);
         localStorage.setItem('refresh_token', data.refresh_token);
