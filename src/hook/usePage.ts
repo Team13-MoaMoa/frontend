@@ -10,5 +10,5 @@ export default function usePage() {
     setPage(page);
   };
 
-  return { page, onChangePage };
+  return { page, onChangePage, setPage };
 }

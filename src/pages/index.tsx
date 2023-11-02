@@ -1,7 +1,7 @@
 import BoardCardList from '@/components/common/BoardCardList';
 import Pagination from '@/components/Main/Pagination';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import BannerSlider from '@/components/Main/Slider';
 import MenuBarList from '@/components/common/MenuBarList';
 import { techStackMenu } from '@/constants/menuList';
@@ -12,7 +12,6 @@ import usePosition from '@/hook/usePosition';
 import useLanguage from '@/hook/useLanguage';
 import useInput from '@/hook/useInput';
 import { ResponseBoardListType } from '@/types/board';
-import { boardCardsList } from '@/constants/boardCards';
 import { baseInstance } from '@/api/axiosCustom';
 import { AxiosRequestConfig } from 'axios';
 import useDebounceInput from '@/hook/useDebounce';
@@ -21,6 +20,8 @@ import { useDispatch } from 'react-redux';
 import { setIsLogin } from '@/store/user';
 import { RootState } from '@/store';
 import { useRouter } from 'next/router';
+import NoData from '@/assets/NoData.json';
+import Lottie from 'lottie-react';
 
 export default function Home() {
   const router = useRouter();
@@ -31,11 +32,15 @@ export default function Home() {
   const { language, onChangeLanguage, clearLanguage } = useLanguage();
   const [search, onChangeSearch] = useInput();
   const [ResponseBoardListData, setResponseBoardListData] =
-    useState<ResponseBoardListType>(boardCardsList);
+    useState<ResponseBoardListType>();
   const debouncedSearch = useDebounceInput(search);
 
   const user = useSelector((state: RootState) => state.user);
   const [isSignUp, setIsSignUp] = useState(false);
+
+  const prePosition = useRef(position);
+  const preLanguage = useRef(language);
+  const preSearch = useRef(debouncedSearch);
 
   const dispatch = useDispatch();
 
@@ -53,6 +58,14 @@ export default function Home() {
   }, [dispatch, user.user.id]);
 
   useEffect(() => {
+    if (
+      prePosition.current !== position ||
+      preLanguage.current !== language ||
+      preSearch.current !== debouncedSearch
+    ) {
+      onChangePage(1);
+    }
+
     const config: AxiosRequestConfig = {
       url: '/posts/all',
       method: 'get',
@@ -67,6 +80,10 @@ export default function Home() {
     baseInstance.request(config).then((res) => {
       setResponseBoardListData(res.data);
     });
+
+    prePosition.current = position;
+    preLanguage.current = language;
+    preSearch.current = debouncedSearch;
   }, [page, position, language, debouncedSearch]);
 
   if (isSignUp) {
@@ -93,11 +110,22 @@ export default function Home() {
             onChangeLanguage={onChangeLanguage}
           />
         </section>
-        <BoardCardList boardCards={ResponseBoardListData?.data.content} />
-        <Pagination
-          totalPages={ResponseBoardListData?.data.totalPages}
-          onChangePage={onChangePage}
-        />
+        {ResponseBoardListData?.data.content.length !== 0 ? (
+          <>
+            <div style={{ margin: '5rem 0px' }}>
+              <BoardCardList boardCards={ResponseBoardListData?.data.content} />
+            </div>
+            <Pagination
+              totalPages={ResponseBoardListData?.data.totalPages}
+              onChangePage={onChangePage}
+            />
+          </>
+        ) : (
+          <Lottie
+            animationData={NoData}
+            style={{ width: '100%', height: '50rem' }}
+          />
+        )}
       </MainDiv>
     </Div>
   );
@@ -120,7 +148,6 @@ const MainDiv = styled.div`
   & > section {
     display: flex;
     flex-direction: column;
-    margin-bottom: 8rem;
     & > div {
       display: flex;
       margin-bottom: 1rem;

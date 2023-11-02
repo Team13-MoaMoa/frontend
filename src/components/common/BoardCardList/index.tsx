@@ -22,7 +22,7 @@ const BoardCardUl = styled.ul`
   display: grid;
   place-items: center;
   gap: 3rem;
-  grid-template-columns: repeat(auto-fill, minmax(37.8rem, auto));
+  grid-template-columns: repeat(auto-fill, minmax(37.8rem, 30%));
   ${(props) => props.theme.mq.mobile} {
     grid-template-columns: repeat(1, 1fr);
   }
