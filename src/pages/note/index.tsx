@@ -57,7 +57,11 @@ function NotePage() {
               </IconDiv>
             </TitleDiv>
             {isNoteOpen && (
-              <SendNote onClickNoteModal={onClickNoteModal} userId={userId} />
+              <SendNote
+                userId={userId}
+                onClickNoteModal={onClickNoteModal}
+                setIsNoteOpen={setIsNoteOpen}
+              />
             )}
             <NoteDetail userId={userId} />
           </>

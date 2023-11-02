@@ -6,15 +6,18 @@ import { authInstance } from '@/api/axiosCustom';
 type SendNoteProps = {
   userId: number | undefined;
   onClickNoteModal: () => void;
+  setIsNoteOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function SendNote({ userId, onClickNoteModal }: SendNoteProps) {
+function SendNote({ userId, onClickNoteModal, setIsNoteOpen }: SendNoteProps) {
   const [inputContent, setInputContent] = useState<string>('');
   console.log(inputContent);
 
   const onChangeNote = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputContent(e.target.value);
   };
+  //빈 쪽지 보내면 ''로 전송
+  //쪽지 보내면 쪽지모달창 자동 닫기
 
   const onSubmitNote = () => {
     authInstance
@@ -24,6 +27,7 @@ function SendNote({ userId, onClickNoteModal }: SendNoteProps) {
       })
       .then((res) => {
         console.log(res);
+        setIsNoteOpen(false);
       })
       .catch((error) => {
         console.log(error);

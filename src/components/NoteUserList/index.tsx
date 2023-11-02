@@ -25,9 +25,6 @@ function NoteUserList({ noteUserList, setUserName, setUserId }: UserListProps) {
               <Image src="/avatar.png" alt="avatar-img" fill />
             </UserImgDiv>
             <UserNameDiv className="test">{user.nickname}</UserNameDiv>
-            <UserImgDiv>
-              {/* <Image src="/mypageIcon.png" alt="mypageIcon-img" fill /> */}
-            </UserImgDiv>
           </UserInfoDiv>
         </UserListDiv>
       ))}

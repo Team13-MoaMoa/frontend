@@ -25,10 +25,10 @@ function NoteDetail({ userId }: UserInfoProps) {
 
   return (
     <>
-      {noteContent.map((note, i) => (
-        <Div>
+      {noteContent.reverse().map((note, i) => (
+        <Div key={i}>
           {note.sender === true ? (
-            <BackGroundDiv key={note.user_id}>
+            <BackGroundDiv>
               <NoteListDiv>
                 <SendTextSpan style={{ color: '#F8D23E' }}>
                   보낸쪽지
@@ -40,7 +40,7 @@ function NoteDetail({ userId }: UserInfoProps) {
               </NoteListDiv>
             </BackGroundDiv>
           ) : (
-            <BackGroundDiv key={note.user_id}>
+            <BackGroundDiv>
               <NoteListDiv>
                 <SendTextSpan style={{ color: '#42A2AE' }}>
                   받은쪽지
