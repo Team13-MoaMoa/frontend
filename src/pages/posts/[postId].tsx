@@ -10,13 +10,15 @@ import Comment from '@/components/Comment';
 import getTechImageURL from '@/utils/getTechImageUrl';
 import SendNote from '@/components/SendNote';
 import styled from '@emotion/styled';
-import { getPostAPI } from '@/api/post';
-import useSWR from 'swr';
+import { getPostAPI, postCommentAPI } from '@/api/post';
+import useSWR, { useSWRConfig } from 'swr';
 import Avatar from '@/assets/avatar.png';
 import Loading from '@/components/Loading';
+import useInput from '@/hook/useInput';
 
 export default function Post() {
   const router = useRouter();
+  const { mutate } = useSWRConfig();
 
   const { data: postData, isLoading } = useSWR(
     `${router.query.postId}`,
@@ -25,9 +27,19 @@ export default function Post() {
 
   const [likeState, setLikeState] = useState(false);
   const [isNoteOpen, setIsNoteOpen] = useState(false);
+  const [comment, handleComment, setComment] = useInput();
 
   const onClickNoteModal = () => {
     setIsNoteOpen((prev) => !prev);
+  };
+
+  const onPostComment = async () => {
+    if (!postData) return;
+    const response = await postCommentAPI((postData?.id).toString(), comment);
+    if (response) {
+      mutate(`${router.query.postId}`);
+      setComment('');
+    }
   };
 
   const getHeadCount = (headCount: string) => {
@@ -147,8 +159,12 @@ export default function Post() {
       <CommentWrapper>
         <h1>{postData.comment_list.length || '0'}개의 댓글이 있습니다.</h1>
         <InputWrapper>
-          <textarea placeholder="내용을 입력하세요." />
-          <ClickButton>
+          <textarea
+            placeholder="내용을 입력하세요."
+            value={comment}
+            onChange={handleComment}
+          />
+          <ClickButton onClick={onPostComment}>
             <Image src={enterIcon} alt="enter" fill />
           </ClickButton>
         </InputWrapper>

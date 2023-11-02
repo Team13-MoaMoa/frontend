@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import React from 'react';
+import avatar from '@/assets/avatar.png';
 
 type CommentProps = {
   content: string;
@@ -18,7 +19,7 @@ export default function Comment({
   return (
     <CommentWrapper onClick={onClickNoteModal}>
       <ProfileImage>
-        <Image src={user.image_url} alt="profileImage" fill />
+        <Image src={user.image_url || avatar} alt="profileImage" fill />
       </ProfileImage>
       <div>
         <InfoWrapper>
