@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import useInput from '@/hook/useInput';
@@ -78,6 +78,7 @@ const SendDiv = styled.div`
   color: black;
   font-size: 2.8rem;
   font-weight: bold;
+  border-radius: 1rem;
   background-color: white;
   & > div {
     display: flex;
