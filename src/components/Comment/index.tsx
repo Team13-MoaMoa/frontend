@@ -11,6 +11,7 @@ import { UserState } from '@/store/user';
 type CommentProps = {
   content: string;
   user: User;
+  createdAt: Date;
   onClickNoteModal: () => void;
   setClickedUserId: React.Dispatch<React.SetStateAction<number>>;
 };
@@ -18,6 +19,7 @@ type CommentProps = {
 export default function Comment({
   content,
   user,
+  createdAt,
   onClickNoteModal,
   setClickedUserId,
 }: CommentProps) {
@@ -31,11 +33,7 @@ export default function Comment({
       <div>
         <InfoWrapper>
           <p>{user.nickname}</p>
-          <p>
-            {dayjs(new Date('June 17, 2023 13:24:00')).format(
-              'YYYY-MM-DD HH:MM',
-            )}
-          </p>
+          <p>{dayjs(createdAt).format('YYYY-MM-DD HH:MM')}</p>
           {loggedInUserId + '' !== user.id + '' && (
             <NoteIcon
               onClick={() => {

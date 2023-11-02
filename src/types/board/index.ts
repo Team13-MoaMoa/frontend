@@ -39,6 +39,7 @@ export type DetailBoardType = Omit<BoardType, 'comment_count'> & {
 export type Comment = {
   id: number;
   content: string;
+  created_at: Date;
   user: {
     id: number;
     nickname: string;
