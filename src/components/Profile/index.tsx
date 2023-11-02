@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-
+import bear from '@/assets/bear.png';
+import Image from 'next/image';
 type ProfileProps = {
   onClickButton: () => void;
 };
@@ -10,7 +11,9 @@ function Profile({ name }: { name: string }) {
       <NameDiv>
         <p>{name} 님</p>
       </NameDiv>
-      <ImgDiv />
+      <ImgDiv>
+        <Image src={bear} fill alt="user" />
+      </ImgDiv>
 
       <DelDiv>
         <p>회원탈퇴</p>
@@ -51,6 +54,8 @@ const ImgDiv = styled.div`
   margin: 2.5rem 0;
   border-radius: 50%;
   background-color: pink;
+  position: relative;
+  overflow: hidden;
 `;
 
 const DelDiv = styled.div`
@@ -60,5 +65,10 @@ const DelDiv = styled.div`
   text-align: center;
   & > p {
     color: #b74545;
+    font-size: 2.5rem;
+    cursor: pointer;
+  }
+  & > p:hover {
+    opacity: 0.8;
   }
 `;

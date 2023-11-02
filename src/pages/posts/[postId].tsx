@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import backIcon from '@/assets/backIcon.png';
 import noLikeIcon from '@/assets/noLike.png';
 import enterIcon from '@/assets/enterIcon.svg';
@@ -31,6 +31,7 @@ export default function Post() {
   const [clickedUserId, setClickedUserId] = useState(postData?.user.id || 0);
   const [comment, handleComment, setComment] = useInput();
 
+  console.log(postData);
   const onClickNoteModal = () => {
     setIsNoteOpen((prev) => !prev);
   };
@@ -60,6 +61,15 @@ export default function Post() {
     else return `${headCount}명`;
   };
 
+  useEffect(() => {
+    {
+      likeState
+        ? (async () => {
+            await authInstance.post(`/users/likes/${router.query.postId}`);
+          })()
+        : null;
+    }
+  }, [likeState, router.query.postId]);
   if (!postData) {
     return <div>존재하지 않는 게시글입니다.</div>;
   }
@@ -398,3 +408,6 @@ const CommentList = styled.ul`
   gap: 2.5rem;
   margin-top: 3rem;
 `;
+function asnyc() {
+  throw new Error('Function not implemented.');
+}
