@@ -22,12 +22,12 @@ export default MyPage;
 
 const Div = styled.div`
   color: ${(props) => props.theme.main_brown};
-  margin: 0 0 15rem 0;
+  min-height: calc(100vh - 159px);
 `;
 
 const InfoBackgroundSection = styled.section`
-  width: 100vw;
-  height: 65rem;
+  max-width: 100vw;
+  height: 55rem;
 `;
 
 const BackgroundDiv = styled.div`
@@ -38,7 +38,7 @@ const BackgroundDiv = styled.div`
 `;
 
 const InfoUserDiv = styled.div`
-  height: 45rem;
+  height: 30rem;
   width: 119rem;
   border-radius: 4rem;
   position: absolute;
