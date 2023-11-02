@@ -206,6 +206,7 @@ export default function Post() {
             <Comment
               key={comment.id}
               content={comment.content}
+              createdAt={comment.created_at}
               user={comment.user}
               onClickNoteModal={onClickNoteModal}
               setClickedUserId={setClickedUserId}
