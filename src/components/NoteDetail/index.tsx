@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { authInstance } from '@/api/axiosCustom';
 import { NoteContentType } from '@/types/note';

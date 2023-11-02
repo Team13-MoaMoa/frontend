@@ -19,6 +19,8 @@ function NotePage() {
     setIsNoteOpen((prev) => !prev);
   };
 
+  console.log(noteUserList);
+
   useEffect(() => {
     authInstance
       .get('/notes/')

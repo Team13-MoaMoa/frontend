@@ -16,22 +16,24 @@ function SendNote({ userId, onClickNoteModal, setIsNoteOpen }: SendNoteProps) {
   const onChangeNote = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputContent(e.target.value);
   };
-  //빈 쪽지 보내면 ''로 전송
-  //쪽지 보내면 쪽지모달창 자동 닫기
 
   const onSubmitNote = () => {
-    authInstance
-      .post('/notes', {
-        user_id: userId,
-        content: inputContent,
-      })
-      .then((res) => {
-        console.log(res);
-        setIsNoteOpen(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (inputContent !== '') {
+      authInstance
+        .post('/notes', {
+          user_id: userId,
+          content: inputContent,
+        })
+        .then((res) => {
+          console.log(res);
+          setIsNoteOpen(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      alert('내용을 입력해주세요!');
+    }
   };
 
   return (
