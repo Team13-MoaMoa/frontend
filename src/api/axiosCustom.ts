@@ -25,10 +25,7 @@ authInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (
-      error.response.status === 401 &&
-      error.response.data.message === 'Token expired'
-    ) {
+    if (error.response.status === 401) {
       try {
         const newAccessToken = await refreshToken();
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
