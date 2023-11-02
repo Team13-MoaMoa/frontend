@@ -16,6 +16,7 @@ import Avatar from '@/assets/avatar.png';
 import Loading from '@/components/Loading';
 import useInput from '@/hook/useInput';
 import { postNoteAPI } from '@/api/note';
+import { authInstance } from '@/api/axiosCustom';
 
 export default function Post() {
   const router = useRouter();
@@ -179,7 +180,9 @@ export default function Post() {
       <Introduce className="introduce">
         <h1>프로젝트 소개</h1>
         <hr />
-        <div dangerouslySetInnerHTML={{ __html: postData.content || '' }} />
+        <ContentWrapper
+          dangerouslySetInnerHTML={{ __html: postData.content || '' }}
+        />
       </Introduce>
       <CommentWrapper>
         <h1>{postData.comment_list.length || '0'}개의 댓글이 있습니다.</h1>
@@ -229,6 +232,7 @@ const PostWrapper = styled.div`
     font-size: 4.275rem;
     font-weight: bold;
     margin: 3rem 0;
+    line-height: 5rem;
   }
   & > h3 {
     align-self: center;
@@ -253,16 +257,19 @@ const DescriptionWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+
   margin-top: 4rem;
   padding: 4.5rem;
   background-color: #f9f8f7;
   border-radius: 1.8rem;
   font-size: 2.2rem;
+  line-height: 3rem;
 `;
 
 const DescriptionBox = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(42rem, 1fr));
+  align-items: center;
   row-gap: 2.5rem;
 `;
 
@@ -280,6 +287,7 @@ const Description = styled.div`
   }
   & > ul {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
   }
 `;
@@ -408,6 +416,67 @@ const CommentList = styled.ul`
   gap: 2.5rem;
   margin-top: 3rem;
 `;
-function asnyc() {
-  throw new Error('Function not implemented.');
-}
+
+const ContentWrapper = styled.div`
+  & h1 {
+    font-size: 2rem;
+    line-height: 3rem;
+    margin-bottom: 1rem;
+  }
+  & h2 {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  & h5 {
+    font-size: 1rem;
+    line-height: 2rem;
+  }
+  & p {
+    font-size: 1.3rem;
+    line-height: 2.3rem;
+  }
+  & blockquote {
+    padding: 0.5rem 1rem !important;
+    line-height: 2rem;
+    font-size: 1.3rem;
+    color: #666;
+    background: #fff;
+    border-left: 0.5rem solid #045345 !important;
+    margin-bottom: 1rem !important;
+    &::before,
+    &::after {
+      color: rgba(#045345, 0.6);
+    }
+  }
+  & strong {
+    font-weight: bold;
+  }
+  & ol {
+    display: block;
+    list-style-type: decimal;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+  }
+  & ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+  }
+  & li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+  }
+
+  & img {
+    max-width: 100%;
+    margin: 0.5rem 0;
+  }
+`;
