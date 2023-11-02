@@ -27,6 +27,7 @@ export default function Github() {
       const data = await userAuthApi(auth, code);
       if (data.user_info) {
         localStorage.setItem('user_id', data.user_info.id);
+        dispatch(updateUserId(data.user_info.id));
       }
       if (data.access_token && data.refresh_token) {
         localStorage.setItem('access_token', data.access_token);

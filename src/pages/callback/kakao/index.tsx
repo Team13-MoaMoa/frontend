@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setIsLogin, updateAuthProvider, updateUserId } from '@/store/user';
+import { updateAuthProvider, updateUserId } from '@/store/user';
 import { userAuthApi } from '@/api/userAuth';
 import Loading from '@/components/Loading';
 
@@ -26,6 +26,7 @@ export default function Kakao() {
       let data = await userAuthApi(auth, code);
       if (data.user_info) {
         localStorage.setItem('user_id', data.user_info.id);
+        dispatch(updateUserId(data.user_info.id));
       }
       if (data.access_token && data.refresh_token) {
         localStorage.setItem('access_token', data.access_token);
