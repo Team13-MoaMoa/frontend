@@ -6,15 +6,18 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Empty } from '..';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 export default function Step2() {
   const router = useRouter();
   const [gitAddress, gitChangeHandle] = useInput();
   const [portfolioAddress, portfolioChangeHandle] = useInput();
+  const nick = useSelector((state: RootState) => state.user.user.nickname);
   const dispatch = useDispatch();
 
   const nextStep = () => {
-    if (gitAddress === '' || portfolioAddress === '') {
+    if (gitAddress === '' && portfolioAddress === '') {
       alert('깃허브주소 또는 포트폴리오주소를 입력해주세요 !');
       return;
     }
@@ -36,7 +39,7 @@ export default function Step2() {
           <Line />
           <LoginContent>
             <h1>
-              moamoa님,반가워요.
+              {nick},반가워요.
               <br />
               깃허브 주소나 포트폴리오 링크를 입력해주세요.
             </h1>

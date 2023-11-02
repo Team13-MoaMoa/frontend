@@ -1,12 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import { authInstance } from '@/api/axiosCustom';
 
 type SendNoteProps = {
+  userId: number | undefined;
   onClickNoteModal: () => void;
+  setIsNoteOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function SendNote({ onClickNoteModal }: SendNoteProps) {
+function SendNote({ userId, onClickNoteModal, setIsNoteOpen }: SendNoteProps) {
+  const [inputContent, setInputContent] = useState<string>('');
+  console.log(inputContent);
+
+  const onChangeNote = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputContent(e.target.value);
+  };
+
+  const onSubmitNote = () => {
+    if (inputContent !== '') {
+      authInstance
+        .post('/notes', {
+          user_id: userId,
+          content: inputContent,
+        })
+        .then((res) => {
+          console.log(res);
+          setIsNoteOpen(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      alert('내용을 입력해주세요!');
+    }
+  };
+
   return (
     <BackGround>
       <Div>
@@ -22,8 +51,12 @@ function SendNote({ onClickNoteModal }: SendNoteProps) {
               />
             </IconDiv>
           </div>
-          <DetailInput name="text" placeholder="내용을 입력해주세요." />
-          <SubmitBtn>전송</SubmitBtn>
+          <ContentInput
+            name="text"
+            placeholder="내용을 입력해주세요."
+            onChange={onChangeNote}
+          />
+          <SubmitBtn onClick={onSubmitNote}>전송</SubmitBtn>
         </SendDiv>
       </Div>
     </BackGround>
@@ -61,6 +94,7 @@ const SendDiv = styled.div`
   color: black;
   font-size: 2.8rem;
   font-weight: bold;
+  border-radius: 1rem;
   background-color: white;
   & > div {
     display: flex;
@@ -72,14 +106,15 @@ const SendDiv = styled.div`
   }
 `;
 
-const DetailInput = styled.textarea`
+const ContentInput = styled.input`
   width: 100%;
   height: 19rem;
   border: 2px solid #d9d9d9;
   outline: none;
   resize: none;
   padding: 1.5rem;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
+  font-weight: 500;
   line-height: 2rem;
 `;
 

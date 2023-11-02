@@ -49,7 +49,7 @@ export default function Home() {
         dispatch(setIsLogin(false));
       }
     }
-  }, []);
+  }, [dispatch, user.user.id]);
 
   useEffect(() => {
     const config: AxiosRequestConfig = {

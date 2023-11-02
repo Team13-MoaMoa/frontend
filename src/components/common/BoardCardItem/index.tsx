@@ -21,8 +21,14 @@ type BoardCardItemProps = { card: BoardType };
 function BoardCardItem({ card }: BoardCardItemProps) {
   const router = useRouter();
 
+  const getHeadCount = (headCount: string) => {
+    if (headCount === 'undecided') return '미정';
+    else if (headCount === 'over 6') return '6명 이상';
+    else return headCount;
+  };
+
   return (
-    <Div onClick={() => router.push('/posts/1')}>
+    <Div onClick={() => router.push(`/posts/${card.id}`)}>
       <>
         <section
           style={{

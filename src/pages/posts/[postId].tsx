@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { PostType } from '@/types/post/post';
 import backIcon from '@/assets/backIcon.png';
 import noLikeIcon from '@/assets/noLike.png';
 import enterIcon from '@/assets/enterIcon.svg';
@@ -11,56 +10,15 @@ import Comment from '@/components/Comment';
 import getTechImageURL from '@/utils/getTechImageUrl';
 import SendNote from '@/components/SendNote';
 import styled from '@emotion/styled';
-
-const DUMMY_DATA: PostType = {
-  id: 1,
-  title: '[ React ] 프로젝트 급구!',
-  project_name: 'MoaMoa',
-  content:
-    '<p><h1>저희는 리액트 프로젝트를 진행하려고 합니다😄</h1> <br/> <h3>Frontend에 능숙하신 분을 구하고 있습니다!</h3> <br/> 프로젝트 관심 있으신 분은 쪽지나 댓글 부탁드립니다 :)</p>',
-  deadline: new Date('June 17, 2023 03:24:00'),
-  headcount: 6,
-  job_position: 'ALL',
-  user: {
-    id: 1,
-    nickname: '송지민',
-    image_url:
-      'https://image.idus.com/image/files/21e9ae9b65fd4fcf9d87c1ecb6c85a5d_720.jpg',
-  },
-  tech_stack_list: [
-    {
-      id: 1,
-    },
-    {
-      id: 3,
-    },
-  ],
-  comment_list: [
-    {
-      id: 17,
-      content: '저 신청하고 싶습니다',
-      user: {
-        id: 2,
-        nickname: '강민아',
-        image_url:
-          'https://image.idus.com/image/files/21e9ae9b65fd4fcf9d87c1ecb6c85a5d_720.jpg',
-      },
-    },
-    {
-      id: 24,
-      content: '저요',
-      user: {
-        id: 1,
-        nickname: '송지민',
-        image_url:
-          'https://image.idus.com/image/files/21e9ae9b65fd4fcf9d87c1ecb6c85a5d_720.jpg',
-      },
-    },
-  ],
-};
+import { getPostAPI } from '@/api/post';
+import useSWR from 'swr';
+import Avatar from '@/assets/avatar.png';
 
 export default function Post() {
   const router = useRouter();
+
+  const { data: postData } = useSWR(`${router.query.postId}`, getPostAPI);
+
   const [likeState, setLikeState] = useState(false);
   const [isNoteOpen, setIsNoteOpen] = useState(false);
 
@@ -68,15 +26,29 @@ export default function Post() {
     setIsNoteOpen((prev) => !prev);
   };
 
+  const getHeadCount = (headCount: string) => {
+    if (headCount === 'undecided') return '인원 미정';
+    if (headCount === 'over 6') return '6명 이상';
+    else return `${headCount}명`;
+  };
+
+  if (!postData) {
+    return <div>존재하지 않는 게시글입니다.</div>;
+  }
+
   return (
     <PostWrapper>
       <BackIconWrapper onClick={() => router.push('/')}>
         <Image src={backIcon} alt="backIcon" fill />
       </BackIconWrapper>
-      <h1>{DUMMY_DATA.title}</h1>
+      <h1>{postData.title || ''}</h1>
       <DescriptionWrapper>
         <ProfileImage>
-          <Image src={DUMMY_DATA.user.image_url} alt="profileImage" fill />
+          <Image
+            src={postData.user.image_url || Avatar}
+            alt="profileImage"
+            fill
+          />
         </ProfileImage>
         <OptionBox>
           <OptionImage>
@@ -108,36 +80,36 @@ export default function Post() {
         <DescriptionBox>
           <Description>
             <p>작성자</p>
-            <text>{DUMMY_DATA.user.nickname}</text>
+            <text>{postData.user.nickname || ''}</text>
           </Description>
           <Description>
             <p>프로젝트명</p>
-            <text>{DUMMY_DATA.project_name}</text>
+            <text>{postData.project_name || ''}</text>
           </Description>
           <Description>
             <p>생성일</p>
-            <text>{dayjs(new Date()).format('YYYY.MM.DD')}</text>
+            <text>{dayjs(postData.created_at || '').format('YYYY.MM.DD')}</text>
           </Description>
           <Description>
             <p>모집 분야</p>
             <ul>
-              {['프론트엔드', '백엔드'].map((position, idx) => (
+              {(postData.job_tag || []).map((position, idx) => (
                 <OptionBadge key={idx}>{position}</OptionBadge>
               ))}
             </ul>
           </Description>
           <Description>
             <p>모집 인원</p>
-            <text>{DUMMY_DATA.headcount}명</text>
+            <text>{getHeadCount(postData.headcount || '0')}</text>
           </Description>
           <Description>
             <p>모집 마감</p>
-            <text>{dayjs(DUMMY_DATA.deadline).format('YYYY.MM.DD')}</text>
+            <text>{dayjs(postData.deadline || '').format('YYYY.MM.DD')}</text>
           </Description>
           <Description>
             <p>사용 기술</p>
             <ul>
-              {DUMMY_DATA.tech_stack_list.map((tech) => (
+              {(postData.tech_stack_list || []).map((tech) => (
                 <TechIcon key={tech.id}>
                   <Image
                     src={getTechImageURL(tech.id) || ''}
@@ -151,16 +123,17 @@ export default function Post() {
         </DescriptionBox>
       </DescriptionWrapper>
       <h3>
-        모집마감 {dayjs(DUMMY_DATA.deadline).diff(dayjs(new Date()), 'days')}일
+        모집마감{' '}
+        {dayjs(postData.deadline || '').diff(dayjs(new Date()), 'days')}일
         남았어요!
       </h3>
       <Introduce className="introduce">
         <h1>프로젝트 소개</h1>
         <hr />
-        <div dangerouslySetInnerHTML={{ __html: DUMMY_DATA.content }} />
+        <div dangerouslySetInnerHTML={{ __html: postData.content || '' }} />
       </Introduce>
       <CommentWrapper>
-        <h1>{DUMMY_DATA.comment_list.length}개의 댓글이 있습니다.</h1>
+        <h1>{postData.comment_list.length || ''}개의 댓글이 있습니다.</h1>
         <InputWrapper>
           <textarea placeholder="내용을 입력하세요." />
           <ClickButton>
@@ -168,7 +141,7 @@ export default function Post() {
           </ClickButton>
         </InputWrapper>
         <CommentList>
-          {DUMMY_DATA.comment_list.map((comment) => (
+          {(postData.comment_list || []).map((comment) => (
             <Comment
               key={comment.id}
               content={comment.content}

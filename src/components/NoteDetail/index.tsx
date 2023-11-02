@@ -1,41 +1,60 @@
-import React from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
+import { authInstance } from '@/api/axiosCustom';
+import { NoteContentType } from '@/types/note';
 
-function NoteDetail() {
+type UserInfoProps = {
+  userId: number | undefined;
+};
+
+function NoteDetail({ userId }: UserInfoProps) {
+  const [noteContent, setNoteContent] = useState<NoteContentType[]>([]);
+
+  console.log(noteContent);
+
+  useEffect(() => {
+    authInstance
+      .get(`/notes/${userId}/`)
+      .then((data) => {
+        setNoteContent(data.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userId]);
+
   return (
-    <Div>
-      <div style={{ display: 'flex' }}>
-        <NoteListDiv>
-          <span
-            style={{
-              fontWeight: 'bold',
-              color: '#F8D23E',
-              fontSize: '2rem',
-            }}
-          >
-            보낸쪽지
-          </span>
-          <span style={{ float: 'right' }}>2023.04.10</span>
-          <p style={{ color: 'black', marginTop: '20px' }}>네</p>
-        </NoteListDiv>
-      </div>
-      <div style={{ display: 'flex' }}>
-        <NoteListDiv>
-          <span
-            style={{
-              fontWeight: 'bold',
-              color: '#42A2AE',
-              fontSize: '2rem',
-              marginBottom: '20px',
-            }}
-          >
-            받은쪽지
-          </span>
-          <span style={{ float: 'right' }}>2023.04.10</span>
-          <p style={{ color: 'black', marginTop: '20px' }}>안녕하세요~</p>
-        </NoteListDiv>
-      </div>
-    </Div>
+    <>
+      {noteContent.reverse().map((note, i) => (
+        <Div key={i}>
+          {note.sender === true ? (
+            <BackGroundDiv>
+              <NoteListDiv>
+                <SendTextSpan style={{ color: '#F8D23E' }}>
+                  보낸쪽지
+                </SendTextSpan>
+                <CreateNoteSpan>
+                  {note.created_at.substring(0, 10).replace(/-/g, '.')}
+                </CreateNoteSpan>
+                <ContentNoteP>{note.content}</ContentNoteP>
+              </NoteListDiv>
+            </BackGroundDiv>
+          ) : (
+            <BackGroundDiv>
+              <NoteListDiv>
+                <SendTextSpan style={{ color: '#42A2AE' }}>
+                  받은쪽지
+                </SendTextSpan>
+                <CreateNoteSpan>
+                  {note.created_at.substring(0, 10).replace(/-/g, '.')}
+                </CreateNoteSpan>
+                <ContentNoteP>{note.content}</ContentNoteP>
+              </NoteListDiv>
+            </BackGroundDiv>
+          )}
+        </Div>
+      ))}
+    </>
   );
 }
 
@@ -45,6 +64,10 @@ const Div = styled.div`
   color: ${(props) => props.theme.main_brown};
 `;
 
+const BackGroundDiv = styled.div`
+  display: flex;
+`;
+
 const NoteListDiv = styled.div`
   height: 13rem;
   width: 100%;
@@ -52,3 +75,24 @@ const NoteListDiv = styled.div`
   margin: 0 3.5rem;
   border-bottom: 2px solid ${(props) => props.theme.horizon_gray};
 `;
+
+const ContentNoteP = styled.p`
+  color: black;
+  margin-top: 20px;
+  font-weight: 500;
+`;
+
+const CreateNoteSpan = styled.span`
+  float: right;
+  font-weight: 400;
+`;
+
+const SendTextSpan = styled.span`
+margin-bottom: '20px',
+font-size: '1.7rem',
+font-weight: 'bold',
+`;
+
+('#F8D23E'); //보낸쪽지 노란색
+
+('#42A2AE'); //받은쪽지 파란색
