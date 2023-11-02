@@ -1,41 +1,16 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import { authInstance } from '@/api/axiosCustom';
+import useInput from '@/hook/useInput';
 
 type SendNoteProps = {
-  userId: number | undefined;
+  userId: number;
   onClickNoteModal: () => void;
-  setIsNoteOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onPostNote: (userId: string, content: string) => Promise<void>;
 };
 
-function SendNote({ userId, onClickNoteModal, setIsNoteOpen }: SendNoteProps) {
-  const [inputContent, setInputContent] = useState<string>('');
-  console.log(inputContent);
-
-  const onChangeNote = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputContent(e.target.value);
-  };
-
-  const onSubmitNote = () => {
-    if (inputContent !== '') {
-      authInstance
-        .post('/notes', {
-          user_id: userId,
-          content: inputContent,
-        })
-        .then((res) => {
-          console.log(res);
-          setIsNoteOpen(false);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      alert('내용을 입력해주세요!');
-    }
-  };
-
+function SendNote({ userId, onClickNoteModal, onPostNote }: SendNoteProps) {
+  const [content, handleContent, setContent] = useInput();
   return (
     <BackGround>
       <Div>
@@ -51,12 +26,21 @@ function SendNote({ userId, onClickNoteModal, setIsNoteOpen }: SendNoteProps) {
               />
             </IconDiv>
           </div>
-          <ContentInput
+          <DetailInput
             name="text"
             placeholder="내용을 입력해주세요."
-            onChange={onChangeNote}
+            value={content}
+            onChange={handleContent}
           />
-          <SubmitBtn onClick={onSubmitNote}>전송</SubmitBtn>
+          <SubmitBtn
+            onClick={() => {
+              onPostNote(userId.toString(), content);
+              setContent('');
+              onClickNoteModal();
+            }}
+          >
+            전송
+          </SubmitBtn>
         </SendDiv>
       </Div>
     </BackGround>
@@ -106,15 +90,14 @@ const SendDiv = styled.div`
   }
 `;
 
-const ContentInput = styled.input`
+const DetailInput = styled.textarea`
   width: 100%;
   height: 19rem;
   border: 2px solid #d9d9d9;
   outline: none;
   resize: none;
   padding: 1.5rem;
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.6rem;
   line-height: 2rem;
 `;
 

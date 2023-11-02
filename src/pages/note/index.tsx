@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import NoteUserList from '@/components/NoteUserList';
 import NoteDetail from '@/components/NoteDetail';
 import SendNote from '@/components/SendNote';
-import { authInstance } from '@/api/axiosCustom';
 import { UserListType } from '@/types/note';
 import Lottie from 'lottie-react';
 import emptyNote from '@/assets/emptyNote.json';
+import { postNoteAPI } from '@/api/note';
+import { authInstance } from '@/api/axiosCustom';
 
 function NotePage() {
   const [isNoteOpen, setIsNoteOpen] = useState<boolean>(false);
@@ -19,13 +20,22 @@ function NotePage() {
     setIsNoteOpen((prev) => !prev);
   };
 
-  console.log(noteUserList);
+  const onPostNote = async (userId: string, content: string) => {
+    if (!(content.length > 0)) return;
+    const response = await postNoteAPI(userId, content);
+    if (response) {
+      alert('쪽지를 보냈습니다.');
+    } else {
+      alert('쪽지를 보내는데 실패했습니다.');
+    }
+  };
 
   useEffect(() => {
     authInstance
-      .get('/notes/')
+      .get('/notes')
       .then((data) => {
         setNoteUserList(data.data.data);
+        setUserId(data.data.data[0].id);
       })
       .catch((error) => {
         console.log(error);
@@ -60,9 +70,9 @@ function NotePage() {
             </TitleDiv>
             {isNoteOpen && (
               <SendNote
-                userId={userId}
+                userId={userId || 0}
                 onClickNoteModal={onClickNoteModal}
-                setIsNoteOpen={setIsNoteOpen}
+                onPostNote={onPostNote}
               />
             )}
             <NoteDetail userId={userId} />

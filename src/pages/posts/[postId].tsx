@@ -10,20 +10,48 @@ import Comment from '@/components/Comment';
 import getTechImageURL from '@/utils/getTechImageUrl';
 import SendNote from '@/components/SendNote';
 import styled from '@emotion/styled';
-import { getPostAPI } from '@/api/post';
-import useSWR from 'swr';
+import { getPostAPI, postCommentAPI } from '@/api/post';
+import useSWR, { useSWRConfig } from 'swr';
 import Avatar from '@/assets/avatar.png';
+import Loading from '@/components/Loading';
+import useInput from '@/hook/useInput';
+import { postNoteAPI } from '@/api/note';
 
 export default function Post() {
   const router = useRouter();
+  const { mutate } = useSWRConfig();
 
-  const { data: postData } = useSWR(`${router.query.postId}`, getPostAPI);
+  const { data: postData, isLoading } = useSWR(
+    `${router.query.postId}`,
+    getPostAPI,
+  );
 
   const [likeState, setLikeState] = useState(false);
   const [isNoteOpen, setIsNoteOpen] = useState(false);
+  const [clickedUserId, setClickedUserId] = useState(postData?.user.id || 0);
+  const [comment, handleComment, setComment] = useInput();
 
   const onClickNoteModal = () => {
     setIsNoteOpen((prev) => !prev);
+  };
+
+  const onPostComment = async () => {
+    if (!postData) return;
+    const response = await postCommentAPI((postData?.id).toString(), comment);
+    if (response) {
+      mutate(`${router.query.postId}`);
+      setComment('');
+    }
+  };
+
+  const onPostNote = async (userId: string, content: string) => {
+    if (!(content.length > 0)) return;
+    const response = await postNoteAPI(userId, content);
+    if (response) {
+      alert('쪽지를 보냈습니다.');
+    } else {
+      alert('쪽지를 보내는데 실패했습니다.');
+    }
   };
 
   const getHeadCount = (headCount: string) => {
@@ -34,6 +62,10 @@ export default function Post() {
 
   if (!postData) {
     return <div>존재하지 않는 게시글입니다.</div>;
+  }
+
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (
@@ -56,7 +88,10 @@ export default function Post() {
               src="/noteIcon.png"
               alt="noteIcon"
               fill
-              onClick={() => setIsNoteOpen(true)}
+              onClick={() => {
+                setClickedUserId(postData.user.id);
+                setIsNoteOpen(true);
+              }}
             />
           </OptionImage>
           <OptionImage>
@@ -123,9 +158,13 @@ export default function Post() {
         </DescriptionBox>
       </DescriptionWrapper>
       <h3>
-        모집마감{' '}
-        {dayjs(postData.deadline || '').diff(dayjs(new Date()), 'days')}일
-        남았어요!
+        {dayjs(postData.deadline || '').diff(dayjs(new Date()), 'days') < 0
+          ? `모집마감일이 ${Math.abs(
+              dayjs(postData.deadline || '').diff(dayjs(new Date()), 'days'),
+            )}일 지났어요!`
+          : `모집마감
+          ${dayjs(postData.deadline || '').diff(dayjs(new Date()), 'days')}일
+          남았어요!`}
       </h3>
       <Introduce className="introduce">
         <h1>프로젝트 소개</h1>
@@ -133,10 +172,14 @@ export default function Post() {
         <div dangerouslySetInnerHTML={{ __html: postData.content || '' }} />
       </Introduce>
       <CommentWrapper>
-        <h1>{postData.comment_list.length || ''}개의 댓글이 있습니다.</h1>
+        <h1>{postData.comment_list.length || '0'}개의 댓글이 있습니다.</h1>
         <InputWrapper>
-          <textarea placeholder="내용을 입력하세요." />
-          <ClickButton>
+          <textarea
+            placeholder="내용을 입력하세요."
+            value={comment}
+            onChange={handleComment}
+          />
+          <ClickButton onClick={onPostComment}>
             <Image src={enterIcon} alt="enter" fill />
           </ClickButton>
         </InputWrapper>
@@ -147,11 +190,18 @@ export default function Post() {
               content={comment.content}
               user={comment.user}
               onClickNoteModal={onClickNoteModal}
+              setClickedUserId={setClickedUserId}
             />
           ))}
         </CommentList>
       </CommentWrapper>
-      {isNoteOpen && <SendNote onClickNoteModal={onClickNoteModal} />}
+      {isNoteOpen && (
+        <SendNote
+          userId={clickedUserId}
+          onClickNoteModal={onClickNoteModal}
+          onPostNote={onPostNote}
+        />
+      )}
     </PostWrapper>
   );
 }

@@ -1,13 +1,19 @@
 import { useState } from 'react';
 
-type ReturnType = [string, (e: React.ChangeEvent<HTMLInputElement>) => void];
+type ReturnType = [
+  string,
+  (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
+  React.Dispatch<React.SetStateAction<string>>,
+];
 
 export default function useInput(): ReturnType {
   const [input, setInput] = useState('');
 
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeInput = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setInput(e.target.value);
   };
 
-  return [input, onChangeInput];
+  return [input, onChangeInput, setInput];
 }
