@@ -21,7 +21,8 @@ export default function Comment({
   onClickNoteModal,
   setClickedUserId,
 }: CommentProps) {
-  const loggedInUser = useSelector((state: RootState) => state.user.user);
+  const loggedInUserId = useSelector((state: RootState) => state.user.user.id);
+
   return (
     <CommentWrapper>
       <ProfileImage>
@@ -35,7 +36,7 @@ export default function Comment({
               'YYYY-MM-DD HH:MM',
             )}
           </p>
-          {loggedInUser.id !== user.id && (
+          {loggedInUserId + '' !== user.id + '' && (
             <NoteIcon
               onClick={() => {
                 onClickNoteModal();

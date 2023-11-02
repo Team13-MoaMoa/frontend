@@ -1,18 +1,27 @@
 import styled from '@emotion/styled';
 import bear from '@/assets/bear.png';
 import Image from 'next/image';
+import { Auth } from '@/types/login';
 type ProfileProps = {
-  onClickButton: () => void;
+  user: {
+    id: number;
+    nickname: string;
+    email: string;
+    auth_provider: Auth;
+    image_url: string;
+    github_url: string;
+    port_folio_url: string;
+  };
 };
 
-function Profile({ name }: { name: string }) {
+function Profile({ user }: ProfileProps) {
   return (
     <ProfileBackground>
       <NameDiv>
-        <p>{name} 님</p>
+        <p>{user.nickname} 님</p>
       </NameDiv>
       <ImgDiv>
-        <Image src={bear} fill alt="user" />
+        <Image src={user.image_url} fill alt="user" />
       </ImgDiv>
 
       <DelDiv>

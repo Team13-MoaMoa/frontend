@@ -4,13 +4,12 @@ import Profile from '../Profile';
 import EditProfile from '../EditProfile';
 import CompleteProfile from '../CompleteProfile';
 import { UserInfo } from '@/types/profile';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 function ProfileZone() {
-  const DummyData: UserInfo = {
-    name: '최연지',
-    github: 'wisdomyeon',
-    portfolio: '포트폴리오.pdf',
-  };
+  const { user } = useSelector((state: RootState) => state.user);
+
   const [edit, setEdit] = useState<boolean>(false);
   const onClickButton = () => {
     setEdit((per) => !per);
@@ -18,11 +17,11 @@ function ProfileZone() {
 
   return (
     <Div>
-      <Profile name={DummyData.name} />
+      <Profile user={user} />
       {edit ? (
-        <EditProfile onClickButton={onClickButton} />
+        <EditProfile onClickButton={onClickButton} user={user} />
       ) : (
-        <CompleteProfile onClickButton={onClickButton} />
+        <CompleteProfile onClickButton={onClickButton} user={user} />
       )}
     </Div>
   );

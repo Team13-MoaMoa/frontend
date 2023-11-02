@@ -13,16 +13,38 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { useDispatch } from 'react-redux';
-import { updateUserId } from '@/store/user';
+import {
+  setIsLogin,
+  updateUserGitHubUrl,
+  updateUserId,
+  updateUserImageUrl,
+  updateUserNickname,
+  updateUserPortFolioUrl,
+} from '@/store/user';
 import { logoutApi } from '@/api/logout';
+import useSWR from 'swr';
+import { getUserAPI } from '@/api/userAuth';
 
 type NavbarProps = {
   setIsLoginModalClicked: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
-  const [isLogin, setIsLogin] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const { isLogin, user } = useSelector((state: RootState) => state.user);
+
+  const { data: userInfo } = useSWR(
+    `/users/${user.id}`,
+    () => getUserAPI(user.id),
+    {
+      onSuccess: (res) => {
+        dispatch(updateUserNickname(res.data.nickname));
+        dispatch(updateUserImageUrl(res.data.image_url));
+        dispatch(updateUserPortFolioUrl(res.data.portfolio_url));
+        dispatch(updateUserGitHubUrl(res.data.github_url));
+      },
+    },
+  );
 
   const authProvider = useSelector(
     (state: RootState) => state.user.user.auth_provider,
@@ -47,10 +69,11 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
 
   const signOut = async () => {
     await logoutApi(authProvider);
-    setIsLogin(false);
+    dispatch(setIsLogin(false));
     dispatch(updateUserId(0));
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user_id');
   };
 
   useEffect(() => {
@@ -75,10 +98,6 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
       document.removeEventListener('mousedown', handleCloseModal);
     };
   }, [dropdownRef, profileToggle, window]);
-  useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    token && setIsLogin(true);
-  }, []);
 
   return (
     <Nav style={{ position: 'sticky' }}>
@@ -123,7 +142,11 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
                     id="profile"
                     onClick={() => setProfileToggle((pre) => !pre)}
                   >
-                    <Image fill src={bear} alt="프로필" />
+                    <Image
+                      fill
+                      src={userInfo?.data.image_url || bear}
+                      alt="프로필"
+                    />
                   </ProfileImg>
                   <AnimatePresence>
                     {profileToggle ? (

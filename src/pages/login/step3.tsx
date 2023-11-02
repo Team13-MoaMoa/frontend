@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import React, { useRef } from 'react';
-import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { updateUserId, updateUserImageUrl } from '@/store/user';
 import usePreView from '@/hook/usePreview';
@@ -9,7 +8,6 @@ import { signUpApi } from '@/api/signUp';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { DEFAULT_PROFILE_URL } from '@/constants/defaultProfile';
-import { userAuthApi } from '@/api/userAuth';
 import PreviewImage from '@/components/Login/PreviewImage';
 import { Empty } from '..';
 
@@ -22,7 +20,6 @@ export default function Step3() {
       auth === 'kakao' ? NEXT_PUBLIC_KAKAO_KEY : NEXT_PUBLIC_GITHUB_KEY;
     window.location.href = String(LOGIN_KEY);
   };
-  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
@@ -44,7 +41,10 @@ export default function Step3() {
       dispatch(updateUserImageUrl(DEFAULT_PROFILE_URL));
     }
     dispatch(updateUserId(0));
-    await signUpApi(user.user, url);
+    const response = await signUpApi(user.user, url);
+    if (response.data) {
+      localStorage.setItem('user_id', response.data);
+    }
     alert('회원가입 완료!');
     handleLogin(user.user.auth_provider);
   };
