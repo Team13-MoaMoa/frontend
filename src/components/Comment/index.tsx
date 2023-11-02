@@ -4,6 +4,9 @@ import dayjs from 'dayjs';
 import Image from 'next/image';
 import React from 'react';
 import avatar from '@/assets/avatar.png';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { UserState } from '@/store/user';
 
 type CommentProps = {
   content: string;
@@ -16,6 +19,9 @@ export default function Comment({
   user,
   onClickNoteModal,
 }: CommentProps) {
+  const loggedInUser = useSelector((state: RootState) => state.user.user);
+  console.log('user: ', user);
+  console.log('loggedUser: ', loggedInUser);
   return (
     <CommentWrapper onClick={onClickNoteModal}>
       <ProfileImage>
@@ -29,9 +35,11 @@ export default function Comment({
               'YYYY-MM-DD HH:MM',
             )}
           </p>
-          <NoteIcon>
-            <Image src="/noteIcon.png" alt="noteIcon" fill />
-          </NoteIcon>
+          {loggedInUser.id !== user.id && (
+            <NoteIcon>
+              <Image src="/noteIcon.png" alt="noteIcon" fill />
+            </NoteIcon>
+          )}
         </InfoWrapper>
         <p>{content}</p>
       </div>

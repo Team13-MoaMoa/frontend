@@ -15,6 +15,7 @@ import useSWR, { useSWRConfig } from 'swr';
 import Avatar from '@/assets/avatar.png';
 import Loading from '@/components/Loading';
 import useInput from '@/hook/useInput';
+import { postNoteAPI } from '@/api/note';
 
 export default function Post() {
   const router = useRouter();
@@ -39,6 +40,16 @@ export default function Post() {
     if (response) {
       mutate(`${router.query.postId}`);
       setComment('');
+    }
+  };
+
+  const onPostNote = async (userId: string, content: string) => {
+    if (!(content.length > 0)) return;
+    const response = await postNoteAPI(userId, content);
+    if (response) {
+      alert('쪽지를 보냈습니다.');
+    } else {
+      alert('쪽지를 보내는데 실패했습니다.');
     }
   };
 
@@ -179,7 +190,13 @@ export default function Post() {
           ))}
         </CommentList>
       </CommentWrapper>
-      {isNoteOpen && <SendNote onClickNoteModal={onClickNoteModal} />}
+      {isNoteOpen && (
+        <SendNote
+          userId={postData.user.id}
+          onClickNoteModal={onClickNoteModal}
+          onPostNote={onPostNote}
+        />
+      )}
     </PostWrapper>
   );
 }
