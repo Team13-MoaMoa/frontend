@@ -10,17 +10,13 @@ type UserInfoProps = {
 };
 
 function NoteDetail({ userId }: UserInfoProps) {
-  const [noteContent, setNoteContent] = useState<NoteContentType[]>([]);
-
-  const { data } = useSWR(`/notes/${userId}`, () => getNoteContentAPI(userId), {
-    onSuccess: (res) => {
-      setNoteContent(res.data);
-    },
-  });
+  const { data: noteContent } = useSWR(`/notes/${userId}`, () =>
+    getNoteContentAPI(userId),
+  );
 
   return (
     <>
-      {noteContent.reverse().map((note, i) => (
+      {noteContent?.map((note, i) => (
         <Div key={i}>
           {note.sender === true ? (
             <BackGroundDiv>

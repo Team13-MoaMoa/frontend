@@ -6,7 +6,7 @@ import useInput from '@/hook/useInput';
 type SendNoteProps = {
   userId: number;
   onClickNoteModal: () => void;
-  onPostNote: (userId: string, content: string) => Promise<void>;
+  onPostNote: (userId: number, content: string) => Promise<void>;
 };
 
 function SendNote({ userId, onClickNoteModal, onPostNote }: SendNoteProps) {
@@ -34,7 +34,7 @@ function SendNote({ userId, onClickNoteModal, onPostNote }: SendNoteProps) {
           />
           <SubmitBtn
             onClick={() => {
-              onPostNote(userId.toString(), content);
+              onPostNote(userId, content);
               setContent('');
               onClickNoteModal();
             }}
