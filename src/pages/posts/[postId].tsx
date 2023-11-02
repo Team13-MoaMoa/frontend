@@ -32,7 +32,6 @@ export default function Post() {
   const [clickedUserId, setClickedUserId] = useState(postData?.user.id || 0);
   const [comment, handleComment, setComment] = useInput();
 
-  console.log(postData);
   const onClickNoteModal = () => {
     setIsNoteOpen((prev) => !prev);
   };

@@ -7,14 +7,22 @@ import SendNote from '@/components/SendNote';
 import { UserListType } from '@/types/note';
 import Lottie from 'lottie-react';
 import emptyNote from '@/assets/emptyNote.json';
-import { postNoteAPI } from '@/api/note';
-import { authInstance } from '@/api/axiosCustom';
+import { getNoteUserListAPI, postNoteAPI } from '@/api/note';
+import useSWR, { useSWRConfig } from 'swr';
 
 function NotePage() {
+  const { data } = useSWR('/notes', getNoteUserListAPI, {
+    onSuccess: (res) => {
+      setNoteUserList(res.data);
+      setUserId(res.data[0].id);
+    },
+  });
+  const { mutate } = useSWRConfig();
+
   const [isNoteOpen, setIsNoteOpen] = useState<boolean>(false);
   const [noteUserList, setNoteUserList] = useState<UserListType[]>([]);
   const [userName, setUserName] = useState<string>('');
-  const [userId, setUserId] = useState<number>();
+  const [userId, setUserId] = useState<number>(0);
 
   const onClickNoteModal = () => {
     setIsNoteOpen((prev) => !prev);
@@ -25,22 +33,11 @@ function NotePage() {
     const response = await postNoteAPI(userId, content);
     if (response) {
       alert('쪽지를 보냈습니다.');
+      mutate(`/notes/${userId}`);
     } else {
       alert('쪽지를 보내는데 실패했습니다.');
     }
   };
-
-  useEffect(() => {
-    authInstance
-      .get('/notes')
-      .then((data) => {
-        setNoteUserList(data.data.data);
-        setUserId(data.data.data[0].id);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   return (
     <Div>

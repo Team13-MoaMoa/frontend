@@ -6,7 +6,7 @@ import { UserListType } from '@/types/note';
 type UserListProps = {
   noteUserList: UserListType[];
   setUserName: React.Dispatch<React.SetStateAction<string>>;
-  setUserId: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setUserId: React.Dispatch<React.SetStateAction<number>>;
 };
 
 function NoteUserList({ noteUserList, setUserName, setUserId }: UserListProps) {
