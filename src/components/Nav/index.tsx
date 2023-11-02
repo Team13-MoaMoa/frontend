@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { useDispatch } from 'react-redux';
-import { setIsLogin, updateUserId } from '@/store/user';
+import { updateUserId } from '@/store/user';
 import { logoutApi } from '@/api/logout';
 
 type NavbarProps = {
@@ -21,7 +21,7 @@ type NavbarProps = {
 };
 
 export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
-  const isLogin = useSelector<RootState>((state) => state.user.isLogin);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const authProvider = useSelector(
@@ -47,7 +47,7 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
 
   const signOut = async () => {
     await logoutApi(authProvider);
-    dispatch(setIsLogin(false));
+    setIsLogin(false);
     dispatch(updateUserId(0));
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
@@ -75,6 +75,10 @@ export default function NavBar({ setIsLoginModalClicked }: NavbarProps) {
       document.removeEventListener('mousedown', handleCloseModal);
     };
   }, [dropdownRef, profileToggle, window]);
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    token && setIsLogin(true);
+  }, []);
 
   return (
     <Nav style={{ position: 'sticky' }}>
