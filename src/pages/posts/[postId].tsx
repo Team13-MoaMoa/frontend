@@ -43,7 +43,7 @@ export default function Post() {
   const onPostComment = async () => {
     if (!postData) return;
     const response = await postCommentAPI((postData?.id).toString(), comment);
-    if (response.data) {
+    if (response) {
       mutate(`${router.query.postId}`);
       setComment('');
     }
