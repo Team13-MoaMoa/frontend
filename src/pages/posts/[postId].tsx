@@ -52,7 +52,7 @@ export default function Post() {
   const onPostNote = async (userId: number, content: string) => {
     if (!(content.length > 0)) return;
     const response = await postNoteAPI(userId, content);
-    if (response.data) {
+    if (response) {
       alert('쪽지를 보냈습니다.');
     } else {
       alert('쪽지를 보내는데 실패했습니다.');
